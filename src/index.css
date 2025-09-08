@@ -1,0 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  body {
+    @apply bg-background text-text;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Typography Hierarchy */
+  h1 {
+    @apply text-2xl font-bold text-text leading-tight;
+  }
+  
+  h2 {
+    @apply text-xl font-semibold text-text leading-tight;
+  }
+  
+  h3 {
+    @apply text-lg font-medium text-text leading-tight;
+  }
+  
+  h4 {
+    @apply text-base font-medium text-text leading-tight;
+  }
+  
+  p {
+    @apply text-base text-text/80 leading-relaxed;
+  }
+  
+  .text-title {
+    @apply text-2xl font-bold text-text leading-tight;
+  }
+  
+  .text-label {
+    @apply text-sm font-medium text-text leading-tight;
+  }
+  
+  .text-base-content {
+    @apply text-base text-text/80 leading-relaxed;
+  }
+  
+  /* Verbesserter Fokus für Barrierefreiheit */
+  *:focus-visible {
+    @apply outline-2 outline-accent outline-offset-2;
+  }
+  
+  /* Performance: Reduce animations on low-power devices */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-card {
+    @apply bg-background border border-accent/20 rounded-xl shadow-soft;
+  }
+  
+  .tab-button {
+    @apply flex flex-col items-center justify-center p-3 rounded-lg transition-colors duration-200;
+    @apply text-text/70 hover:text-text hover:bg-text/5;
+    @apply focus:outline-none focus:ring-2 focus:ring-accent/50;
+    @apply min-h-[4rem] min-w-[4rem]; /* Große Touch-Ziele */
+  }
+  
+  .tab-button.active {
+    @apply text-accent bg-accent/10;
+  }
+  
+  .primary-button {
+    @apply bg-accent text-icon font-semibold py-3 px-6 rounded-lg;
+    @apply hover:bg-accent/90 focus:ring-2 focus:ring-accent/50;
+    @apply transition-all duration-200 shadow-soft;
+    @apply min-h-[3rem]; /* Mindesthöhe für Touch */
+  }
+  
+  .secondary-button {
+    @apply bg-text/10 text-text font-medium py-3 px-6 rounded-lg;
+    @apply hover:bg-text/20 focus:ring-2 focus:ring-accent/50;
+    @apply transition-all duration-200;
+    @apply min-h-[3rem];
+  }
+
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+@layer utilities {
+  .z-50 {
+    z-index: 50;
+  }
+}
+
+/* PWA-spezifische Styles */
+@media (display-mode: standalone) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Custom range slider styles */
+@layer components {
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgb(var(--primary));
+    cursor: pointer;
+    border: 2px solid rgb(var(--background));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .slider::-webkit-slider-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: rgb(var(--border));
+    border-radius: 4px;
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: rgb(var(--primary));
+    cursor: pointer;
+    border: 2px solid rgb(var(--background));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .slider::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: rgb(var(--border));
+    border-radius: 4px;
+    border: none;
+  }
+
+  /* Focus states for accessibility */
+  .slider:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 2px rgb(var(--primary) / 0.2);
+  }
+
+  .slider:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 2px rgb(var(--primary) / 0.2);
+  }
+
+  /* Success and error text colors */
+  .text-success {
+    color: #22c55e;
+  }
+
+  .text-error {
+    color: #ef4444;
+  }
+
+  .bg-error\/10 {
+    background-color: rgb(239 68 68 / 0.1);
+  }
+
+  .border-error\/20 {
+    border-color: rgb(239 68 68 / 0.2);
+  }
+}

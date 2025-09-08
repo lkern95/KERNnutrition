@@ -1,0 +1,5 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="64" fill="#FFDF00"/>
+  <rect x="64" y="64" width="384" height="384" rx="32" fill="#32174d"/>
+  <text x="256" y="300" text-anchor="middle" font-family="system-ui" font-size="128" font-weight="bold" fill="#FFDF00">MC</text>
+</svg>

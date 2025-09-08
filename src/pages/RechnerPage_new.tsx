@@ -1,0 +1,568 @@
+import React, { useState, useEffect } from 'react'
+import { Calculator, Activity, Target, Scale, Ruler, Calendar, Info, AlertTriangle } from 'lucide-react'
+import { useAppStore } from '../store/appStore'
+import { macrosFromTargets, type CalcInput, type MacroResult, type ValidationWarning } from '../lib/nutrition'
+
+// Aktivitätsfaktoren für Dropdown
+const ACTIVITY_OPTIONS = [
+  { value: 1.2, label: '1.2 - Sitzend (Büroarbeit, wenig/keine Bewegung)' },
+  { value: 1.3, label: '1.3 - Leicht aktiv (leichte Übungen 1-3x/Woche)' },
+  { value: 1.4, label: '1.4 - Mäßig aktiv (moderate Übungen 3-5x/Woche)' },
+  { value: 1.5, label: '1.5 - Aktiv (intensive Übungen 3-5x/Woche)' },
+  { value: 1.6, label: '1.6 - Sehr aktiv (intensive Übungen 6-7x/Woche)' },
+  { value: 1.7, label: '1.7 - Extrem aktiv (sehr intensive Übungen, körperliche Arbeit)' },
+  { value: 1.8, label: '1.8 - Hochleistungssport (2x täglich Training)' },
+  { value: 1.9, label: '1.9 - Profisport (extreme körperliche Belastung)' }
+]
+
+// Vordefinierte Ziele
+const GOAL_PRESETS = [
+  { id: 'maintain', label: 'Erhaltung (TDEE)', adjust: 0, description: 'Gewicht halten' },
+  { id: 'lean_bulk', label: 'Lean Bulk', adjust: 275, description: '+200-350 kcal', range: [200, 350] },
+  { id: 'conservative', label: 'Konservativer Aufbau', adjust: 200, description: '+150-250 kcal', range: [150, 250] },
+  { id: 'cut', label: 'Diät', adjust: -400, description: '-300-500 kcal', range: [-500, -300] },
+  { id: 'aggressive', label: 'Aggressive Diät', adjust: -600, description: '-600 kcal (Achtung: Nur kurzfristig!)', range: [-600, -600], warning: true },
+  { id: 'custom', label: 'Benutzerdefiniert', adjust: 0, description: 'Freie Eingabe' }
+]
+
+export default function RechnerPage() {
+  // Zustand für Eingabefelder
+  const [weight, setWeight] = useState('')
+  const [height, setHeight] = useState('')
+  const [age, setAge] = useState('')
+  const [sex, setSex] = useState<'M' | 'F'>('M')
+  const [activityFactor, setActivityFactor] = useState(1.5)
+  const [customActivity, setCustomActivity] = useState('')
+  const [goalPreset, setGoalPreset] = useState('maintain')
+  const [customAdjust, setCustomAdjust] = useState('')
+  const [proteinPerKg, setProteinPerKg] = useState(2.0)
+  const [fatPerKg, setFatPerKg] = useState(1.0)
+  
+  // Ergebnisse
+  const [result, setResult] = useState<MacroResult | null>(null)
+  const [warnings, setWarnings] = useState<ValidationWarning[]>([])
+  const [isCalculated, setIsCalculated] = useState(false)
+
+  // Store für Persistierung
+  const { setProfile } = useAppStore()
+
+  // Lokale Persistierung
+  const STORAGE_KEY = 'kernCares_calculator_inputs'
+
+  // Eingaben beim Start laden
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved) {
+      try {
+        const data = JSON.parse(saved)
+        setWeight(data.weight || '')
+        setHeight(data.height || '')
+        setAge(data.age || '')
+        setSex(data.sex || 'M')
+        setActivityFactor(data.activityFactor || 1.5)
+        setGoalPreset(data.goalPreset || 'maintain')
+        setCustomAdjust(data.customAdjust || '')
+        setProteinPerKg(data.proteinPerKg || 2.0)
+        setFatPerKg(data.fatPerKg || 1.0)
+      } catch (error) {
+        console.warn('Fehler beim Laden der gespeicherten Eingaben:', error)
+      }
+    }
+  }, [])
+
+  // Eingaben speichern
+  const saveInputs = () => {
+    const data = {
+      weight,
+      height,
+      age,
+      sex,
+      activityFactor,
+      goalPreset,
+      customAdjust,
+      proteinPerKg,
+      fatPerKg
+    }
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+  }
+
+  // Berechnung ausführen
+  const handleCalculate = () => {
+    // Validierung
+    const weightNum = parseFloat(weight)
+    const heightNum = parseFloat(height)
+    const ageNum = parseInt(age)
+    
+    if (!weightNum || !heightNum || !ageNum || weightNum <= 0 || heightNum <= 0 || ageNum <= 0) {
+      alert('Bitte gib gültige Werte für Gewicht, Größe und Alter ein.')
+      return
+    }
+
+    // Aktivitätsfaktor bestimmen
+    const finalActivityFactor = customActivity ? parseFloat(customActivity) : activityFactor
+    if (!finalActivityFactor || finalActivityFactor <= 0) {
+      alert('Bitte gib einen gültigen Aktivitätsfaktor ein.')
+      return
+    }
+
+    // Kalorienanpassung bestimmen
+    let kcalAdjust = 0
+    if (goalPreset === 'custom') {
+      kcalAdjust = parseFloat(customAdjust) || 0
+    } else {
+      const preset = GOAL_PRESETS.find(p => p.id === goalPreset)
+      kcalAdjust = preset?.adjust || 0
+    }
+
+    // Eingaben für Berechnung
+    const input: CalcInput = {
+      weightKg: weightNum,
+      heightCm: heightNum,
+      age: ageNum,
+      sex,
+      activityFactor: finalActivityFactor,
+      kcalAdjust,
+      proteinPerKg,
+      fatPerKg
+    }
+
+    try {
+      const { result: calcResult, warnings: calcWarnings } = macrosFromTargets(input)
+      setResult(calcResult)
+      setWarnings(calcWarnings)
+      setIsCalculated(true)
+      
+      // Store aktualisieren
+      setProfile({
+        name: '',
+        weight: weightNum,
+        height: heightNum,
+        age: ageNum,
+        gender: sex === 'M' ? 'male' : 'female',
+        activityLevel: finalActivityFactor >= 1.7 ? 'very_active' : 
+                      finalActivityFactor >= 1.55 ? 'moderately_active' :
+                      finalActivityFactor >= 1.375 ? 'lightly_active' : 'sedentary',
+        goal: goalPreset === 'maintain' ? 'maintain' : 
+              kcalAdjust > 0 ? 'gain' : 'lose'
+      })
+      
+      // Eingaben speichern
+      saveInputs()
+    } catch (error) {
+      alert(`Fehler bei der Berechnung: ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`)
+    }
+  }
+
+  // Ziel-Preset auswählen
+  const handleGoalChange = (goalId: string) => {
+    setGoalPreset(goalId)
+    if (goalId !== 'custom') {
+      setCustomAdjust('')
+    }
+  }
+
+  return (
+    <div className="space-y-6 pb-6">
+      {/* Header */}
+      <div className="bg-surface rounded-2xl p-6 shadow-soft">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="p-3 bg-primary/10 rounded-xl">
+            <Calculator className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-2xl font-bold text-text">Makro-Rechner</h1>
+            <p className="text-text-secondary text-sm">
+              Berechne deinen individuellen Kalorienbedarf und Makroverteilung
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Eingabeformular */}
+      <div className="bg-surface rounded-2xl p-6 shadow-soft">
+        <h2 className="text-lg font-semibold text-text mb-4 flex items-center gap-2">
+          <Scale className="w-5 h-5 text-primary" />
+          Körperdaten
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label className="block text-sm font-medium text-text mb-2">
+              Gewicht (kg)
+            </label>
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              placeholder="z.B. 70"
+              className="w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-text mb-2">
+              Größe (cm)
+            </label>
+            <input
+              type="number"
+              value={height}
+              onChange={(e) => setHeight(e.target.value)}
+              placeholder="z.B. 175"
+              className="w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-text mb-2">
+              Alter (Jahre)
+            </label>
+            <input
+              type="number"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              placeholder="z.B. 25"
+              className="w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-text mb-2">
+              Geschlecht
+            </label>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSex('M')}
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${
+                  sex === 'M'
+                    ? 'bg-primary text-background'
+                    : 'bg-background border border-border text-text hover:bg-surface'
+                }`}
+              >
+                Männlich
+              </button>
+              <button
+                onClick={() => setSex('F')}
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${
+                  sex === 'F'
+                    ? 'bg-primary text-background'
+                    : 'bg-background border border-border text-text hover:bg-surface'
+                }`}
+              >
+                Weiblich
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Aktivitätsfaktor */}
+      <div className="bg-surface rounded-2xl p-6 shadow-soft">
+        <h2 className="text-lg font-semibold text-text mb-4 flex items-center gap-2">
+          <Activity className="w-5 h-5 text-primary" />
+          Aktivitätslevel
+        </h2>
+        
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-text mb-2">
+              Vordefinierte Werte
+            </label>
+            <select
+              value={customActivity ? '' : activityFactor}
+              onChange={(e) => {
+                setActivityFactor(parseFloat(e.target.value))
+                setCustomActivity('')
+              }}
+              className="w-full px-4 py-3 rounded-xl border border-border bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            >
+              {ACTIVITY_OPTIONS.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-text mb-2">
+              Oder eigener Wert (1.0 - 2.0)
+            </label>
+            <input
+              type="number"
+              value={customActivity}
+              onChange={(e) => setCustomActivity(e.target.value)}
+              placeholder="z.B. 1.65"
+              step="0.1"
+              min="1.0"
+              max="2.0"
+              className="w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Ziele */}
+      <div className="bg-surface rounded-2xl p-6 shadow-soft">
+        <h2 className="text-lg font-semibold text-text mb-4 flex items-center gap-2">
+          <Target className="w-5 h-5 text-primary" />
+          Ziel & Kalorienanpassung
+        </h2>
+        
+        <div className="space-y-3 mb-4">
+          {GOAL_PRESETS.map(preset => (
+            <div key={preset.id}>
+              <label className="flex items-center gap-3 p-3 rounded-xl border border-border hover:bg-background transition-colors cursor-pointer">
+                <input
+                  type="radio"
+                  name="goal"
+                  value={preset.id}
+                  checked={goalPreset === preset.id}
+                  onChange={(e) => handleGoalChange(e.target.value)}
+                  className="w-4 h-4 text-primary focus:ring-primary/20"
+                />
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-text">{preset.label}</span>
+                    {preset.warning && (
+                      <AlertTriangle className="w-4 h-4 text-warning" />
+                    )}
+                  </div>
+                  <p className="text-sm text-text-secondary">{preset.description}</p>
+                </div>
+              </label>
+              
+              {preset.warning && goalPreset === preset.id && (
+                <div className="mt-2 p-3 bg-warning/10 border border-warning/20 rounded-xl">
+                  <p className="text-sm text-warning">
+                    ⚠️ Aggressive Diäten sollten nur kurzfristig und unter fachlicher Betreuung durchgeführt werden.
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        {goalPreset === 'custom' && (
+          <div>
+            <label className="block text-sm font-medium text-text mb-2">
+              Kalorienanpassung (kcal)
+            </label>
+            <input
+              type="number"
+              value={customAdjust}
+              onChange={(e) => setCustomAdjust(e.target.value)}
+              placeholder="z.B. +300 oder -500"
+              className="w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Makronährstoff-Einstellungen */}
+      <div className="bg-surface rounded-2xl p-6 shadow-soft">
+        <h2 className="text-lg font-semibold text-text mb-4">
+          Makronährstoff-Voreinstellungen
+        </h2>
+        
+        <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-text mb-3">
+              Protein: {proteinPerKg.toFixed(1)} g/kg
+            </label>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-text-secondary">1.8</span>
+              <input
+                type="range"
+                min="1.8"
+                max="2.5"
+                step="0.1"
+                value={proteinPerKg}
+                onChange={(e) => setProteinPerKg(parseFloat(e.target.value))}
+                className="flex-1 h-2 bg-border rounded-lg appearance-none cursor-pointer slider"
+              />
+              <span className="text-sm text-text-secondary">2.5</span>
+              <input
+                type="number"
+                value={proteinPerKg}
+                onChange={(e) => setProteinPerKg(parseFloat(e.target.value) || 1.8)}
+                step="0.1"
+                min="1.8"
+                max="2.5"
+                className="w-20 px-2 py-1 text-sm rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-1 focus:ring-primary/20"
+              />
+            </div>
+            <p className="text-xs text-text-secondary mt-1">
+              Empfohlen: 1.8-2.5 g/kg für Kraftsport und Muskelaufbau
+            </p>
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-text mb-3">
+              Fett: {fatPerKg.toFixed(1)} g/kg
+            </label>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-text-secondary">0.8</span>
+              <input
+                type="range"
+                min="0.8"
+                max="1.2"
+                step="0.1"
+                value={fatPerKg}
+                onChange={(e) => setFatPerKg(parseFloat(e.target.value))}
+                className="flex-1 h-2 bg-border rounded-lg appearance-none cursor-pointer slider"
+              />
+              <span className="text-sm text-text-secondary">1.2</span>
+              <input
+                type="number"
+                value={fatPerKg}
+                onChange={(e) => setFatPerKg(parseFloat(e.target.value) || 0.8)}
+                step="0.1"
+                min="0.8"
+                max="1.2"
+                className="w-20 px-2 py-1 text-sm rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-1 focus:ring-primary/20"
+              />
+            </div>
+            <p className="text-xs text-text-secondary mt-1">
+              Empfohlen: 0.8-1.2 g/kg, mindestens 20% der Gesamtkalorien
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Berechnen Button */}
+      <button
+        onClick={handleCalculate}
+        className="w-full bg-primary hover:bg-primary-hover text-background font-semibold py-4 px-6 rounded-2xl transition-colors shadow-soft flex items-center justify-center gap-2 text-lg"
+      >
+        <Calculator className="w-5 h-5" />
+        Berechnen
+      </button>
+
+      {/* Hinweisbox */}
+      <div className="bg-info/10 border border-info/20 rounded-2xl p-4">
+        <div className="flex items-start gap-3">
+          <Info className="w-5 h-5 text-info mt-0.5 flex-shrink-0" />
+          <div>
+            <p className="text-sm text-info font-medium mb-1">
+              💡 Wichtiger Hinweis zum Aktivitätsfaktor
+            </p>
+            <p className="text-sm text-info">
+              Überprüfe deinen Aktivitätsfaktor nach 2 Wochen anhand deiner Gewichtsentwicklung und passe ihn gegebenenfalls an. 
+              Zu schnelle oder zu langsame Veränderungen deuten auf einen unpassenden Faktor hin.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Warnungen */}
+      {warnings.length > 0 && (
+        <div className="bg-warning/10 border border-warning/20 rounded-2xl p-4">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-warning mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-sm text-warning font-medium mb-2">Hinweise zu deinen Eingaben:</p>
+              <ul className="space-y-1">
+                {warnings.map((warning, index) => (
+                  <li key={index} className="text-sm text-warning">
+                    • {warning.message}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Ergebnisse */}
+      {result && isCalculated && (
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold text-text">Deine Ergebnisse</h2>
+          
+          {/* Grundwerte */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-surface rounded-2xl p-6 shadow-soft">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-primary mb-2">
+                  {result.bmr}
+                </div>
+                <div className="text-sm font-medium text-text mb-1">BMR</div>
+                <div className="text-xs text-text-secondary">
+                  Grundumsatz - Kalorien in Ruhe
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-surface rounded-2xl p-6 shadow-soft">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-secondary mb-2">
+                  {result.tdee}
+                </div>
+                <div className="text-sm font-medium text-text mb-1">TDEE</div>
+                <div className="text-xs text-text-secondary">
+                  Gesamtumsatz mit Aktivität
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-surface rounded-2xl p-6 shadow-soft">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-accent mb-2">
+                  {result.targetKcal}
+                </div>
+                <div className="text-sm font-medium text-text mb-1">Zielkalorien</div>
+                <div className="text-xs text-text-secondary">
+                  Für dein gewähltes Ziel
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Makronährstoffe */}
+          <div className="bg-surface rounded-2xl p-6 shadow-soft">
+            <h3 className="text-lg font-semibold text-text mb-4">Makronährstoff-Verteilung</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-primary mb-2">
+                  {result.proteinG}g
+                </div>
+                <div className="text-sm font-medium text-text mb-1">Protein</div>
+                <div className="text-xs text-text-secondary">
+                  {result.proteinG * 4} kcal • {Math.round((result.proteinG * 4 / result.targetKcal) * 100)}%
+                </div>
+                <div className="text-xs text-text-secondary mt-1">
+                  Muskelaufbau & Sättigung
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <div className="text-2xl font-bold text-warning mb-2">
+                  {result.fatG}g
+                </div>
+                <div className="text-sm font-medium text-text mb-1">Fett</div>
+                <div className="text-xs text-text-secondary">
+                  {result.fatG * 9} kcal • {Math.round((result.fatG * 9 / result.targetKcal) * 100)}%
+                </div>
+                <div className="text-xs text-text-secondary mt-1">
+                  Hormone & Vitamine
+                </div>
+              </div>
+              
+              <div className="text-center">
+                <div className="text-2xl font-bold text-info mb-2">
+                  {result.carbsG}g
+                </div>
+                <div className="text-sm font-medium text-text mb-1">Kohlenhydrate</div>
+                <div className="text-xs text-text-secondary">
+                  {result.carbsG * 4} kcal • {Math.round((result.carbsG * 4 / result.targetKcal) * 100)}%
+                </div>
+                <div className="text-xs text-text-secondary mt-1">
+                  Energie & Leistung
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
