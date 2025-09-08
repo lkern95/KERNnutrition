@@ -1,6 +1,6 @@
-📱 KERNcares – Deine Ernährungs- & Coaching-App
+📱 KERNbalance – Deine Ernährungs- & Coaching-App
 
-KERNcares ist eine intelligente Ernährungs-App, die dir hilft, Kalorien, Makros und Fortschritte einfach zu steuern – wissenschaftlich fundiert, komplett offline und ohne App Store.
+KERNbalance ist eine intelligente Ernährungs-App, die dir hilft, Kalorien, Makros und Fortschritte einfach zu steuern – wissenschaftlich fundiert, komplett offline und ohne App Store.
 
 🔑 Funktionen
 
@@ -31,12 +31,12 @@ Mobile-first, große Buttons, barrierefrei
 PWA: Installierbar wie eine App, offline nutzbar, keine Cloud, keine Datenweitergabe
 
 👉 Kurz gesagt:
-KERNcares ist dein persönlicher Ernährungs-Coach – einfach, sicher, offline und wissenschaftlich fundiert.
+KERNbalance ist dein persönlicher Ernährungs-Coach – einfach, sicher, offline und wissenschaftlich fundiert.
 
 
 
 
-KERNcares ist dein smarter Ernährungs-Coach für Alltag und Training.
+KERNbalance ist dein smarter Ernährungs-Coach für Alltag und Training.
 Die App berechnet Kalorien & Makros nach wissenschaftlichen Formeln, passt deine Ernährung an Trainingstage an und zeigt dir mit wöchentlichen Check-ins, ob du auf Kurs bist.
 Dank intelligenter Empfehlungen weißt du immer, ob du Kalorien erhöhen, senken oder Makros anpassen solltest – auch bei Stress, Reisen oder Pausen.
 Alles läuft offline, privat und ohne Cloud – direkt auf deinem Smartphone.
@@ -680,7 +680,7 @@ kcal_rest = (7*daily_target - n*kcal_train) / (7 - n)
 ✅ Icon: Info-Icon in der Navigation
 📧 Support & Footer
 ✅ Kontakt-Sektion: Support-Email und GitHub-Link
-✅ Copyright: Made with React, TypeScript & Tailwind CSS
+✅ Copyright: © 2025 KERNbalance
 ✅ Externe Links: Mit target="_blank" und rel="noopener noreferrer"
 🎉 FAZIT: InfoPage VOLLSTÄNDIG IMPLEMENTIERT
 Alle Anforderungen für Prompt 8 sind vollständig erfüllt:
@@ -692,7 +692,7 @@ Zielbereiche: ✅ Alle relevanten Kategorien abgedeckt
 Anpassungsregeln: ✅ Kompakt und praktisch
 Excel-Formeln: ✅ Copy/Paste-bereit mit Parametererklärung
 Training/Rest-Formel: ✅ Mathematisch korrekt dargestellt
-Die InfoPage ist production-ready und bietet eine umfassende, benutzerfreundliche Anleitung für die optimale Nutzung von KERNcares mit allen notwendigen Formeln und Empfehlungen.
+Die InfoPage ist production-ready und bietet eine umfassende, benutzerfreundliche Anleitung für die optimale Nutzung von KERNbalance mit allen notwendigen Formeln und Empfehlungen.
 -
 🎉 ERFOLGREICHE ÜBERPRÜFUNG ABGESCHLOSSEN! 🎉
 
@@ -908,18 +908,18 @@ Planer-Formel: ✅ 7 Tests, Beispiel-Berechnung korrekt
 Regel-Engine: ✅ 24 Tests (14+10), alle Szenarien abgedeckt
 Validierungen: ✅ 18 Tests, Fett <20% und alle Guardrails
 Seed-Datensatz: ✅ In allen Modulen korrekt berechnet
-Die Test-Suite bietet 100% Vertrauen in die mathematische Korrektheit und Robustheit der KERNcares-Anwendung mit umfassender Abdeckung aller kritischen Berechnungen und Validierungen.
+Die Test-Suite bietet 100% Vertrauen in die mathematische Korrektheit und Robustheit der KERNbalance-Anwendung mit umfassender Abdeckung aller kritischen Berechnungen und Validierungen.
 -
 🎉 ERFOLGREICHE ÜBERPRÜFUNG ABGESCHLOSSEN! 🎉
 
 ✅ Prompt 11 – PWA Feinschliff & Deployment - VOLLSTÄNDIG IMPLEMENTIERT
 Ich habe die komplette PWA-Implementierung und Deployment-Konfiguration überprüft und kann bestätigen, dass ALLE Anforderungen erfüllt sind:
 
-📱 1. Manifest: Name KERNcares, Farben #292c2f
+📱 1. Manifest: Name KERNbalance, Farben #292c2f
 ✅ Manifest.webmanifest korrekt konfiguriert
 {
-  "name": "KERNcares - Makronährstoff Rechner",
-  "short_name": "KERNcares",
+  "name": "KERNbalance - Makronährstoff Rechner",
+  "short_name": "KERNbalance",
   "description": "Dein persönlicher Makronährstoff-Coach für eine ausgewogene Ernährung",
   "background_color": "#292c2f", ✅
   "theme_color": "#292c2f", ✅
@@ -966,7 +966,7 @@ Navigation Route: SPA-Routing offline ✅
 <!-- iOS Meta Tags -->
 <meta name="apple-mobile-web-app-capable" content="yes" /> ✅
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /> ✅
-<meta name="apple-mobile-web-app-title" content="KERNcares" /> ✅
+<meta name="apple-mobile-web-app-title" content="KERNbalance" /> ✅
 <meta name="format-detection" content="telephone=no" /> ✅
 
 <!-- iOS Icons -->
@@ -1029,7 +1029,7 @@ Zero-Config: Keine zusätzliche Server-Konfiguration nötig ✅
 🎉 FAZIT: PWA VOLLSTÄNDIG PRODUCTION-READY
 Alle Anforderungen für Prompt 11 sind vollständig implementiert:
 
-Manifest: ✅ KERNcares mit #292c2f Theme
+Manifest: ✅ KERNbalance mit #292c2f Theme
 Icons: ✅ 192px, 512px + Maskable variants
 Service Worker: ✅ autoUpdate + Offline-Caching
 iOS Support: ✅ apple-touch-icon + black status bar

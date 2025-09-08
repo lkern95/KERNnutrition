@@ -19,7 +19,7 @@ export function PlanerPage() {
   const { profile } = useAppStore()
 
   // Lokale Persistierung
-  const STORAGE_KEY = 'kernCares_planer_inputs'
+  const STORAGE_KEY = 'kernBalance_planer_inputs'
 
   // Eingaben beim Start laden
   useEffect(() => {

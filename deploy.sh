@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Quick deployment script for KERNcares PWA
-echo "🚀 Deploying KERNcares PWA..."
+# Quick deployment script for KERNbalance PWA
+echo "🚀 Deploying KERNbalance PWA..."
 
 # Check if dist folder exists
 if [ ! -d "dist" ]; then

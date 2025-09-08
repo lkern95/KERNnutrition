@@ -211,4 +211,4 @@ npm run test:ui   # Tests mit UI
 
 ## Integration in die App
 
-Das Modul ist vollständig in die KERNcares PWA integriert und ersetzt die bisherigen Berechnungen im `calculations.ts` Modul für höhere Genauigkeit und bessere Typsicherheit.
+Das Modul ist vollständig in die KERNbalance PWA integriert und ersetzt die bisherigen Berechnungen im `calculations.ts` Modul für höhere Genauigkeit und bessere Typsicherheit.

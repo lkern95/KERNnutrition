@@ -218,7 +218,7 @@ export function EinstellungenPage() {
         <Settings className="w-12 h-12 text-accent mx-auto mb-3" />
         <h1 className="text-2xl font-bold text-text mb-2">Einstellungen</h1>
         <p className="text-text/70">
-          Passe KERNcares nach deinen Wünschen an
+          Passe KERNbalance nach deinen Wünschen an
         </p>
       </div>
 

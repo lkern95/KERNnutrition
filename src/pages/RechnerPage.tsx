@@ -48,7 +48,7 @@ export function RechnerPage() {
   const { setProfile } = useAppStore()
 
   // Lokale Persistierung
-  const STORAGE_KEY = 'kernCares_calculator_inputs'
+  const STORAGE_KEY = 'kernBalance_calculator_inputs'
 
   // Eingaben beim Start laden
   useEffect(() => {

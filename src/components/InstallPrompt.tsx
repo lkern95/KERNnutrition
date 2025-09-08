@@ -1,77 +1,56 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Download, X } from 'lucide-react'
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt(): Promise<void>
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
-}
+import { useInstallPrompt } from '../hooks/useInstallPrompt'
 
 export function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
-  const [showPrompt, setShowPrompt] = useState(false)
+  const { showPrompt, handleInstall, handleDismiss, canInstall } = useInstallPrompt()
 
-  useEffect(() => {
-    const handler = (e: BeforeInstallPromptEvent) => {
-      // Verhindere die automatische Anzeige
-      e.preventDefault()
-      // Speichere das Event für später
-      setDeferredPrompt(e)
-      setShowPrompt(true)
-    }
-
-    window.addEventListener('beforeinstallprompt', handler as EventListener)
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handler as EventListener)
-    }
-  }, [])
-
-  const handleInstall = async () => {
-    if (!deferredPrompt) return
-
-    // Zeige den Installationsdialog
-    deferredPrompt.prompt()
-
-    // Warte auf die Benutzerentscheidung
-    const { outcome } = await deferredPrompt.userChoice
-
-    // Zurücksetzen
-    setDeferredPrompt(null)
-    setShowPrompt(false)
-  }
-
-  const handleDismiss = () => {
-    setShowPrompt(false)
-    setDeferredPrompt(null)
-  }
-
-  if (!showPrompt || !deferredPrompt) {
+  if (!showPrompt) {
     return null
   }
 
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+
   return (
-    <div className="fixed top-4 left-4 right-4 z-50 max-w-md mx-auto">
+    <div 
+      className="fixed top-4 left-4 right-4 z-50 max-w-md mx-auto"
+      role="dialog"
+      aria-labelledby="install-prompt-title"
+      aria-describedby="install-prompt-description"
+    >
       <div className="bg-background border border-accent/30 rounded-xl p-4 shadow-soft-lg">
         <div className="flex items-start gap-3">
-          <div className="bg-accent/20 p-2 rounded-lg">
+          <div className="bg-accent/20 p-2 rounded-lg" aria-hidden="true">
             <Download className="w-5 h-5 text-accent" />
           </div>
           
           <div className="flex-1">
-            <h3 className="font-semibold text-text mb-1">
+            <h3 
+              id="install-prompt-title"
+              className="font-semibold text-text mb-1"
+            >
               App installieren
             </h3>
-            <p className="text-text/70 text-sm mb-3">
-              Installiere KERNcares auf deinem Gerät für schnelleren Zugriff
+            <p 
+              id="install-prompt-description"
+              className="text-text/70 text-sm mb-3"
+            >
+              {isIOS 
+                ? 'Installiere KERNbalance: Tippe auf "Teilen" und dann "Zum Home-Bildschirm"'
+                : 'Installiere KERNbalance auf deinem Gerät für schnelleren Zugriff'
+              }
             </p>
             
             <div className="flex gap-2">
-              <button
-                onClick={handleInstall}
-                className="primary-button py-2 px-4 text-sm"
-              >
-                Installieren
-              </button>
+              {(canInstall && !isIOS) && (
+                <button
+                  onClick={handleInstall}
+                  className="primary-button py-2 px-4 text-sm"
+                  aria-describedby="install-prompt-description"
+                >
+                  Installieren
+                </button>
+              )}
               <button
                 onClick={handleDismiss}
                 className="secondary-button py-2 px-4 text-sm"
@@ -83,8 +62,8 @@ export function InstallPrompt() {
           
           <button
             onClick={handleDismiss}
-            className="text-text/50 hover:text-text/70 p-1"
-            aria-label="Schließen"
+            className="text-text/50 hover:text-text/70 p-1 transition-colors"
+            aria-label="Installationsaufforderung schließen"
           >
             <X className="w-4 h-4" />
           </button>

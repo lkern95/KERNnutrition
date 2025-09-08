@@ -1,7 +1,7 @@
-// KERNcares Service Worker
-const CACHE_NAME = 'kerncares-v1'
-const STATIC_CACHE = 'kerncares-static-v1'
-const RUNTIME_CACHE = 'kerncares-runtime-v1'
+// KERNbalance Service Worker
+const CACHE_NAME = 'kernbalance-v1'
+const STATIC_CACHE = 'kernbalance-static-v1'
+const RUNTIME_CACHE = 'kernbalance-runtime-v1'
 
 // Static assets to cache on install
 const STATIC_ASSETS = [
@@ -144,11 +144,11 @@ self.addEventListener('push', (event) => {
       icon: '/pwa-192x192.png',
       badge: '/pwa-192x192.png',
       vibrate: [200, 100, 200],
-      tag: 'kerncares-notification'
+      tag: 'kernbalance-notification'
     }
     
     event.waitUntil(
-      self.registration.showNotification('KERNcares', options)
+      self.registration.showNotification('KERNbalance', options)
     )
   }
 })

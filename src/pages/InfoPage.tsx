@@ -1,6 +1,7 @@
 import React from 'react'
 import { Info, Scale, TrendingUp, Target, Calculator, Mail, Github } from 'lucide-react'
 import { Card, InfoBanner } from '../components'
+import { EXTERNAL_LINKS, LINK_TEXTS } from '../lib/constants'
 
 export function InfoPage() {
   return (
@@ -9,7 +10,7 @@ export function InfoPage() {
         <div className="w-12 h-12 bg-accent rounded-xl flex items-center justify-center mx-auto mb-3">
           <Info className="w-6 h-6 text-icon" />
         </div>
-        <h1 className="text-title mb-2">So nutzt du KERNcares</h1>
+        <h1 className="text-title mb-2">So nutzt du KERNbalance</h1>
         <p className="text-text/70">
           Schnelle Anleitung für optimale Ergebnisse
         </p>
@@ -207,17 +208,17 @@ export function InfoPage() {
           
           <div className="space-y-2">
             <a 
-              href="mailto:support@macrocal.app" 
+              href={EXTERNAL_LINKS.SUPPORT_EMAIL}
               className="flex items-center gap-3 text-text/80 hover:text-accent transition-colors"
             >
               <div className="w-6 h-6 bg-accent/20 rounded flex items-center justify-center">
                 <Mail className="w-3 h-3 text-accent" />
               </div>
-              Support kontaktieren
+              {LINK_TEXTS.SUPPORT_CONTACT}
             </a>
             
             <a 
-              href="https://github.com/macrocal/app" 
+              href={EXTERNAL_LINKS.GITHUB_REPO}
               className="flex items-center gap-3 text-text/80 hover:text-accent transition-colors"
               target="_blank"
               rel="noopener noreferrer"
@@ -225,14 +226,13 @@ export function InfoPage() {
               <div className="w-6 h-6 bg-accent/20 rounded flex items-center justify-center">
                 <Github className="w-3 h-3 text-accent" />
               </div>
-              Quellcode auf GitHub
+              {LINK_TEXTS.GITHUB_REPO}
             </a>
           </div>
         </Card>
 
         <div className="text-center text-text/60 text-sm">
-          <p>Made with React, TypeScript & Tailwind CSS</p>
-          <p className="mt-1">© 2025 KERNcares</p>
+          <p>© 2025 KERNbalance</p>
         </div>
       </div>
     </div>

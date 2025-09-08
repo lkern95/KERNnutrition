@@ -43,7 +43,7 @@ function CheckinPage() {
   const { profile } = useAppStore()
 
   // Lokale Persistierung
-  const STORAGE_KEY = 'kernCares_checkins'
+  const STORAGE_KEY = 'kernBalance_checkins'
 
   // Check-ins beim Start laden
   useEffect(() => {

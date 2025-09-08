@@ -1,4 +1,4 @@
-# KERNcares Settings - Implementation Summary
+# KERNbalance Settings - Implementation Summary
 
 ## ✅ Completed Features
 
@@ -47,7 +47,7 @@
 ## 🎨 UI/UX Features
 - **Mobile-First**: Responsive Design für alle Bildschirmgrößen
 - **Accessible**: ARIA-Labels, Keyboard-Navigation, Screen-Reader freundlich
-- **Modern Design**: TailwindCSS mit KERNcares Design System
+- **Modern Design**: TailwindCSS mit KERNbalance Design System
 - **Loading States**: Export/Import Status-Feedback
 - **Validation**: Echzeit-Validierung mit Benutzer-Guidance
 

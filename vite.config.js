@@ -9,15 +9,15 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'KERNcares',
-        short_name: 'KERNcares',
+        name: 'KERNbalance',
+        short_name: 'KERNbalance',
         theme_color: '#292c2f',
         background_color: '#292c2f',
         display: 'standalone',
         icons: [
           { src: '/logo-192.png', sizes: '192x192', type: 'image/png' },
           { src: '/logo-512.png', sizes: '512x512', type: 'image/png' },
-          { src: '/logo-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
+          { src: '/pwa-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
         ]
       },
       workbox: {
