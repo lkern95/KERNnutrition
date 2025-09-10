@@ -1,20 +1,15 @@
 /**
  * External Links Configuration
  * 
- * Zentrale Verwaltung aller externen Verlinkungen für KERNbalance
+ * Zentrale Verwaltung aller externen Verlinkungen für KERNnutrition
  */
 
 export const EXTERNAL_LINKS = {
-  // Repository & Source Code
-  GITHUB_REPO: 'https://github.com/lkern95/KERNbalance',
-  
   // Support & Contact
   SUPPORT_EMAIL: 'mailto:lk@kerncares.de',
-  
   // Documentation & Guides
   PRIVACY_POLICY: '#', // TODO: Add privacy policy link when available
   TERMS_OF_SERVICE: '#', // TODO: Add terms of service link when available
-  
   // Social Media (for future use)
   TWITTER: '#', // TODO: Add social media links when available
   LINKEDIN: '#', // TODO: Add social media links when available
@@ -22,7 +17,6 @@ export const EXTERNAL_LINKS = {
 
 // Link text constants for consistency
 export const LINK_TEXTS = {
-  GITHUB_REPO: 'Quellcode auf GitHub',
   SUPPORT_CONTACT: 'Support kontaktieren',
   PRIVACY_POLICY: 'Datenschutz',
   TERMS_OF_SERVICE: 'Nutzungsbedingungen',

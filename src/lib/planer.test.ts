@@ -1,3 +1,33 @@
+import { calculatePlaner } from './planer'
+
+describe('Planer Makro-Berechnung', () => {
+  it('Beispiel: 80kg, 2.0g/kg Protein, 1.0g/kg Fett, daily_target 3115, n=5, offset=325', () => {
+    const profile = { weight: 80 } as any;
+    const dailyTarget = 3115;
+    const nTrainDays = 5;
+    const offset = 325;
+    const proteinPerKg = 2.0;
+    const fatPerKg = 1.0;
+    const fatSplitMode = false;
+    const result = calculatePlaner(dailyTarget, nTrainDays, offset, profile, proteinPerKg, fatPerKg, fatSplitMode);
+    // Erwartet: Protein 160g, Fett 80g konstant
+    expect(result.macrosTrain.protein).toBe(160);
+    expect(result.macrosRest.protein).toBe(160);
+    expect(result.macrosTrain.fat).toBe(80);
+    expect(result.macrosRest.fat).toBe(80);
+    // Carbs
+    // kcal_train = 3115+325=3440, kcal_rest = (7*3115-5*3440)/2 = (21805-17200)/2=2302.5
+    // Carbs_train = (3440-(160*4+80*9))/4 = (3440- (640+720))/4 = (3440-1360)/4 = 520
+    // Carbs_rest = (2302.5-(160*4+80*9))/4 = (2302.5-1360)/4 = 942.5/4 = 235.625 ≈ 236
+    expect(result.macrosTrain.carbs).toBe(520);
+    expect(result.macrosRest.carbs).toBe(236);
+    // Wochenmittel
+    // protein: 160, fett: 80, carbs: (5*520+2*236)/7 = (2600+472)/7 ≈ 439
+    expect(result.macrosAvg.protein).toBe(160);
+    expect(result.macrosAvg.fat).toBe(80);
+    expect(result.macrosAvg.carbs).toBe(439);
+  });
+});
 import { describe, it, expect } from 'vitest'
 
 // Planer formula function - if it doesn't exist, we'll create it

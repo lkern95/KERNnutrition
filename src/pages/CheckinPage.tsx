@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { loadGoalPref } from '../lib/goalPref';
 import { 
   CheckCircle, 
   Plus, 
@@ -119,7 +120,9 @@ function CheckinPage() {
   // State
   const [checkins, setCheckins] = useState<CheckinEntry[]>([])
   const [showForm, setShowForm] = useState(false)
-  const [selectedGoal, setSelectedGoal] = useState<keyof typeof GOAL_RANGES>('maintain')
+  // Zielbereich-Vorgabe laden
+  const defaultGoal = loadGoalPref() ?? 'maintain';
+  const [selectedGoal, setSelectedGoal] = useState<string>(defaultGoal);
   
   // Form state
   const [formData, setFormData] = useState({
@@ -137,8 +140,7 @@ function CheckinPage() {
 
   // Load data on mount
   useEffect(() => {
-    loadCheckins()
-    loadGoal()
+  loadCheckins()
   }, [])
 
   const loadCheckins = () => {
@@ -163,23 +165,14 @@ function CheckinPage() {
     }
   }
 
-  const loadGoal = () => {
+  // Zielbereich speichern
+  const saveGoal = (goal: string) => {
     try {
-      const stored = localStorage.getItem(GOAL_KEY)
-      if (stored && stored in GOAL_RANGES) {
-        setSelectedGoal(stored as keyof typeof GOAL_RANGES)
-      }
+      setSelectedGoal(goal);
+      // persist for cross-page use
+      import('../lib/goalPref').then(mod => mod.saveGoalPref(goal));
     } catch (error) {
-      console.error('Fehler beim Laden des Ziels:', error)
-    }
-  }
-
-  const saveGoal = (goal: keyof typeof GOAL_RANGES) => {
-    try {
-      localStorage.setItem(GOAL_KEY, goal)
-      setSelectedGoal(goal)
-    } catch (error) {
-      console.error('Fehler beim Speichern des Ziels:', error)
+      console.error('Fehler beim Speichern des Ziels:', error);
     }
   }
 
@@ -283,7 +276,7 @@ function CheckinPage() {
       age: 30, // Default - could come from user settings
       sex: 'male', // Default - could come from user settings
       activityFactor: 1.6, // Default - could come from user settings
-      goal: selectedGoal,
+  goal: selectedGoal as keyof typeof GOAL_RANGES,
       targetCalories: 2500, // Default - could come from calculations
       currentCalories: 2500
     }
@@ -340,7 +333,7 @@ function CheckinPage() {
         </h2>
         
         <div className="grid grid-cols-2 gap-3">
-          {(Object.keys(GOAL_RANGES) as Array<keyof typeof GOAL_RANGES>).map((goal) => (
+          {(Object.keys(GOAL_RANGES) as Array<string>).map((goal) => (
             <button
               key={goal}
               onClick={() => saveGoal(goal)}

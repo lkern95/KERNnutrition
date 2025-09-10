@@ -5,7 +5,7 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
 }
 
-const STORAGE_KEY = 'kernbalance-install-dismissed'
+const STORAGE_KEY = 'kernnutrition-install-dismissed'
 const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
 
 export function useInstallPrompt() {

@@ -1,0 +1,11 @@
+## [Unreleased] – KERNbalance → KERNnutrition
+- Namensänderung Projekt/App
+- Entfernen: „Quellcode auf GitHub“
+- Rechner: Kohlenhydrate in Makro-Voreinstellungen
+- Planer: Validierung + Makro-Split Training/Ruhetag
+- Mahlzeiten-Split (optional) nach Trainingszeit
+- Supplements-Reiter mit Dosis + Info
+- Slider-Thumb sichtbarer
+- Bottom-Navigation sauber ausgerichtet
+- „Alle Daten löschen“: löscht wirklich alles
+- Info-Seite: Accordions/Klapptexte

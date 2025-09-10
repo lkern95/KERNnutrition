@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { saveGoalPref } from '../lib/goalPref';
 import { Calculator, Activity, Target, Scale, Ruler, Calendar, Info, AlertTriangle } from 'lucide-react'
 import { useAppStore } from '../store/appStore'
 import { macrosFromTargets, type CalcInput, type MacroResult, type ValidationWarning } from '../lib/nutrition'
@@ -155,9 +156,10 @@ export default function RechnerPage() {
 
   // Ziel-Preset auswählen
   const handleGoalChange = (goalId: string) => {
-    setGoalPreset(goalId)
+    setGoalPreset(goalId);
+    saveGoalPref(goalId);
     if (goalId !== 'custom') {
-      setCustomAdjust('')
+      setCustomAdjust('');
     }
   }
 

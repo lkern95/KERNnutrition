@@ -2,11 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .card {
+    @apply rounded-2xl border shadow-xl p-5;
+    transition: box-shadow .3s ease, transform .3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0,0,0,.25);
+  }
+  .soft-border { border-color: rgba(255,208,0,.15); }
+  .ink { background: #292c2f; color: #ececec; }
+  .gold { color: #ffd000; }
+  .violet { color: #32174d; }
+  .bg-ink { background: #292c2f; }
+  .bg-violet-soft { background: rgba(50,23,77,.25); }
+  .bg-gold-soft { background: rgba(255,208,0,.1); }
+
+  /* Accordion helpers */
+  .acc summary::-webkit-details-marker { display: none; }
+  .acc summary { list-style: none; cursor: pointer; }
+  .chev { transition: transform .25s ease; }
+  details[open] .chev { transform: rotate(90deg); }
+
+  /* Pop-in */
+  @keyframes pop { 0%{transform:translateY(6px) scale(.98);opacity:0} 100%{transform:none;opacity:1} }
+  .pop-in { animation: pop .5s ease-out both; }
+  .pop-in-1 { animation-delay: .06s }
+  .pop-in-2 { animation-delay: .12s }
+  .pop-in-3 { animation-delay: .18s }
+}
+
+/* Makro-Variablen global */
+:root {
+  --macro-fat: #ffd000;
+  --macro-carb: #e94f37;
+  --macro-protein: #ececec;
+}
+
 @layer base {
   html {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
-  
   body {
     @apply bg-background text-text;
     margin: 0;
@@ -16,49 +53,37 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
   * {
     box-sizing: border-box;
   }
-  
-  /* Typography Hierarchy */
   h1 {
     @apply text-2xl font-bold text-text leading-tight;
   }
-  
   h2 {
     @apply text-xl font-semibold text-text leading-tight;
   }
-  
   h3 {
     @apply text-lg font-medium text-text leading-tight;
   }
-  
   h4 {
     @apply text-base font-medium text-text leading-tight;
   }
-  
   p {
     @apply text-base text-text/80 leading-relaxed;
   }
-  
   .text-title {
     @apply text-2xl font-bold text-text leading-tight;
   }
-  
   .text-label {
     @apply text-sm font-medium text-text leading-tight;
   }
-  
   .text-base-content {
     @apply text-base text-text/80 leading-relaxed;
   }
-  
   /* Verbesserter Fokus für Barrierefreiheit */
   *:focus-visible {
     @apply outline-2 outline-accent outline-offset-2;
   }
-  
   /* Performance: Reduce animations on low-power devices */
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -72,16 +97,29 @@
   }
 }
 
+@layer utilities {
+  .text-macro-fat     { color: var(--macro-fat) !important; }
+  .text-macro-carb    { color: var(--macro-carb) !important; }
+  .text-macro-protein { color: var(--macro-protein) !important; }
+  .bg-macro-fat     { background: var(--macro-fat) !important; }
+  .bg-macro-carb    { background: var(--macro-carb) !important; }
+  .bg-macro-protein { background: var(--macro-protein) !important; }
+}
+
 @layer components {
   .container-card {
     @apply bg-background border border-accent/20 rounded-xl shadow-soft;
   }
   
   .tab-button {
-    @apply flex flex-col items-center justify-center p-3 rounded-lg transition-colors duration-200;
+    @apply flex flex-col items-center justify-center transition-colors duration-200;
     @apply text-text/70 hover:text-text hover:bg-text/5;
     @apply focus:outline-none focus:ring-2 focus:ring-accent/50;
-    @apply min-h-[4rem] min-w-[4rem]; /* Große Touch-Ziele */
+    @apply h-16 min-w-0 px-0 py-0 flex-1;
+    min-width: 0;
+    min-height: 4rem;
+    border-radius: 0;
+    /* Kein Reflow, alle Tabs gleich groß */
   }
   
   .tab-button.active {

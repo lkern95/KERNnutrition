@@ -1,17 +1,25 @@
 import React, { lazy, Suspense } from 'react'
 import { useAppStore } from './store/appStore'
+
 import { BottomNavigation } from './components/BottomNavigation'
 import { InstallPrompt } from './components/InstallPrompt'
 import { OfflineIndicator } from './components/OfflineIndicator'
+import UebersichtPage from './pages/UebersichtPage';
+
+import './styles/slider.css'
 
 // Lazy load pages for better performance
+
 const RechnerPage = lazy(() => import('./pages/RechnerPage').then(module => ({ default: module.RechnerPage })))
 const PlanerPage = lazy(() => import('./pages/PlanerPage').then(module => ({ default: module.PlanerPage })))
 const CheckinPage = lazy(() => import('./pages/CheckinPageComponent').then(module => ({ default: module.default ?? module.CheckinPage })))
 const EinstellungenPage = lazy(() => import('./pages/EinstellungenPage').then(module => ({ default: module.EinstellungenPage })))
-const InfoPage = lazy(() => import('./pages/InfoPage').then(module => ({ default: module.InfoPage })))
+const InfoPage = lazy(() => import('./pages/InfoPage'))
+const SupplementsPage = lazy(() => import('./pages/SupplementsPage'));
 
 const pages = {
+  overview: UebersichtPage,
+  supplements: SupplementsPage,
   rechner: RechnerPage,
   planer: PlanerPage,
   checkin: CheckinPage,

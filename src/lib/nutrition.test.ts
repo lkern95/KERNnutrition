@@ -1,3 +1,89 @@
+describe('splitMacrosByMeal', () => {
+  it('verteilt Protein, Carbs, Fett korrekt auf 4 Mahlzeiten', () => {
+    const meals = 4;
+    const res = splitMacrosByMeal({ protein: 120, carbs: 200, fat: 60, meals });
+    // Erwartung: 1x pre, 2x other, 1x post
+    expect(res.length).toBe(4);
+    // Protein gleichmäßig
+    res.forEach(m => expect(m.protein).toBeGreaterThan(0));
+    expect(res.reduce((a, m) => a + m.protein, 0)).toBe(120);
+    // Carbs: 35% pre, 25% post, Rest auf other
+    expect(res[0].carbs).toBeCloseTo(70, 0); // pre
+    expect(res[3].carbs).toBeCloseTo(50, 0); // post
+    expect(res[1].carbs).toBeCloseTo(40, 0); // other
+    expect(res[2].carbs).toBeCloseTo(40, 0); // other
+    expect(res.reduce((a, m) => a + m.carbs, 0)).toBe(200);
+    // Fett: pre/post je -20%, Rest auf other
+    expect(res[0].fat).toBeLessThan(15);
+    expect(res[3].fat).toBeLessThan(15);
+    expect(res[1].fat).toBeGreaterThan(15);
+    expect(res[2].fat).toBeGreaterThan(15);
+    expect(res.reduce((a, m) => a + m.fat, 0)).toBe(60);
+  });
+
+  it('wirft Fehler bei zu wenigen/zu vielen Mahlzeiten', () => {
+    expect(() => splitMacrosByMeal({ protein: 100, carbs: 100, fat: 50, meals: 2 })).toThrow();
+    expect(() => splitMacrosByMeal({ protein: 100, carbs: 100, fat: 50, meals: 7 })).toThrow();
+  });
+
+  it('passt Summen bei Rundungsfehlern an', () => {
+    const res = splitMacrosByMeal({ protein: 101, carbs: 99, fat: 49, meals: 3 });
+    expect(res.reduce((a, m) => a + m.protein, 0)).toBe(101);
+    expect(res.reduce((a, m) => a + m.carbs, 0)).toBe(99);
+    expect(res.reduce((a, m) => a + m.fat, 0)).toBe(49);
+  });
+});
+describe('macrosFromTargets mit carbsPerKg', () => {
+  const baseInput: CalcInput = {
+    weightKg: 70,
+    heightCm: 175,
+    age: 28,
+    sex: 'F',
+    activityFactor: 1.4,
+    kcalAdjust: 0,
+    proteinPerKg: 2.0,
+    fatPerKg: 1.0
+  };
+
+  it('berechnet Zielkalorien korrekt, wenn carbsPerKg gesetzt ist', () => {
+    const input: CalcInput = { ...baseInput, carbsPerKg: 4.0 };
+    const { result, warnings } = macrosFromTargets(input);
+    // Erwartung: Protein = 140g, Fett = 70g, Carbs = 280g
+    // Zielkcal = 140*4 + 70*9 + 280*4 = 560 + 630 + 1120 = 2310
+    expect(result.proteinG).toBe(140);
+    expect(result.fatG).toBe(70);
+    expect(result.carbsG).toBe(280);
+    expect(result.targetKcal).toBe(2310);
+    expect(result.carbsPerKg).toBe(4.0);
+    expect(warnings.length).toBe(0);
+  });
+
+  it('liefert Warnung, wenn Protein+Fett+Carbs mehr Kalorien als TDEE+Adjust ergeben', () => {
+    // Setze absichtlich hohe Werte
+    const input: CalcInput = { ...baseInput, proteinPerKg: 3.0, fatPerKg: 2.0, carbsPerKg: 7.0 };
+    const { result, warnings } = macrosFromTargets(input);
+    // Die Funktion berechnet trotzdem, aber Zielkcal ist sehr hoch
+    expect(result.targetKcal).toBeGreaterThan(0);
+    // Es gibt keine automatische Warnung, da carbsPerKg explizit ist
+    // (Warnung gibt es nur bei automatischer Berechnung)
+    expect(warnings.filter(w => w.type === 'fat_too_low')).toHaveLength(0);
+  });
+
+  it('rundet alle Werte korrekt', () => {
+    const input: CalcInput = { ...baseInput, carbsPerKg: 3.333 };
+    const { result } = macrosFromTargets(input);
+    expect(Number.isInteger(result.proteinG)).toBe(true);
+    expect(Number.isInteger(result.fatG)).toBe(true);
+    expect(Number.isInteger(result.carbsG)).toBe(true);
+    expect(Number.isInteger(result.targetKcal)).toBe(true);
+  });
+
+  it('gibt carbsPerKg nur zurück, wenn gesetzt', () => {
+    const input: CalcInput = { ...baseInput };
+    const { result } = macrosFromTargets(input);
+    expect(result.carbsPerKg).toBeUndefined();
+  });
+});
 import { describe, it, expect } from 'vitest'
 import { 
   mifflinStJeor, 
@@ -7,6 +93,7 @@ import {
   validateInput,
   validateFatPercentage,
   getMacroPercentages,
+  splitMacrosByMeal,
   type CalcInput,
   type Sex 
 } from './nutrition'

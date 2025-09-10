@@ -36,8 +36,8 @@ export function InstallPrompt() {
               className="text-text/70 text-sm mb-3"
             >
               {isIOS 
-                ? 'Installiere KERNbalance: Tippe auf "Teilen" und dann "Zum Home-Bildschirm"'
-                : 'Installiere KERNbalance auf deinem Gerät für schnelleren Zugriff'
+                ? 'Installiere KERNnutrition: Tippe auf "Teilen" und dann "Zum Home-Bildschirm"'
+                : 'Installiere KERNnutrition auf deinem Gerät für schnelleren Zugriff'
               }
             </p>
             

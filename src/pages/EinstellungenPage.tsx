@@ -25,7 +25,9 @@ import {
   X
 } from 'lucide-react'
 import { SpecialSituationsPage } from './SpecialSituationsPage'
-import { useAppStore } from '../store/appStore'
+import { useAppStore, wipeAllUserData } from '../store/appStore'
+import { clearCalcResult } from '../lib/calcCache';
+import { getLogger } from '../lib/logger'
 
 export interface AppSettings {
   // Macro overrides
@@ -121,6 +123,15 @@ export function EinstellungenPage() {
     const updated = { ...settings, ...newSettings }
     setSettings(updated)
     localStorage.setItem('kerncare-settings', JSON.stringify(updated))
+
+    // Logger-Events für Privacy-Toggles
+    const logger = getLogger()
+    if (typeof newSettings.analytics === 'boolean') {
+      logger.logEvent('toggle_analytics', { enabled: newSettings.analytics })
+    }
+    if (typeof newSettings.crashReports === 'boolean') {
+      logger.logEvent('toggle_crashReports', { enabled: newSettings.crashReports })
+    }
   }
 
   const handleExportData = () => {
@@ -200,11 +211,15 @@ export function EinstellungenPage() {
     reader.readAsText(file)
   }
 
-  const handleClearAllData = () => {
-    if (confirm('Alle Daten wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.')) {
-      localStorage.removeItem('macrocal-storage')
-      localStorage.removeItem('kerncare-settings')
-      window.location.reload()
+  const handleClearAllData = async () => {
+    const confirmed = window.confirm(
+      'Alle Daten wirklich löschen? Diese Aktion ist IRREVERSIBEL und löscht alle lokalen Nutzerdaten unwiderruflich. Fortfahren?'
+    );
+    if (confirmed) {
+      await wipeAllUserData();
+      clearCalcResult();
+      // Soft-Reload: Zustand neu initialisieren
+      window.location.reload();
     }
   }
 
@@ -218,7 +233,7 @@ export function EinstellungenPage() {
         <Settings className="w-12 h-12 text-accent mx-auto mb-3" />
         <h1 className="text-2xl font-bold text-text mb-2">Einstellungen</h1>
         <p className="text-text/70">
-          Passe KERNbalance nach deinen Wünschen an
+          Passe KERNnutrition nach deinen Wünschen an
         </p>
       </div>
 
@@ -535,35 +550,32 @@ export function EinstellungenPage() {
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-text">Erinnerungen für Mahlzeiten</span>
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 checked={settings.notifications.meals}
-                onChange={(e) => updateSettings({ 
-                  notifications: { ...settings.notifications, meals: e.target.checked }
-                })}
-                className="w-5 h-5 text-accent" 
+                disabled
+                title="Derzeit nicht verfügbar (kein zuverlässiges Scheduling im PWA-Offline-Modus)."
+                className="w-5 h-5 text-accent"
               />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-text">Wassererinnerungen</span>
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 checked={settings.notifications.water}
-                onChange={(e) => updateSettings({ 
-                  notifications: { ...settings.notifications, water: e.target.checked }
-                })}
-                className="w-5 h-5 text-accent" 
+                disabled
+                title="Derzeit nicht verfügbar (kein zuverlässiges Scheduling im PWA-Offline-Modus)."
+                className="w-5 h-5 text-accent"
               />
             </div>
             <div className="flex items-center justify-between">
               <span className="text-text">Wöchentliche Fortschritte</span>
-              <input 
-                type="checkbox" 
+              <input
+                type="checkbox"
                 checked={settings.notifications.progress}
-                onChange={(e) => updateSettings({ 
-                  notifications: { ...settings.notifications, progress: e.target.checked }
-                })}
-                className="w-5 h-5 text-accent" 
+                disabled
+                title="Derzeit nicht verfügbar (kein zuverlässiges Scheduling im PWA-Offline-Modus)."
+                className="w-5 h-5 text-accent"
               />
             </div>
           </div>
@@ -672,21 +684,22 @@ export function EinstellungenPage() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-text">Anonyme Nutzungsstatistiken</span>
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   checked={settings.analytics}
                   onChange={(e) => updateSettings({ analytics: e.target.checked })}
-                  className="w-5 h-5 text-accent" 
+                  className="w-5 h-5 text-accent"
+                  title="Es werden keine externen Daten gesendet."
                 />
               </div>
-              
               <div className="flex items-center justify-between">
                 <span className="text-text">Crash-Reports</span>
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   checked={settings.crashReports}
                   onChange={(e) => updateSettings({ crashReports: e.target.checked })}
-                  className="w-5 h-5 text-accent" 
+                  className="w-5 h-5 text-accent"
+                  title="Es werden keine externen Daten gesendet."
                 />
               </div>
             </div>

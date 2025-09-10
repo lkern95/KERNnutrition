@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react'
+import { saveGoalPref, mapRechnerLabelToKey } from '../lib/goalPref';
+import { saveCalcResult, loadCalcResult } from '../lib/calcCache';
+import { getEffective } from '../lib/derived';
 import { Calculator, Activity, Target, Scale, Ruler, Calendar, Info, AlertTriangle, Settings } from 'lucide-react'
 import { useAppStore } from '../store/appStore'
 import { macrosFromTargets, type CalcInput, type MacroResult, type ValidationWarning } from '../lib/nutrition'
@@ -27,6 +30,9 @@ const GOAL_PRESETS = [
 ]
 
 export function RechnerPage() {
+  // Immer aktuelle BMR/TDEE anzeigen
+  const profile = useAppStore(s => s.profile);
+  const eff = React.useMemo(() => getEffective(), [profile]);
   // Zustand für Eingabefelder
   const [weight, setWeight] = useState('')
   const [height, setHeight] = useState('')
@@ -38,9 +44,25 @@ export function RechnerPage() {
   const [customAdjust, setCustomAdjust] = useState('')
   const [proteinPerKg, setProteinPerKg] = useState(2.0)
   const [fatPerKg, setFatPerKg] = useState(1.0)
+  const [carbsPerKg, setCarbsPerKg] = useState<number | ''>('')
   
   // Ergebnisse
   const [result, setResult] = useState<MacroResult | null>(null)
+  // Ergebnis aus Cache laden (beim Mount)
+  useEffect(() => {
+    const cached = loadCalcResult();
+    if (cached) {
+      setResult({
+        targetKcal: cached.dailyKcal,
+        proteinG: cached.protein_g,
+        carbsG: cached.carbs_g,
+        fatG: cached.fat_g,
+        trainingDayKcal: cached.trainingDayKcal ?? undefined,
+        restDayKcal: cached.restDayKcal ?? undefined,
+      } as any);
+      setIsCalculated(true);
+    }
+  }, []);
   const [warnings, setWarnings] = useState<ValidationWarning[]>([])
   const [isCalculated, setIsCalculated] = useState(false)
 
@@ -63,8 +85,9 @@ export function RechnerPage() {
         setActivityFactor(data.activityFactor || 1.5)
         setGoalPreset(data.goalPreset || 'maintain')
         setCustomAdjust(data.customAdjust || '')
-        setProteinPerKg(data.proteinPerKg || 2.0)
-        setFatPerKg(data.fatPerKg || 1.0)
+  setProteinPerKg(data.proteinPerKg || 2.0)
+  setFatPerKg(data.fatPerKg || 1.0)
+  setCarbsPerKg(typeof data.carbsPerKg === 'number' ? data.carbsPerKg : '')
       } catch (error) {
         console.warn('Fehler beim Laden der gespeicherten Eingaben:', error)
       }
@@ -82,7 +105,8 @@ export function RechnerPage() {
       goalPreset,
       customAdjust,
       proteinPerKg,
-      fatPerKg
+      fatPerKg,
+      carbsPerKg
     }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   }
@@ -124,7 +148,8 @@ export function RechnerPage() {
       activityFactor: finalActivityFactor,
       kcalAdjust,
       proteinPerKg,
-      fatPerKg
+      fatPerKg,
+      ...(carbsPerKg !== '' ? { carbsPerKg: Number(carbsPerKg) } : {})
     }
 
     try {
@@ -160,7 +185,8 @@ export function RechnerPage() {
         targetKcal: formatValue(calcResult.targetKcal, 'calories'),
         proteinG: formatValue(calcResult.proteinG, 'macros'),
         carbsG: formatValue(calcResult.carbsG, 'macros'),
-        fatG: formatValue(calcResult.fatG, 'macros')
+        fatG: formatValue(calcResult.fatG, 'macros'),
+        ...(calcResult.carbsPerKg !== undefined ? { carbsPerKg: calcResult.carbsPerKg } : {})
       }
       
       // Validate results with settings guardrails
@@ -196,20 +222,30 @@ export function RechnerPage() {
       setResult(formattedResult)
       setWarnings(allWarnings)
       setIsCalculated(true)
+
+      // Ergebnis persistent speichern
+      saveCalcResult({
+        dailyKcal: calcResult.targetKcal,
+        protein_g: calcResult.proteinG,
+        carbs_g: calcResult.carbsG,
+        fat_g: calcResult.fatG,
+        source: 'rechner',
+      });
       
       // Store aktualisieren
-      setProfile({
-        name: '',
-        weight: weightNum,
-        height: heightNum,
-        age: ageNum,
-        gender: sex === 'M' ? 'male' : 'female',
-        activityLevel: finalActivityFactor >= 1.7 ? 'very_active' : 
-                      finalActivityFactor >= 1.55 ? 'moderately_active' :
-                      finalActivityFactor >= 1.375 ? 'lightly_active' : 'sedentary',
-        goal: goalPreset === 'maintain' ? 'maintain' : 
-              kcalAdjust > 0 ? 'gain' : 'lose'
-      })
+  setProfile({
+    name: '',
+    weight: weightNum,
+    height: heightNum,
+    age: ageNum,
+    gender: sex === 'M' ? 'male' : 'female',
+    activityLevel: finalActivityFactor >= 1.7 ? 'very_active' : 
+          finalActivityFactor >= 1.55 ? 'moderately_active' :
+          finalActivityFactor >= 1.375 ? 'lightly_active' : 'sedentary',
+    goal: goalPreset === 'maintain' ? 'maintain' : 
+      kcalAdjust > 0 ? 'gain' : 'lose',
+    targetKcal: typeof formattedResult.targetKcal === 'number' ? formattedResult.targetKcal : parseFloat(formattedResult.targetKcal)
+  })
       
       // Eingaben speichern
       saveInputs()
@@ -220,14 +256,16 @@ export function RechnerPage() {
 
   // Ziel-Preset auswählen
   const handleGoalChange = (goalId: string) => {
-    setGoalPreset(goalId)
+    setGoalPreset(goalId);
+    saveGoalPref(mapRechnerLabelToKey(goalId));
     if (goalId !== 'custom') {
-      setCustomAdjust('')
+      setCustomAdjust('');
     }
   }
 
   return (
     <div className="space-y-6 pb-6">
+      {/* Grundwerte oben entfernt, Anzeige unten bleibt */}
       {/* Header */}
       <div className="bg-surface rounded-2xl p-6 shadow-soft">
         <div className="flex items-center gap-3 mb-4">
@@ -428,7 +466,6 @@ export function RechnerPage() {
         <h2 className="text-lg font-semibold text-text mb-4">
           Makronährstoff-Voreinstellungen
         </h2>
-        
         <div className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-text mb-3">
@@ -460,7 +497,6 @@ export function RechnerPage() {
               Empfohlen: 1.8-2.5 g/kg für Kraftsport und Muskelaufbau
             </p>
           </div>
-          
           <div>
             <label className="block text-sm font-medium text-text mb-3">
               Fett: {fatPerKg.toFixed(1)} g/kg
@@ -489,6 +525,47 @@ export function RechnerPage() {
             </div>
             <p className="text-xs text-text-secondary mt-1">
               Empfohlen: 0.8-1.2 g/kg, mindestens 20% der Gesamtkalorien
+            </p>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-text mb-3">
+              Kohlenhydrate: {carbsPerKg !== '' ? Number(carbsPerKg).toFixed(1) : '–'} g/kg
+            </label>
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-text-secondary">2.0</span>
+              <input
+                type="range"
+                min="2.0"
+                max="7.0"
+                step="0.1"
+                value={carbsPerKg === '' ? 2.0 : carbsPerKg}
+                onChange={(e) => setCarbsPerKg(parseFloat(e.target.value))}
+                className="flex-1 h-2 bg-border rounded-lg appearance-none cursor-pointer slider"
+              />
+              <span className="text-sm text-text-secondary">7.0</span>
+              <input
+                type="number"
+                value={carbsPerKg}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setCarbsPerKg(val === '' ? '' : parseFloat(val));
+                }}
+                step="0.1"
+                min="2.0"
+                max="7.0"
+                className="w-20 px-2 py-1 text-sm rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-1 focus:ring-primary/20"
+              />
+              <button
+                type="button"
+                className="ml-2 text-xs text-text-secondary underline"
+                onClick={() => setCarbsPerKg('')}
+                title="Automatisch berechnen lassen"
+              >
+                Auto
+              </button>
+            </div>
+            <p className="text-xs text-text-secondary mt-1">
+              Empfohlen: 3–6 g/kg je nach Trainingsvolumen/Ziel
             </p>
           </div>
         </div>
@@ -547,7 +624,6 @@ export function RechnerPage() {
               const settings = getSettings()
               const hasOverrides = settings.macroOverride.enabled && 
                 (settings.macroOverride.protein !== null || settings.macroOverride.fat !== null)
-              
               if (hasOverrides) {
                 return (
                   <div className="flex items-center gap-2 text-sm text-accent">
@@ -559,7 +635,26 @@ export function RechnerPage() {
               return null
             })()}
           </div>
-          
+          {/* Kalorien-Gleichung */}
+          <div className="bg-surface rounded-2xl p-4 mb-2">
+            <div className="text-sm text-text-secondary">
+              {result.carbsPerKg !== undefined
+                ? (<>
+                  <b>Kalorien-Gleichung:</b> {result.proteinG}g × 4 + {result.fatG}g × 9 + {result.carbsG}g × 4 = <b>{result.targetKcal} kcal</b><br />
+                  <span className="text-xs">(Kohlenhydrate fest: {result.carbsPerKg.toFixed(1)} g/kg)</span>
+                </>)
+                : (<>
+                  <b>Kalorien-Gleichung:</b> {result.targetKcal} kcal − ({result.proteinG}g × 4 + {result.fatG}g × 9) / 4 = <b>{result.carbsG}g Kohlenhydrate</b><br />
+                  <span className="text-xs">(Kohlenhydrate automatisch berechnet)</span>
+                </>)}
+            </div>
+            {/* Warnung bei negativen Rest-Kalorien */}
+            {result.carbsG === 0 && (
+              <div className="mt-2 text-xs text-warning">
+                ⚠️ Protein und Fett übersteigen die Zielkalorien. Reduziere Protein/Fett oder erhöhe die Zielkalorien.
+              </div>
+            )}
+          </div>
           {/* Grundwerte */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="bg-surface rounded-2xl p-6 shadow-soft">
@@ -573,11 +668,10 @@ export function RechnerPage() {
                 </div>
               </div>
             </div>
-            
             <div className="bg-surface rounded-2xl p-6 shadow-soft">
               <div className="text-center">
                 <div className="text-3xl font-bold text-secondary mb-2">
-                  {result.tdee}
+                  {eff.tdee}
                 </div>
                 <div className="text-sm font-medium text-text mb-1">TDEE</div>
                 <div className="text-xs text-text-secondary">
@@ -585,7 +679,6 @@ export function RechnerPage() {
                 </div>
               </div>
             </div>
-            
             <div className="bg-surface rounded-2xl p-6 shadow-soft">
               <div className="text-center">
                 <div className="text-3xl font-bold text-accent mb-2">
@@ -604,7 +697,7 @@ export function RechnerPage() {
             <h3 className="text-lg font-semibold text-text mb-4">Makronährstoff-Verteilung</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary mb-2">
+                <div className="text-2xl font-bold text-macro-protein mb-2">
                   {result.proteinG}g
                 </div>
                 <div className="text-sm font-medium text-text mb-1">Protein</div>
@@ -615,22 +708,8 @@ export function RechnerPage() {
                   Muskelaufbau & Sättigung
                 </div>
               </div>
-              
               <div className="text-center">
-                <div className="text-2xl font-bold text-warning mb-2">
-                  {result.fatG}g
-                </div>
-                <div className="text-sm font-medium text-text mb-1">Fett</div>
-                <div className="text-xs text-text-secondary">
-                  {result.fatG * 9} kcal • {Math.round((result.fatG * 9 / result.targetKcal) * 100)}%
-                </div>
-                <div className="text-xs text-text-secondary mt-1">
-                  Hormone & Vitamine
-                </div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-2xl font-bold text-info mb-2">
+                <div className="text-2xl font-bold text-macro-carb mb-2">
                   {result.carbsG}g
                 </div>
                 <div className="text-sm font-medium text-text mb-1">Kohlenhydrate</div>
@@ -639,6 +718,18 @@ export function RechnerPage() {
                 </div>
                 <div className="text-xs text-text-secondary mt-1">
                   Energie & Leistung
+                </div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-macro-fat mb-2">
+                  {result.fatG}g
+                </div>
+                <div className="text-sm font-medium text-text mb-1">Fett</div>
+                <div className="text-xs text-text-secondary">
+                  {result.fatG * 9} kcal • {Math.round((result.fatG * 9 / result.targetKcal) * 100)}%
+                </div>
+                <div className="text-xs text-text-secondary mt-1">
+                  Hormone & Vitamine
                 </div>
               </div>
             </div>

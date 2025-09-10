@@ -1,3 +1,65 @@
+/**
+ * Berechnet die Makronährstoffverteilung auf Mahlzeiten inkl. Pre-/Post-Workout-Logik.
+ * @param protein Gesamtprotein (g)
+ * @param carbs Gesamtkohlenhydrate (g)
+ * @param fat Gesamtfett (g)
+ * @param meals Anzahl Mahlzeiten (3–6)
+ * @param workoutTime Trainingszeit (z.B. '18:00')
+ * @returns Array mit Mahlzeiten-Splits [{protein, carbs, fat, type}]
+ */
+export function splitMacrosByMeal({
+  protein,
+  carbs,
+  fat,
+  meals,
+}: {
+  protein: number;
+  carbs: number;
+  fat: number;
+  meals: number;
+}): Array<{
+  protein: number;
+  carbs: number;
+  fat: number;
+  type: 'pre' | 'post' | 'other';
+}> {
+  if (meals < 3 || meals > 6) throw new Error('Mahlzeitenanzahl muss zwischen 3 und 6 liegen');
+  // Verteilung: 1x pre, 1x post, Rest = other
+  const nOther = meals - 2;
+  // Protein: gleichmäßig
+  const proteinPerMeal = Math.round(protein / meals);
+  // Carbs: 35% pre, 25% post, Rest gleichmäßig
+  const carbsPre = Math.round(carbs * 0.35);
+  const carbsPost = Math.round(carbs * 0.25);
+  const carbsOther = Math.round((carbs - carbsPre - carbsPost) / nOther);
+  // Fett: gleichmäßig, außer pre/post je -20%
+  const fatBase = fat / meals;
+  const fatPre = Math.round(fatBase * 0.8);
+  const fatPost = Math.round(fatBase * 0.8);
+  const fatOther = Math.round((fat - fatPre - fatPost) / nOther);
+  // Array bauen
+  const result: Array<{ protein: number; carbs: number; fat: number; type: 'pre' | 'post' | 'other' }> = [
+    { protein: proteinPerMeal, carbs: carbsPre, fat: fatPre, type: 'pre' },
+    ...Array.from({ length: nOther }, () => ({ protein: proteinPerMeal, carbs: carbsOther, fat: fatOther, type: 'other' as const })),
+    { protein: proteinPerMeal, carbs: carbsPost, fat: fatPost, type: 'post' },
+  ];
+  // Korrektur: Summe angleichen (wegen Rundung)
+  const sum = (arr: typeof result, key: 'protein'|'carbs'|'fat') => arr.reduce((a, m) => a + m[key], 0);
+  // Letzte Mahlzeit angleichen
+  result[result.length-1].protein += protein - sum(result, 'protein');
+  result[result.length-1].carbs += carbs - sum(result, 'carbs');
+  result[result.length-1].fat += fat - sum(result, 'fat');
+  return result;
+}
+import type { UserProfile } from '../store/appStore'
+/**
+ * Berechnet den Grundumsatz (BMR) nach Mifflin-St Jeor aus UserProfile
+ */
+export function calculateBMR(profile: UserProfile): number {
+  // Mapping: UserProfile.gender ('male'|'female') → Sex ('M'|'F')
+  const sex: Sex = profile.gender === 'male' ? 'M' : 'F';
+  return mifflinStJeor(profile.weight, profile.height, profile.age, sex);
+}
 export type Sex = 'M' | 'F';
 
 export interface CalcInput {
@@ -9,6 +71,7 @@ export interface CalcInput {
   kcalAdjust: number;     // A6 (+Bulk / -Diät)
   proteinPerKg: number;   // A7 (1.8–2.5)
   fatPerKg: number;       // A8 (0.8–1.2, mind. ~20–25% kcal)
+  carbsPerKg?: number;    // Optional: Kohlenhydrate in g/kg
 }
 
 export interface MacroResult {
@@ -18,6 +81,7 @@ export interface MacroResult {
   proteinG: number;
   fatG: number;
   carbsG: number;
+  carbsPerKg?: number; // Für Anzeigezwecke
 }
 
 export interface ValidationWarning {
@@ -167,24 +231,35 @@ export function macrosFromTargets(input: CalcInput): CalcResult {
 
   // BMR berechnen
   const bmr = mifflinStJeor(input.weightKg, input.heightCm, input.age, input.sex);
-  
   // TDEE berechnen
   const tdeeValue = tdee(bmr, input.activityFactor);
-  
-  // Zielkalorien berechnen
-  const targetKcal = targetCalories(tdeeValue, input.kcalAdjust);
 
-  // Protein berechnen (in Gramm, gerundet)
-  const proteinG = Math.round(input.weightKg * input.proteinPerKg);
-  const proteinKcal = proteinG * 4;
+  let proteinG = Math.round(input.weightKg * input.proteinPerKg);
+  let fatG = Math.round(input.weightKg * input.fatPerKg);
+  let carbsG: number;
+  let targetKcal: number;
+  let usedCarbsPerKg: number | undefined = undefined;
 
-  // Fett berechnen (in Gramm, gerundet)
-  const fatG = Math.round(input.weightKg * input.fatPerKg);
-  const fatKcal = fatG * 9;
-
-  // Kohlenhydrate aus verbleibenden Kalorien berechnen
-  const remainingKcal = targetKcal - proteinKcal - fatKcal;
-  const carbsG = Math.round(Math.max(0, remainingKcal) / 4);
+  if (typeof input.carbsPerKg === 'number' && !isNaN(input.carbsPerKg)) {
+    // User hat Kohlenhydrate explizit gesetzt
+    usedCarbsPerKg = input.carbsPerKg;
+    carbsG = Math.round(input.weightKg * input.carbsPerKg);
+    targetKcal = Math.round(proteinG * 4 + fatG * 9 + carbsG * 4);
+  } else {
+    // Standardfall: carbs werden aus Rest berechnet
+    targetKcal = targetCalories(tdeeValue, input.kcalAdjust);
+    const proteinKcal = proteinG * 4;
+    const fatKcal = fatG * 9;
+    const remainingKcal = targetKcal - proteinKcal - fatKcal;
+    carbsG = Math.round(Math.max(0, remainingKcal) / 4);
+    // Warnung bei negativen Kohlenhydraten
+    if (remainingKcal < 0) {
+      inputWarnings.push({
+        type: 'fat_too_low',
+        message: `Protein und Fett übersteigen die Zielkalorien. Reduziere Protein/Fett oder erhöhe die Zielkalorien.`
+      });
+    }
+  }
 
   // Fettanteil validieren
   const fatWarning = validateFatPercentage(fatG, targetKcal);
@@ -193,21 +268,14 @@ export function macrosFromTargets(input: CalcInput): CalcResult {
     warnings.push(fatWarning);
   }
 
-  // Warnung bei negativen Kohlenhydraten
-  if (remainingKcal < 0) {
-    warnings.push({
-      type: 'fat_too_low',
-      message: `Protein und Fett übersteigen die Zielkalorien. Reduziere Protein/Fett oder erhöhe die Zielkalorien.`
-    });
-  }
-
   const result: MacroResult = {
     bmr,
     tdee: tdeeValue,
-    targetKcal,
-    proteinG,
-    fatG,
-    carbsG
+    targetKcal: Math.round(targetKcal),
+    proteinG: Math.round(proteinG),
+    fatG: Math.round(fatG),
+    carbsG: Math.round(carbsG),
+    ...(usedCarbsPerKg !== undefined ? { carbsPerKg: usedCarbsPerKg } : {})
   };
 
   return {

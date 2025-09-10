@@ -1,7 +1,7 @@
-// KERNbalance Service Worker
-const CACHE_NAME = 'kernbalance-v1'
-const STATIC_CACHE = 'kernbalance-static-v1'
-const RUNTIME_CACHE = 'kernbalance-runtime-v1'
+// KERNnutrition Service Worker
+const CACHE_NAME = 'kernnutrition-v2'
+const STATIC_CACHE = 'kernnutrition-static-v2'
+const RUNTIME_CACHE = 'kernnutrition-runtime-v2'
 
 // Static assets to cache on install
 const STATIC_ASSETS = [
@@ -144,7 +144,7 @@ self.addEventListener('push', (event) => {
       icon: '/pwa-192x192.png',
       badge: '/pwa-192x192.png',
       vibrate: [200, 100, 200],
-      tag: 'kernbalance-notification'
+  tag: 'kernnutrition-notification'
     }
     
     event.waitUntil(
