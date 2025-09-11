@@ -2,13 +2,13 @@
 
 ## ✅ PWA Implementation Complete
 
-Your KERNbalance app is now a fully functional Progressive Web App (PWA) with:
+Your KERNnutrition app is now a fully functional Progressive Web App (PWA) with:
 
 ### 🎯 Features Implemented
 
 1. **PWA Manifest**
-   - App name: "KERNbalance - Makronährstoff Rechner"
-   - Short name: "KERNbalance"
+   - App name: "KERNnutrition - Makronährstoff Rechner"
+   - Short name: "KERNnutrition"
    - Theme color: #292c2f
    - Background color: #292c2f
    - Icons: 192x192, 512x512, maskable variants

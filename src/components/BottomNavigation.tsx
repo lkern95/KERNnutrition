@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Calculator, Calendar, CheckCircle, Settings, Info, Gauge } from 'lucide-react'
 import { useAppStore } from '../store/appStore'
 
@@ -48,64 +48,51 @@ const tabs = [
 ]
 
 export function BottomNavigation() {
-  const { activeTab, setActiveTab } = useAppStore()
+  const { activeTab, setActiveTab } = useAppStore();
 
-  const tabCount = tabs.length
-  const activeIdx = tabs.findIndex((t) => t.id === activeTab)
+  // Hash sync: set tab from hash on load/hashchange
+  useEffect(() => {
+    const setFromHash = () => {
+      const tab = window.location.hash.replace('#', '');
+      if (tab) setActiveTab(tab as any);
+    };
+    setFromHash();
+    window.addEventListener('hashchange', setFromHash);
+    return () => window.removeEventListener('hashchange', setFromHash);
+  }, [setActiveTab]);
 
+  // Set tab and update hash
+  const setTab = (t: string) => {
+    setActiveTab(t);
+    window.location.hash = t;
+  };
 
+  const tabCount = tabs.length;
+  const activeIdx = tabs.findIndex((t) => t.id === activeTab);
 
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur border-t border-accent/20 px-0 py-0 safe-area-bottom z-50 shadow-[0_-2px_16px_0_rgba(0,0,0,0.04)]"
-      role="navigation"
-      aria-label="Haupt-Navigation"
+      className="\n    fixed bottom-0 left-0 right-0 z-50\n    w-full max-w-[100vw] overflow-hidden\n    bg-[#292c2f] border-t border-[rgba(255,208,0,.15)]\n    bn-h pb-safe\n  "
     >
-      <div className="relative flex justify-around max-w-md mx-auto h-16">
-        {tabs.map((tab, idx) => {
-          const Icon = tab.icon
-          const isActive = activeTab === tab.id
+      <div className="h-full flex">
+        {tabs.map((tab) => {
+          const active = activeTab === tab.id;
           return (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={
-                `group flex-1 min-w-0 flex flex-col items-center justify-center h-16 relative focus:outline-none transition-colors duration-200`
-              }
-              aria-label={tab.ariaLabel}
-              aria-current={isActive ? 'page' : undefined}
-              style={{ WebkitTapHighlightColor: 'transparent' }}
+              onClick={() => setTab(tab.id)}
+              className={`\n            flex-1 min-w-0 h-full\n            flex flex-col items-center justify-center\n            gap-1 px-1\n            ${active ? 'text-[#ffd000]' : 'text-[#ececec]'}\n          `}
+              aria-current={active ? 'page' : undefined}
             >
-              <span
-                className={
-                  `flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200 ease-out
-                  ${isActive ? 'text-accent scale-110' : 'text-text/70 group-hover:text-accent/80 scale-100'}`
-                }
-              >
-                <Icon
-                  size={isActive ? 24 : 20}
-                  className={`transition-all duration-200 ${isActive ? 'text-accent scale-110' : 'text-text/70 group-hover:text-accent/80 scale-100'}`}
-                  aria-hidden="true"
-                />
-              </span>
-              <span
-                className={`text-xs font-medium mt-1 leading-[1.1rem] transition-all duration-200 ${isActive ? 'text-accent' : 'text-text/60 group-hover:text-accent/80'} ${isActive ? 'scale-105' : 'scale-100'}`}
-                style={{
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  width: '100%',
-                  textAlign: 'center',
-                  display: 'block',
-                }}
-                title={tab.label}
-              >
+              {/* Icons konsistent ausrichten */}
+              <tab.icon size={22} strokeWidth={2} />
+              <span className="tab-label text-[11px] max-w-[72px]">
                 {tab.label}
               </span>
             </button>
-          )
+          );
         })}
       </div>
     </nav>
-  )
+  );
 }

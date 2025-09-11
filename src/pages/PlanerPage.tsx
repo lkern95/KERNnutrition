@@ -42,7 +42,7 @@ export function PlanerPage() {
   const dailyTargetFromRechner = useAppStore(selectDailyTarget)
 
   // Lokale Persistierung
-  const STORAGE_KEY = 'kernBalance_planer_inputs'
+  const STORAGE_KEY = 'kernNutrition_planer_inputs'
   const eff = getEffective();
 
   // Eingaben beim Start laden & Prefill aus Rechner

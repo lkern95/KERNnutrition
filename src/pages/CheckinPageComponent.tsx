@@ -242,10 +242,11 @@ function CheckinPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-inkdark mb-2">
+                <label htmlFor="checkin-weight" className="block text-sm font-medium text-inkdark mb-2">
                   Gewicht (kg)
                 </label>
                 <input
+                  id="checkin-weight"
                   type="number"
                   step="0.1"
                   value={formData.weight}
@@ -644,8 +645,8 @@ function CheckinPage() {
                   <input type="date" value={editData.date} onChange={e => setEditData(d => ({ ...d, date: e.target.value }))} className="w-full px-3 py-2 rounded border border-inkdark/30 bg-white text-inkdark focus:ring-2 focus:ring-inkdark" required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1 text-inkdark">Gewicht (kg)</label>
-                  <input type="number" step="0.1" value={editData.weight} onChange={e => setEditData(d => ({ ...d, weight: e.target.value }))} className="w-full px-3 py-2 rounded border border-inkdark/30 bg-white text-inkdark focus:ring-2 focus:ring-inkdark" required min="0.1" />
+                  <label htmlFor="edit-weight" className="block text-sm font-medium mb-1 text-inkdark">Gewicht (kg)</label>
+                  <input id="edit-weight" type="number" step="0.1" value={editData.weight} onChange={e => setEditData(d => ({ ...d, weight: e.target.value }))} className="w-full px-3 py-2 rounded border border-inkdark/30 bg-white text-inkdark focus:ring-2 focus:ring-inkdark" required min="0.1" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1 text-inkdark">Notiz (optional)</label>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { CodeCopy } from '../components/CodeCopy';
 import { BookOpen, Calculator, LineChart, Scale, ClipboardList, ChevronRight } from 'lucide-react';
 
 const GOLD = '#ffd000';
@@ -73,21 +74,7 @@ export default function InfoPage() {
         </Section>
 
         <Section icon={<Calculator size={18} />} title="Copy/Paste-Formeln (Excel-Stil)" delay={.36}>
-          <div className="rounded-lg border soft-border p-3 bg-[#292c2f]">
-            <pre className="text-xs overflow-auto">
-{`BMR (Mifflin-St-Jeor):
-=10*KG + 6.25*CM - 5*ALTER + (ISTWEIBLICH * -161 + ISTMAENNLICH * 5)
-
-TDEE:
-=BMR * AF
-
-Kalorien aus Makros:
-=PROTEIN_G*4 + KH_G*4 + FETT_G*9
-
-KH als Rest:
-=(KCAL_ZIEL - (PROTEIN_G*4 + FETT_G*9)) / 4`}
-            </pre>
-          </div>
+          <CodeCopy code={`BMR (Mifflin-St-Jeor):\n=10*KG + 6.25*CM - 5*ALTER + (ISTWEIBLICH * -161 + ISTMAENNLICH * 5)\n\nTDEE:\n=BMR * AF\n\nKalorien aus Makros:\n=PROTEIN_G*4 + KH_G*4 + FETT_G*9\n\nKH als Rest:\n=(KCAL_ZIEL - (PROTEIN_G*4 + FETT_G*9)) / 4`} />
         </Section>
 
         <footer className="text-xs opacity-70" style={{ color: WHITE }}>

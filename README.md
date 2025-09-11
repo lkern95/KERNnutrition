@@ -1,4 +1,4 @@
-# KERNbalance 🥗
+# KERNnutrition 🥗
 
 Eine minimalistische, offline-fähige Progressive Web App (PWA) für die Berechnung von Makronährstoffen und Kalorienbedarf.
 
@@ -155,7 +155,7 @@ MIT License - siehe [LICENSE](LICENSE) für Details.
 
 **Made with ❤️ für deine Gesundheit**
 
-React + TypeScript + Tailwind CSS | © 2025 KERNbalance
+React + TypeScript + Tailwind CSS | © 2025 KERNnutrition
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

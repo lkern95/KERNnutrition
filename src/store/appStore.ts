@@ -1,3 +1,31 @@
+import { APP } from '../config/app';
+import { Analytics } from '../lib/analytics';
+import { CrashReporter } from '../lib/crashReporter';
+import { showLocalNotification } from '../lib/notifications';
+// ...existing code...
+// Settings-Toggles: Analytics, CrashReporter, Notifications
+// Muss nach useAppStore-Definition ausgeführt werden!
+if (typeof window !== 'undefined') {
+  setTimeout(() => {
+    let last = {} as any;
+    const sub = () => {
+      const settings = useAppStore.getState().getSettings();
+      if (settings.analytics !== last.analytics) {
+        settings.analytics ? Analytics.enable() : Analytics.disable();
+      }
+      if (settings.crashReports !== last.crashReports) {
+        settings.crashReports ? CrashReporter.enable() : CrashReporter.disable();
+      }
+      if (settings.notifications?.progress && !last.notifications?.progress) {
+        showLocalNotification('KERNnutrition', { body: 'Benachrichtigungen aktiviert.' }).catch(() => {});
+      }
+      last = JSON.parse(JSON.stringify(settings));
+    };
+    sub();
+    window.addEventListener('storage', sub);
+    setInterval(sub, 2000);
+  }, 0);
+}
 // Selektor für das Tagesziel (finale Zielkalorie aus dem Rechner)
 export const selectDailyTarget = (s: AppState) => {
   // Finale Zielkalorie aus dem Rechner (UserProfile)
@@ -43,30 +71,23 @@ export async function wipeAllUserData() {
 
   // LocalStorage & Settings löschen
   try {
-    localStorage.removeItem('macrocal-storage');
-    localStorage.removeItem('kerncare-settings');
-    // Alle kernnutrition- und kernbalance-Keys entfernen
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith('kernnutrition-') || key.startsWith('kernbalance-')) {
-        localStorage.removeItem(key);
-      }
-    });
-    // Zustand-Store Persistenz komplett löschen (Zustand persist)
-    localStorage.removeItem('zustand-store');
-    // Optional: Alles löschen, falls keine anderen Daten benötigt werden
-    // localStorage.clear();
+    // Nur neue Prefixes löschen
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i)!;
+      if (k.startsWith(APP.ID + '-') || k.startsWith(APP.ID + '_')) keys.push(k);
+    }
+    keys.forEach(k => localStorage.removeItem(k));
   } catch (e) {}
 
   // IndexedDB/IDB-Keyval löschen (falls genutzt)
   if (window.indexedDB) {
     try {
+      // Optional: alte DBs entfernen, falls vorhanden
       const dbs = await window.indexedDB.databases?.();
-      if (dbs) {
-        for (const db of dbs) {
-          if (db.name && (db.name.startsWith('kernnutrition') || db.name.startsWith('kernbalance'))) {
-            window.indexedDB.deleteDatabase(db.name);
-          }
-        }
+      for (const db of dbs ?? []) {
+        const name = db.name as string;
+        if (name?.startsWith(APP.ID)) window.indexedDB.deleteDatabase(name);
       }
     } catch (e) {}
   }
@@ -76,7 +97,7 @@ export async function wipeAllUserData() {
     try {
       const cacheNames = await caches.keys();
       for (const name of cacheNames) {
-        if (name.startsWith('kernnutrition') || name.startsWith('kernbalance')) {
+        if (name.startsWith('kernnutrition')) {
           await caches.delete(name);
         }
       }
@@ -108,10 +129,11 @@ export async function wipeAllUserData() {
     // Weitere Feature-Flags ggf. hier zurücksetzen
   } catch (e) {}
 }
-// Migriert LocalStorage-Keys von kernbalance- auf kernnutrition-
+// Migriert LocalStorage-Keys von kernnutrition- auf kernnutrition-
 export function migrateLegacyStorage() {
   if (typeof window === 'undefined' || !window.localStorage) return;
-  const legacyPrefix = 'kernbalance-';
+  // Migriert LocalStorage-Keys von kernnutrition- auf kernnutrition-
+  const legacyPrefix = 'kernnutrition-';
   const newPrefix = 'kernnutrition-';
   const keys = Object.keys(localStorage).filter(k => k.startsWith(legacyPrefix));
   keys.forEach(oldKey => {

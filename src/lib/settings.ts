@@ -1,7 +1,7 @@
 // Settings utility functions
 import type { AppSettings } from '../pages/EinstellungenPage'
 
-const defaultSettings: AppSettings = {
+export const defaultSettings: AppSettings = {
   macroOverride: {
     enabled: false,
     protein: null,

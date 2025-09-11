@@ -2,12 +2,12 @@
 
 ## Übersicht
 
-Zentrale Verwaltung aller externen Verlinkungen für KERNbalance in `src/lib/constants.ts`.
+Zentrale Verwaltung aller externen Verlinkungen für KERNnutrition in `src/lib/constants.ts`.
 
 ## Konfigurierte Links
 
 ### ✅ **GitHub Repository**
-- **URL**: `https://github.com/lkern95/KERNbalance`
+- **URL**: `https://github.com/lkern95/KERNnutrition`
 - **Text**: "Quellcode auf GitHub"
 - **Verwendung**: InfoPage Footer
 
@@ -75,7 +75,7 @@ export const LINK_TEXTS = {
 // 1. Link-URL hinzufügen
 export const EXTERNAL_LINKS = {
   // ...existing links...
-  DOCUMENTATION: 'https://docs.kernbalance.com',
+  DOCUMENTATION: 'https://docs.kernnutrition.com',
 } as const
 
 // 2. Link-Text hinzufügen
@@ -100,7 +100,7 @@ export const LINK_TEXTS = {
    - TypeScript-Typen
 
 2. **`src/pages/InfoPage.tsx`** ✅ AKTUALISIERT
-   - GitHub: `macrocal/app` → `lkern95/KERNbalance`
+   - GitHub: `macrocal/app` → `lkern95/KERNnutrition`
    - Support: `support@macrocal.app` → `lk@kerncares.de`
    - Verwendet jetzt Constants statt Hardcoding
 

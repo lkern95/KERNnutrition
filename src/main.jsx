@@ -1,9 +1,7 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import './styles/slider.css'
-import App from './App.jsx'
-import { registerSW } from 'virtual:pwa-register'
+
+import { migrateLocalStoragePrefixes } from './lib/migrations';
+
+migrateLocalStoragePrefixes();
 
 // PWA Service Worker Registration
 const updateSW = registerSW({

@@ -3,6 +3,8 @@ import { Flame, Gauge, Activity, Sun, Moon, ChevronRight } from 'lucide-react';
 import { getEffective } from '../lib/derived';
 import { loadCalcResult } from '../lib/calcCache';
 import { useAppStore } from '../store/appStore';
+
+import { usePlayhead, phaseProgress } from '../lib/usePlayhead';
 import { useCountUp } from '../lib/useCountUp';
 
 const GOLD   = 'var(--macro-fat)';      // Fett
@@ -34,28 +36,50 @@ function SourceChip() {
   );
 }
 
-// Donut: conic-gradient + subtile Hover-Skalierung
+// Donut füllt nacheinander: KH -> Fett -> Protein
 function MacroDonut({ P, C, F, size = 140 }: { P: number; C: number; F: number; size?: number }) {
-  const kcalP = P * 4, kcalC = C * 4, kcalF = F * 9;
+  const kcalP = Math.max(0, P * 4), kcalC = Math.max(0, C * 4), kcalF = Math.max(0, F * 9);
   const total = Math.max(1, kcalP + kcalC + kcalF);
-  const pPct = (kcalP / total) * 100;
-  const cPct = (kcalC / total) * 100;
-  const fPct = 100 - (pPct + cPct);
 
-  // Protein=WHITE, KH=RED, Fett=GOLD
-  const bg = `conic-gradient(${WHITE} ${pPct}%, ${RED} ${pPct}% ${pPct + cPct}%, ${GOLD} ${pPct + cPct}% 100%)`;
+  const pPctTarget = (kcalP / total) * 100;
+  const cPctTarget = (kcalC / total) * 100;
+  const fPctTarget = Math.max(0, 100 - (pPctTarget + cPctTarget));
+
+  // Playhead läuft 0..1; jede Phase bekommt 1/3 der Zeit
+  const t = usePlayhead([P, C, F], { duration: 1000 });
+
+  // Phasenfortschritte (0..1)
+  const cPhase = phaseProgress(t, 0); // KH zuerst
+  const fPhase = phaseProgress(t, 1); // dann Fett
+  const pPhase = phaseProgress(t, 2); // dann Protein
+
+  // aktuell gefüllte Prozente je Segment
+  const cPct = cPctTarget * cPhase;
+  const fPct = fPctTarget * fPhase;
+  const pPct = pPctTarget * pPhase;
+
+  // kumulative Enden
+  const cEnd = cPct;
+  const fEnd = cPct + fPct;
+  const pEnd = cPct + fPct + pPct;
+
+  // Rest als zarter Ring
+  const REST = 'rgba(236,236,236,0.08)';
+
+  const bg = `conic-gradient(
+    ${RED} 0% ${cEnd}%,
+    ${GOLD} ${cEnd}% ${fEnd}%,
+    ${WHITE} ${fEnd}% ${pEnd}%,
+    ${REST} ${pEnd}% 100%
+  )`;
 
   return (
-    <div
-      className="relative transition-transform duration-300 ease-out hover:scale-[1.03]"
-      style={{ width: size, height: size }}
-      aria-label="Makro-Verteilung"
-    >
-      <div className="rounded-full shadow-inner transition-all duration-500" style={{ width: size, height: size, background: bg }} />
-      <div
-        className="absolute inset-[18%] rounded-full"
-        style={{ background: INK, boxShadow: 'inset 0 0 0 1px rgba(255,208,0,0.25)' }}
-      />
+    <div className="relative transition-transform duration-300 ease-out hover:scale-[1.03]"
+         style={{ width: size, height: size }}
+         aria-label="Makro-Verteilung">
+      <div className="rounded-full shadow-inner" style={{ width: size, height: size, background: bg }} />
+      <div className="absolute inset-[18%] rounded-full"
+           style={{ background: INK, boxShadow: 'inset 0 0 0 1px rgba(255,208,0,0.25)' }} />
     </div>
   );
 }
@@ -86,9 +110,20 @@ export default function UebersichtPage() {
   const tdee      = useCountUp(eff.tdee);
 
   const kcalP = eff.P * 4, kcalC = eff.C * 4, kcalF = eff.F * 9;
-  const pP = pct(kcalP, eff.dailyKcal);
-  const cP = pct(kcalC, eff.dailyKcal);
-  const fP = pct(kcalF, eff.dailyKcal);
+  const totalK = Math.max(1, eff.dailyKcal);
+  const pPctTarget = Math.round((kcalP / totalK) * 100);
+  const cPctTarget = Math.round((kcalC / totalK) * 100);
+  const fPctTarget = Math.max(0, 100 - (pPctTarget + cPctTarget));
+
+  // Balken: sequential nach Anzeige-Reihenfolge (Protein -> KH -> Fett)
+  const tBars = usePlayhead([eff.P, eff.C, eff.F, eff.dailyKcal], { duration: 900 });
+  const barPhaseProtein = phaseProgress(tBars, 0);
+  const barPhaseCarb    = phaseProgress(tBars, 1);
+  const barPhaseFat     = phaseProgress(tBars, 2);
+
+  const pWidth = pPctTarget * barPhaseProtein;
+  const cWidth = cPctTarget * barPhaseCarb;
+  const fWidth = fPctTarget * barPhaseFat;
 
   return (
     <div className="min-h-[100dvh] relative">
@@ -239,26 +274,26 @@ export default function UebersichtPage() {
             <div className="space-y-2">
               <div>
                 <div className="flex justify-between text-xs opacity-70 mb-1">
-                  <span>Protein</span><span>{pP}%</span>
+                  <span>Protein</span><span>{pPctTarget}%</span>
                 </div>
-                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: `${LIGHT}1a` }}>
-                  <div className="h-full transition-[width] duration-700 ease-out" style={{ width: `${pP}%`, background: WHITE }} />
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-xs opacity-70 mb-1">
-                  <span>Kohlenhydrate</span><span>{cP}%</span>
-                </div>
-                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: `${LIGHT}1a` }}>
-                  <div className="h-full transition-[width] duration-700 ease-out" style={{ width: `${cP}%`, background: RED }} />
+                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(236,236,236,0.1)' }}>
+                  <div className="h-full" style={{ width: `${pWidth}%`, background: 'var(--macro-protein)' }} />
                 </div>
               </div>
               <div>
                 <div className="flex justify-between text-xs opacity-70 mb-1">
-                  <span>Fett</span><span>{fP}%</span>
+                  <span>Kohlenhydrate</span><span>{cPctTarget}%</span>
                 </div>
-                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: `${LIGHT}1a` }}>
-                  <div className="h-full transition-[width] duration-700 ease-out" style={{ width: `${fP}%`, background: GOLD }} />
+                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(236,236,236,0.1)' }}>
+                  <div className="h-full" style={{ width: `${cWidth}%`, background: 'var(--macro-carb)' }} />
+                </div>
+              </div>
+              <div>
+                <div className="flex justify-between text-xs opacity-70 mb-1">
+                  <span>Fett</span><span>{fPctTarget}%</span>
+                </div>
+                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(236,236,236,0.1)' }}>
+                  <div className="h-full" style={{ width: `${fWidth}%`, background: 'var(--macro-fat)' }} />
                 </div>
               </div>
             </div>

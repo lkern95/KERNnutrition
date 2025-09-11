@@ -1,4 +1,4 @@
-## [Unreleased] – KERNbalance → KERNnutrition
+## [Unreleased] – KERNnutrition
 - Namensänderung Projekt/App
 - Entfernen: „Quellcode auf GitHub“
 - Rechner: Kohlenhydrate in Makro-Voreinstellungen
