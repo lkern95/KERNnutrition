@@ -77,6 +77,9 @@ export async function wipeAllUserData() {
       const k = localStorage.key(i)!;
       if (k.startsWith(APP.ID + '-') || k.startsWith(APP.ID + '_')) keys.push(k);
     }
+    // Auch Test-/Settings-Keys entfernen
+    const extraKeys = ['kerncare-settings', 'kernnutrition-test'];
+    keys.push(...extraKeys.filter(k => localStorage.getItem(k) !== null));
     keys.forEach(k => localStorage.removeItem(k));
   } catch (e) {}
 
@@ -117,8 +120,8 @@ export async function wipeAllUserData() {
     try {
       const reg = await (window as any).navigator.serviceWorker.getRegistration();
       if (reg && reg.getNotifications) {
-        const notifs = await reg.getNotifications({ tag: undefined });
-        notifs.forEach(n => n.close());
+  const notifs: Notification[] = await reg.getNotifications({ tag: undefined });
+  notifs.forEach((n: Notification) => n.close());
       }
     } catch (e) {}
   }

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm test
+
+node scripts/scan-banned.mjs || { echo "🚫 Banned keywords found. Fix before commit."; exit 1; }

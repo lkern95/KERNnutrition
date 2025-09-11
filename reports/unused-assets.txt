@@ -1,0 +1,8 @@
+public/logo-192.png
+public/logo-512.png
+public/masked-icon.svg
+public/pwa-192x192.svg
+public/pwa-512x512.png
+public/pwa-512x512.svg
+public/vite.svg
+src/assets/react.svg
