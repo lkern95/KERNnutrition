@@ -1,4 +1,4 @@
-# KERNbalance 🥗
+# KERNnutrition 🥗
 
 Eine minimalistische, offline-fähige Progressive Web App (PWA) für die Berechnung von Makronährstoffen und Kalorienbedarf.
 
