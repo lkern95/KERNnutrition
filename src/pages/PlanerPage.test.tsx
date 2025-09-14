@@ -230,12 +230,12 @@ export default function PlanerPage() {
   const copyJSON = async () => {
     const out = { inputs: inp, slots: S.map((s: any) => ({ time: m2t(s.t), label: s.label, tags: s.tags, p: s.p, c: s.c, f: s.f, kcal: s.kcal })) };
     await navigator.clipboard.writeText(JSON.stringify(out, null, 2));
-    alert('Plan als JSON kopiert');
+  // alert('Plan als JSON kopiert');
   };
   const copyText = async () => {
     const lines = slots.map((s: any) => `${m2t(s.t)} ${s.label}: P ${s.p} g, C ${s.c} g, F ${s.f} g (${s.kcal} kcal)`);
     await navigator.clipboard.writeText(lines.join('\n'));
-    alert('Plan als Text kopiert');
+  // alert('Plan als Text kopiert');
   };
 
   // Slots grob verschieben → wir ändern passende Inputs

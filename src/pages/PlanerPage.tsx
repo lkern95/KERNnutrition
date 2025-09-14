@@ -2,7 +2,7 @@
 const asText = (v: any, fallback = '') => (v == null ? fallback : String(v));
 // lokale Safe-Helper – keine Importe nötig
 // Safe-Helper (einmalig, eindeutige Namen)
-const asArray = <T,>(x: T[] | null | undefined): T[] => Array.isArray(x) ? x : [];
+function asArray<T>(x: T[] | null | undefined): T[] { return Array.isArray(x) ? x : []; }
 const safeNum = (x: unknown, d = 0) => (typeof x === "number" && Number.isFinite(x) ? x : d);
 // Safe-Helper (lokal, keine Importe nötig)
 /**
@@ -62,11 +62,12 @@ const PRESET_OPTIONS = [
 ] as const;
 
 // Import the central computePlan function
+
 import { computePlan } from '@/lib/planner/computePlan';
 import { ensureFeasible, validatePlanCore } from '@/lib/planner/validatePlan';
-console.log('computePlan.id', (computePlan as any).__id__);
-  // Log im Render zur Laufzeit
-  console.log('computePlan.id', (computePlan as any).__id__);
+
+// Log computePlan.id (for debug, after all imports)
+console.log('computePlan.id', (computePlan as any)?.__id__);
 
 
 import React, { useMemo, useState, useEffect, useRef } from 'react';
@@ -83,6 +84,7 @@ import { useTotals, useProfile, usePlannerInputs } from '@/adapters/plannerSourc
 import { getEffective } from '@/lib/derived';
 import { MacroNum } from '@/components/MacroNum';
 import MacroCircleIcon from '@/components/MacroCircleIcon';
+import MealsContainer from '../components/MealsContainer';
 import { useAppStore } from '@/store/appStore';
 
 // ===== Helper =====
@@ -117,6 +119,8 @@ function StatTile({ icon:Icon, label, value, sub, color }: { icon?:any; label:st
         {color ? (
           <>
             {label === 'Fett' && <MacroCircleIcon macro="fat" size={24} />}
+            {label === 'Protein' && <MacroCircleIcon macro="protein" size={24} />}
+            {label === 'Carbs' && <MacroCircleIcon macro="carbs" size={24} />}
             {label !== 'Protein' && label !== 'Carbs' && label !== 'Fett' && <span className="block w-5 h-5 rounded-full" style={{backgroundColor: color}} />}
           </>
         ) : (
@@ -143,6 +147,7 @@ function Chip({ children, onClick }: { children: React.ReactNode; onClick: ()=>v
 }
 
 
+
 export default function PlanerPage() {
   // State/Hooks
   const [inp, setInp, resetInp] = usePlannerInputs();
@@ -157,6 +162,8 @@ export default function PlanerPage() {
   const [showInfo, setShowInfo] = useState(false);
   const setTrainingDay = useAppStore((s:any)=> s.setTrainingDay)?.bind?.(null);
   const [showError, setShowError] = useState(false);
+  // Warnungen & Hinweise: Offen/zu
+  const [warnOpen, setWarnOpen] = useState(true);
 
   // Nur die jeweils letzte, korrekte Deklaration bleibt erhalten (siehe unten)
 
@@ -176,7 +183,7 @@ export default function PlanerPage() {
     return computePlan({
       ...(feas.inputs as any),
       targets,
-      autoFixLevel: 'safe'
+      autoFixLevel: 'safe',
     });
   }, [feas.inputs, targets, totalsMissing]);
 
@@ -245,8 +252,11 @@ export default function PlanerPage() {
     ...softWarnings.map(w => ({ severity: 'warn', code: 'kcal-mismatch', msg: w.msg })),
   ]), [feas.notes, warningsArr, softWarnings]);
   const wakeMin = t2m(inp.wake); let sleepMin = t2m(inp.sleep); if (sleepMin <= wakeMin) sleepMin += DAY;
+
+  // Kopier-Feedback-UI
+  const [copyMsg, setCopyMsg] = useState<string | null>(null);
   const copyJSON = async () => {
-    // Slots als Objekte
+    // ...existing code for JSON export...
     const slotObjs = slotsArr.map((s: any) => ({
       type: "slot",
       t: s.t,
@@ -268,11 +278,8 @@ export default function PlanerPage() {
         gymEnd: inp.gymEnd
       }];
     }
-    // Merge and sort
     const allBlocks = [...slotObjs, ...gymObjs].sort((a, b) => a.t - b.t);
-    // Remove t from export
     const exportBlocks = allBlocks.map(({ t, ...rest }) => rest);
-    // Summen berechnen
     const sumP = slotsArr.reduce((sum, s) => sum + safeNum(s.p), 0);
     const sumC = slotsArr.reduce((sum, s) => sum + safeNum(s.c), 0);
     const sumF = slotsArr.reduce((sum, s) => sum + safeNum(s.f), 0);
@@ -290,11 +297,12 @@ export default function PlanerPage() {
       blocks: exportBlocks
     };
     await navigator.clipboard.writeText(JSON.stringify(out, null, 2));
-    alert('Plan als JSON kopiert');
+    setCopyMsg('Plan als JSON kopiert!');
+    setTimeout(() => setCopyMsg(null), 2000);
   };
 
   const copyText = async () => {
-    // Gemeinsame Struktur für Textausgabe
+    // ...existing code for Text export...
     const slotObjs = slotsArr.map((s: any) => ({
       t: s.t,
       text: `${m2t(s.t)} ${s.label}: P ${s.p} g, C ${s.c} g, F ${s.f} g (${s.kcal} kcal)`
@@ -310,14 +318,14 @@ export default function PlanerPage() {
     }
     blocks.sort((a, b) => a.t - b.t);
     const lines = blocks.map(b => b.text);
-    // Summen berechnen
     const sumP = slotsArr.reduce((sum, s) => sum + safeNum(s.p), 0);
     const sumC = slotsArr.reduce((sum, s) => sum + safeNum(s.c), 0);
     const sumF = slotsArr.reduce((sum, s) => sum + safeNum(s.f), 0);
     const sumKcal = slotsArr.reduce((sum, s) => sum + safeNum(s.kcal), 0);
     lines.push(`Summe: P ${sumP} g, C ${sumC} g, F ${sumF} g (${sumKcal} kcal)`);
     await navigator.clipboard.writeText(lines.join('\n'));
-    alert('Plan als Text kopiert');
+    setCopyMsg('Plan als Text kopiert!');
+    setTimeout(() => setCopyMsg(null), 2000);
   };
   const nudge = (slotId: string, delta: number) => {
   const s = slotsArr.find((x: any) => x.id === slotId) as Slot | undefined;
@@ -381,9 +389,8 @@ export default function PlanerPage() {
           </div>
         </div>
       )}
-      {/* Show validation error as warning instead of blocking UI */}
-      {/* Main planner UI always visible, but show warning if validation error */}
-      {!showTotalsMissing && (
+  {/* Main planner UI always visible, warnings are shown non-blocking */}
+  {!showTotalsMissing && (
     <div
       className="min-h-[100dvh] relative"
       style={{
@@ -436,7 +443,7 @@ export default function PlanerPage() {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4" onClick={() => setShowWhy(false)}>
             <div
               className="rounded-2xl border border-[#32174d] bg-[#2c2837] shadow-soft p-4 sm:p-6 max-w-lg w-full"
-              onClick={e => e.stopPropagation()}
+              onClick={e => { e.stopPropagation(); }}
             >
               <div className="font-semibold text-base flex items-center gap-2 mb-2" style={{ color: '#ececec' }}>
                 <Info className="w-5 h-5 text-accent" /> Warum diese Verteilung?
@@ -710,180 +717,61 @@ export default function PlanerPage() {
 
           <div className="space-y-3">
             {/* ==== Mahlzeiten (Liste, statt Timeline) ==== */}
-            <div className="kb-card bg-[#2c2837] shadow-soft p-4 border border-[#32174d]">
-              <div className="kb-title mb-2 flex items-center gap-2" style={{ color: '#ececec' }}>
-                <Clock className="w-4 h-4" /> Mahlzeiten
-                <Info className="w-4 h-4 cursor-pointer" onClick={() => setShowInfo(v => !v)} />
-              </div>
-              {showInfo && (
-                <div className="mb-3 text-xs rounded-xl border border-neutral-700 p-3 bg-[#292c2f] text-white">
-                  <b>Wie werden die Mahlzeiten berechnet?</b><br />
-                  Die Makro-Verteilung auf die Mahlzeiten richtet sich nach dem gewählten Preset (z.B. Pre/Post-Fokus, Carbs morgens/abends, Backload, Ruhetag etc.), deiner Trainingszeit, Schlafenszeit und den gewählten Feinsteuerungen. Protein wird gleichmäßig mit Mindestmengen für Pre/Post und Schlaf verteilt. Carbs werden je nach Preset und Trainingszeit periodisiert, Fett ggf. abends gedeckelt. Alle Werte werden auf 5&nbsp;g gerundet, die Summen stimmen exakt mit den Zielwerten überein.<br />
-                  <span className="block mt-1 text-neutral-300">Die Berechnung erfolgt automatisch und prüft alle Invarianten (z.B. keine negativen Werte, Mindestabstände, exakte Summen).</span>
+            {/* Kcal-Mismatch + allgemeine Hinweise */}
+            {otherIssues.length > 0 && (
+              <details
+                open={warnOpen}
+                className="mb-3 rounded-xl border text-xs"
+                style={{ background: '#292c2f', color: '#ececec', borderColor: '#ececec33' }}
+              >
+                <summary
+                  className="cursor-pointer select-none px-2 py-1 font-semibold flex items-center gap-2"
+                  style={{ color: '#ececec' }}
+                  onClick={(e) => { e.preventDefault(); setWarnOpen(o => !o); }}
+                >
+                  Hinweise & Warnungen
+                  <span style={{ fontSize: '1.1em' }}>{warnOpen ? '▲' : '▼'}</span>
+                </summary>
+                <div className="p-2 space-y-1">
+                  {otherIssues.map((i, idx) => {
+                    const isKcalMismatch = i.code === 'kcal-mismatch';
+                    return (
+                      <div key={idx} style={isKcalMismatch ? { color: '#FFD700', fontWeight: 600 } : { color: '#ececec' }}>
+                        • {typeof i.msg === 'string'
+                          ? i.msg.split('\n').map((line, lidx) =>
+                              /^Differenz:/.test(line)
+                                ? <span key={lidx} style={{ color: '#ff0800', fontWeight: 700, fontSize: '1.08em', background: '#FFD700', borderRadius: 4, padding: '0 4px', margin: '0 2px' }}>{line}<br/></span>
+                                : <span key={lidx}>{line}<br/></span>
+                            )
+                          : i.msg}
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
-
-              {/* Warnungen optional oberhalb der Liste anzeigen */}
-
-              {/* Kcal-Mismatch Warnung immer im Hinweise & Warnungen-Container anzeigen, in #ff0800 */}
-
-              {otherIssues.length > 0 && (() => {
-                const [open, setOpen] = React.useState(true);
-                return (
-                  <details open={open} className="mb-3 rounded-xl border text-xs" style={{ background: '#292c2f', color: '#ececec', borderColor: '#ececec33' }}>
-                    <summary
-                      className="cursor-pointer select-none px-2 py-1 font-semibold flex items-center gap-2"
-                      style={{ color: '#ececec' }}
-                      onClick={e => {
-                        e.preventDefault();
-                        setOpen(o => !o);
-                      }}
-                    >
-                      Hinweise & Warnungen
-                      <span style={{ fontSize: '1.1em' }}>{open ? '▲' : '▼'}</span>
-                    </summary>
-                    <div className="p-2 space-y-1">
-                      {otherIssues.map((i, idx) => {
-                        const hasFix = typeof i === 'object' && 'fix' in i && i.fix;
-                        const isKcalMismatch = i.code === 'kcal-mismatch';
-                        return (
-                          <div key={idx} style={isKcalMismatch ? { color: '#FFD700', fontWeight: 600 } : { color: '#ececec' }}>
-                            • {typeof i.msg === 'string'
-                              ? i.msg.split('\n').map((line, lidx) => {
-                                  if (/^Differenz:/.test(line)) {
-                                    return <span key={lidx} style={{ color: '#ff0800', fontWeight: 700, fontSize: '1.08em', background: '#FFD700', borderRadius: 4, padding: '0 4px', margin: '0 2px' }}>{line}<br/></span>;
-                                  }
-                                  return <span key={lidx}>{line}<br/></span>;
-                                })
-                              : i.msg}
-                            {hasFix ? (
-                              <button className="ml-2 underline" style={{ color: '#ececec' }} onClick={()=> setInp((i as any).fix.patch)}>
-                                {(i as any).fix.label}
-                              </button>
-                            ) : null}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </details>
-                );
-              })()}
-
-              <ul className="divide-y divide-neutral-700">
-                {(() => {
-                  // Typen für Slot- und Gym-Item
-                  type SlotItem = { type: 'slot'; t: number; slot: Slot };
-                  type GymItem = { type: 'gym'; t: number; gymStart: string; gymEnd: string };
-                  const items: Array<SlotItem | GymItem> = [...(slotsArr as Slot[]).map((s) => ({
-                    type: 'slot' as const,
-                    t: s.t,
-                    slot: s
-                  }))];
-                  if (inp.isTrainingDay && inp.gymStart && inp.gymEnd) {
-                    // Gym-Start/Ende in Minuten berechnen
-                    const gymStartMin = t2m(inp.gymStart);
-                    items.push({
-                      type: 'gym',
-                      t: gymStartMin,
-                      gymStart: inp.gymStart,
-                      gymEnd: inp.gymEnd
-                    });
-                  }
-                  // Nach Zeit sortieren
-                  items.sort((a, b) => a.t - b.t);
-                  return items.map((item, idx) => {
-                    if (item.type === 'gym') {
-                      return (
-                        <li key={"gym-block"} className="flex items-center gap-3 py-2 rounded-xl mb-2" style={{ background: '#FFD700' }}>
-                          {/* Zeit */}
-                          <div className="w-16 shrink-0 font-mono text-sm" style={{ color: '#32174d' }}>
-                            {item.gymStart}–{item.gymEnd}
-                          </div>
-                          {/* Titel */}
-                          <div className="flex-1 min-w-0">
-                            <div className="truncate text-sm font-semibold" style={{ color: '#32174d' }}>Gym</div>
-                          </div>
-                        </li>
-                      );
-                    } else {
-                      const s = item.slot;
-                      return (
-                        <li key={s.id} className="flex items-center gap-3 py-2">
-                          {/* Zeit */}
-                          <div className="w-16 shrink-0 font-mono text-sm text-white">
-                            {m2t(s.t)}
-                          </div>
-
-                          {/* Titel + Badges */}
-                          <div className="flex-1 min-w-0">
-                            <div className="truncate text-sm font-medium text-white">{s.label}</div>
-                            <div className="mt-0.5 flex flex-wrap gap-1 text-[11px]">
-                              {s.tags.includes('pre') && <span className="kb-badge-pre">Pre</span>}
-                              {s.tags.includes('post') && <span className="kb-badge-post">Post</span>}
-                              {s.tags.includes('sleep') && <span className="kb-badge-sleep">Schlaf</span>}
-                              {s.tags.includes('wake') && <span className="kb-badge-wake">Aufstehen</span>}
-                            </div>
-                          </div>
-
-                          {/* Makros kompakt */}
-                          <div className="hidden sm:flex items-center gap-2">
-                            <span className="kb-pill text-macro-protein">P {s.p}</span>
-                            <span className="kb-pill text-macro-carb">C {s.c}</span>
-                            <span className="kb-pill text-macro-fat">F {s.f}</span>
-                            <span className="text-xs text-neutral-300">({s.kcal} kcal)</span>
-                          </div>
-
-                          {/* Nudge */}
-                          <div className="flex gap-1">
-                            <button
-                              className="text-xs px-2 py-1 rounded-lg border border-neutral-700 bg-[#292c2f] hover:bg-neutral-800 text-white"
-                              onClick={() => nudge(s.id, -15)}
-                              aria-label={`${s.label} 15 Minuten früher`}
-                            >
-                              −15m
-                            </button>
-                            <button
-                              className="text-xs px-2 py-1 rounded-lg border border-neutral-700 bg-[#292c2f] hover:bg-neutral-800 text-white"
-                              onClick={() => nudge(s.id, 15)}
-                              aria-label={`${s.label} 15 Minuten später`}
-                            >
-                              +15m
-                            </button>
-                          </div>
-                        </li>
-                      );
-                    }
-                  });
-                })()}
-              </ul>
-              {/* Gesamtsumme aller Mahlzeiten: immer aus Slots summieren, nie aus useTotals! */}
-              {slotsArr.length > 0 && (
-                <div className="border-t border-neutral-700 mt-2 pt-2">
-                  <li className="flex items-center gap-3 py-2">
-                    {/* Zeitspalte leer */}
-                    <div className="w-16 shrink-0 font-mono text-sm text-neutral-400 text-center" />
-                    {/* Titelspalte "Summe" */}
-                    <div className="flex-1 min-w-0">
-                      <div className="truncate text-sm font-semibold text-neutral-400 text-center">Summe</div>
-                    </div>
-                    {/* Makros und kcal summiert, exakt wie bei Mahlzeiten */}
-                    <div className="flex items-center gap-2">
-                      <span className="kb-pill text-macro-protein w-12 text-center">P {mealSum.p}</span>
-                      <span className="kb-pill text-macro-carb w-12 text-center">C {mealSum.c}</span>
-                      <span className="kb-pill text-macro-fat w-12 text-center">F {mealSum.f}</span>
-                      <span className="text-xs text-neutral-300 w-16 text-center">{mealSum.kcal} kcal</span>
-                    </div>
-                  </li>
-                </div>
-              )}
-            </div>
+              </details>
+            )}
+            <MealsContainer
+              slots={slotsArr}
+              sum={{ p: mealSum.p, c: mealSum.c, f: mealSum.f, kcal: mealSum.kcal }}
+              m2t={m2t}
+              onNudge={nudge}
+              gymStart={inp.gymStart}
+              gymEnd={inp.gymEnd}
+              showGym={Boolean(inp.isTrainingDay && inp.gymStart && inp.gymEnd)}
+            />
 
 
 
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2 relative">
               <button onClick={copyJSON} className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-neutral-700 bg-[#292c2f] text-white hover:bg-neutral-800"><Download className="w-4 h-4" /> JSON</button>
               <button onClick={copyText} className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-neutral-700 bg-[#292c2f] text-white hover:bg-neutral-800"><Copy className="w-4 h-4" /> Text</button>
               <button onClick={() => resetInp()} className="inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-neutral-700 bg-[#292c2f] text-white hover:bg-neutral-800"><RotateCcw className="w-4 h-4" /> Reset</button>
+              {copyMsg && (
+                <div className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-4 py-2 rounded-xl bg-accent shadow-lg text-sm font-semibold animate-fade-in-out z-50 border border-accent/30"
+                  style={{ color: '#292c2f' }}>
+                  {copyMsg}
+                </div>
+              )}
             </div>
           </div>
         </div>

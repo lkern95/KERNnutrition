@@ -183,7 +183,7 @@
 /* Makro-Variablen global */
 :root {
   --macro-fat: #ffd000;
-  --macro-carb: #e94f37;
+  --macro-carb: #ff4d4d;
   --macro-protein: #ececec;
 }
 
@@ -435,3 +435,18 @@
 .kb-btn-xs { @apply text-sm px-3 py-1 h-9 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-700; }
 .kb-pill   { @apply text-xs px-2 py-0.5 rounded-full border border-neutral-300 dark:border-neutral-700; }
 .kb-hint   { @apply text-xs text-neutral-500 dark:text-neutral-400; }
+.macro-fat {
+  background: var(--macro-fat) !important;
+  color: #292c2f !important;
+  border-color: var(--macro-fat) !important;
+}
+.macro-carb {
+  background: var(--macro-carb) !important;
+  color: #fff !important;
+  border-color: var(--macro-carb) !important;
+}
+.macro-protein {
+  background: var(--macro-protein) !important;
+  color: #292c2f !important;
+  border-color: var(--macro-protein) !important;
+}
