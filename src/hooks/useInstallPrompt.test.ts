@@ -28,7 +28,7 @@ describe('InstallPrompt Utilities', () => {
   })
 
   it('should return correct storage key and duration', () => {
-    expect(installPromptUtils.getStorageKey()).toBe('kernbalance-install-dismissed')
+  expect(installPromptUtils.getStorageKey()).toBe('kernnutrition-install-dismissed')
     expect(installPromptUtils.getDismissDuration()).toBe(7 * 24 * 60 * 60 * 1000)
   })
 
@@ -38,11 +38,11 @@ describe('InstallPrompt Utilities', () => {
     const afterTimestamp = Date.now()
     
     expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
-      'kernbalance-install-dismissed',
+  'kernnutrition-install-dismissed',
       expect.stringContaining('"timestamp"')
     )
 
-    const storedData = JSON.parse(mockLocalStorage.store['kernbalance-install-dismissed'])
+  const storedData = JSON.parse(mockLocalStorage.store['kernnutrition-install-dismissed'])
     expect(storedData.timestamp).toBeGreaterThanOrEqual(beforeTimestamp)
     expect(storedData.timestamp).toBeLessThanOrEqual(afterTimestamp)
     expect(storedData.version).toBe('1.0.0')
@@ -53,7 +53,7 @@ describe('InstallPrompt Utilities', () => {
     installPromptUtils.setDismissFlag(customTimestamp)
     
     expect(mockLocalStorage.setItem).toHaveBeenCalledWith(
-      'kernbalance-install-dismissed',
+  'kernnutrition-install-dismissed',
       JSON.stringify({
         timestamp: customTimestamp,
         version: '1.0.0'
@@ -64,11 +64,11 @@ describe('InstallPrompt Utilities', () => {
   it('should clear dismiss flag', () => {
     // First set a flag
     installPromptUtils.setDismissFlag()
-    expect(mockLocalStorage.store['kernbalance-install-dismissed']).toBeTruthy()
+  expect(mockLocalStorage.store['kernnutrition-install-dismissed']).toBeTruthy()
     
     // Then clear it
     installPromptUtils.clearDismissFlag()
-    expect(mockLocalStorage.removeItem).toHaveBeenCalledWith('kernbalance-install-dismissed')
+  expect(mockLocalStorage.removeItem).toHaveBeenCalledWith('kernnutrition-install-dismissed')
   })
 
   it('should handle localStorage setItem errors gracefully', () => {
@@ -112,7 +112,7 @@ describe('InstallPrompt Dismiss Logic', () => {
     installPromptUtils.setDismissFlag(threeDaysAgo)
 
     // Simulate checking if should show prompt (from hook logic)
-    const dismissedData = localStorage.getItem('kernbalance-install-dismissed')
+  const dismissedData = localStorage.getItem('kernnutrition-install-dismissed')
     expect(dismissedData).toBeTruthy()
     
     if (dismissedData) {
@@ -130,7 +130,7 @@ describe('InstallPrompt Dismiss Logic', () => {
     installPromptUtils.setDismissFlag(eightDaysAgo)
 
     // Simulate checking if should show prompt
-    const dismissedData = localStorage.getItem('kernbalance-install-dismissed')
+  const dismissedData = localStorage.getItem('kernnutrition-install-dismissed')
     expect(dismissedData).toBeTruthy()
     
     if (dismissedData) {
@@ -143,7 +143,7 @@ describe('InstallPrompt Dismiss Logic', () => {
   })
 
   it('should show prompt if no dismiss flag exists', () => {
-    const dismissedData = localStorage.getItem('kernbalance-install-dismissed')
+  const dismissedData = localStorage.getItem('kernnutrition-install-dismissed')
     expect(dismissedData).toBe(null)
     
     // No flag means user has never dismissed, should show

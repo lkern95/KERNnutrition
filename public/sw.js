@@ -1,7 +1,9 @@
-// KERNnutrition Service Worker
-const CACHE_NAME = 'kernnutrition-v2'
-const STATIC_CACHE = 'kernnutrition-static-v2'
-const RUNTIME_CACHE = 'kernnutrition-runtime-v2'
+
+// KERNnutrition Service Worker with versioned cache
+const KB_VERSION = self.KB_VERSION || '2025-09-11';
+const CACHE = `kb-cache-${KB_VERSION}`;
+const STATIC_CACHE = `kb-static-${KB_VERSION}`;
+const RUNTIME_CACHE = `kb-runtime-${KB_VERSION}`;
 
 // Static assets to cache on install
 const STATIC_ASSETS = [
@@ -16,34 +18,48 @@ const STATIC_ASSETS = [
 ]
 
 // Install event - cache static assets
+// Install event - cache static assets
 self.addEventListener('install', (event) => {
-  console.log('Service Worker installing...')
+  console.log('[SW] Installing...');
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
-        console.log('Caching static assets')
-        return cache.addAll(STATIC_ASSETS)
+        console.log('[SW] Caching static assets');
+        return cache.addAll(STATIC_ASSETS);
       })
       .then(() => self.skipWaiting())
-  )
-})
+  );
+});
 
 // Activate event - cleanup old caches
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker activating...')
+  console.log('[SW] Activating...');
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== STATIC_CACHE && cacheName !== RUNTIME_CACHE) {
-            console.log('Deleting old cache:', cacheName)
-            return caches.delete(cacheName)
-          }
+        cacheNames.filter((cacheName) =>
+          cacheName !== STATIC_CACHE && cacheName !== RUNTIME_CACHE
+        ).map((cacheName) => {
+          console.log('[SW] Deleting old cache:', cacheName);
+          return caches.delete(cacheName);
         })
-      )
+      );
     }).then(() => self.clients.claim())
-  )
-})
+  );
+  // Notify clients about update for soft-reload
+  self.clients.matchAll({ type: 'window' }).then((clients) => {
+    clients.forEach((client) => {
+      client.postMessage({ type: 'SW_UPDATED' });
+    });
+  });
+});
+// Listen for messages (e.g. settings changes)
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'KB_SETTINGS_CHANGED') {
+    // Optional: Settings berücksichtigen (z.B. Notifications)
+    // Placeholder for future settings handling
+  }
+});
 
 // Fetch event - serve from cache with network fallback
 self.addEventListener('fetch', (event) => {
@@ -148,7 +164,7 @@ self.addEventListener('push', (event) => {
     }
     
     event.waitUntil(
-      self.registration.showNotification('KERNbalance', options)
+  self.registration.showNotification('KERNnutrition', options)
     )
   }
 })

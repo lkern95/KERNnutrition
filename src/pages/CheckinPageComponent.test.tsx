@@ -26,16 +26,16 @@ describe('CheckinPage UI', () => {
     const editBtn = screen.getAllByTitle('Bearbeiten')[0]
     fireEvent.click(editBtn)
     // Modal erscheint
-    expect(screen.getByText('Check-in bearbeiten')).toBeInTheDocument()
+  expect(screen.getByText('Check-in bearbeiten')).not.toBeNull()
     // Gewicht ändern
     const input = screen.getByLabelText('Gewicht (kg)') as HTMLInputElement
     fireEvent.change(input, { target: { value: '85' } })
     // Speichern
     fireEvent.click(screen.getByText(/Speichern/))
     // Toast erscheint
-    await waitFor(() => expect(screen.getByText('Check-in aktualisiert!')).toBeInTheDocument())
+  await waitFor(() => expect(screen.getByText('Check-in aktualisiert!')).not.toBeNull())
     // Gewicht in Liste aktualisiert
-    expect(screen.getByText('85.0 kg')).toBeInTheDocument()
+  expect(screen.getByText('85.0 kg')).not.toBeNull()
   })
 
   it('Löschen entfernt Eintrag', async () => {
@@ -44,12 +44,12 @@ describe('CheckinPage UI', () => {
     const delBtn = screen.getAllByTitle('Löschen')[0]
     fireEvent.click(delBtn)
     // Bestätigungsdialog erscheint
-    expect(screen.getByText('Eintrag wirklich entfernen?')).toBeInTheDocument()
+  expect(screen.getByText('Eintrag wirklich entfernen?')).not.toBeNull()
     // Entfernen klicken
     fireEvent.click(screen.getByText(/Entfernen/))
     // Toast erscheint
-    await waitFor(() => expect(screen.getByText('Check-in gelöscht!')).toBeInTheDocument())
+  await waitFor(() => expect(screen.getByText('Check-in gelöscht!')).not.toBeNull())
     // Eintrag ist nicht mehr in der Liste
-    expect(screen.queryByText('80.0 kg')).not.toBeInTheDocument()
+  expect(screen.queryByText('80.0 kg')).toBeNull()
   })
 })

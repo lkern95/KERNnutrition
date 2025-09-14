@@ -1,5 +1,5 @@
 @echo off
-echo 🚀 Deploying KERNbalance PWA...
+echo 🚀 Deploying KERNnutrition PWA...
 
 REM Check if dist folder exists
 if not exist "dist" (

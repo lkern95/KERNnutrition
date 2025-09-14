@@ -1,0 +1,2529 @@
+{
+  "statistics": {
+    "detectionDate": "2025-09-11T11:07:41.538Z",
+    "formats": {
+      "typescript": {
+        "sources": {
+          "src/lib/__tests__/trendAdvice.test.ts": {
+            "lines": 35,
+            "tokens": 571,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/__tests__/trend.test.ts": {
+            "lines": 48,
+            "tokens": 584,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/store/appStore.ts": {
+            "lines": 362,
+            "tokens": 3346,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 28,
+            "duplicatedTokens": 200,
+            "percentage": 7.73,
+            "percentageTokens": 5.98,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/store/appStore.toggles.test.ts": {
+            "lines": 67,
+            "tokens": 697,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/store/appStore.test.ts": {
+            "lines": 109,
+            "tokens": 1394,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/validation.test.ts": {
+            "lines": 388,
+            "tokens": 3761,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/usePlayhead.ts": {
+            "lines": 40,
+            "tokens": 577,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/useCountUp.ts": {
+            "lines": 57,
+            "tokens": 688,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/trendPreview.ts": {
+            "lines": 100,
+            "tokens": 1547,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/trendAdvice.ts": {
+            "lines": 99,
+            "tokens": 1157,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/trend.ts": {
+            "lines": 49,
+            "tokens": 727,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/supplements.ts": {
+            "lines": 55,
+            "tokens": 457,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/supplements.test.ts": {
+            "lines": 36,
+            "tokens": 593,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/settings.ts": {
+            "lines": 125,
+            "tokens": 1361,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 28,
+            "duplicatedTokens": 200,
+            "percentage": 22.4,
+            "percentageTokens": 14.7,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/settings.test.ts": {
+            "lines": 242,
+            "tokens": 2244,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/rule-engine.test.ts": {
+            "lines": 305,
+            "tokens": 3060,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/rule-engine-validation.test.ts": {
+            "lines": 250,
+            "tokens": 2551,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 21,
+            "duplicatedTokens": 143,
+            "percentage": 8.4,
+            "percentageTokens": 5.61,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/planer.ts": {
+            "lines": 123,
+            "tokens": 1446,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/planer.test.ts": {
+            "lines": 146,
+            "tokens": 1687,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/nutrition.ts": {
+            "lines": 302,
+            "tokens": 2753,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/nutrition.test.ts": {
+            "lines": 687,
+            "tokens": 7230,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/notifications.ts": {
+            "lines": 12,
+            "tokens": 190,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/migrations.ts": {
+            "lines": 27,
+            "tokens": 344,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/logger.ts": {
+            "lines": 33,
+            "tokens": 324,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/logger.test.ts": {
+            "lines": 30,
+            "tokens": 419,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/logger-flag-forward.test.ts": {
+            "lines": 29,
+            "tokens": 476,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/goalPref.ts": {
+            "lines": 29,
+            "tokens": 392,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/goalMap.ts": {
+            "lines": 56,
+            "tokens": 579,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/derived.ts": {
+            "lines": 68,
+            "tokens": 1077,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/crashReporter.ts": {
+            "lines": 16,
+            "tokens": 174,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/constants.ts": {
+            "lines": 38,
+            "tokens": 236,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/constants.test.ts": {
+            "lines": 42,
+            "tokens": 427,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/checkin-trend.test.ts": {
+            "lines": 195,
+            "tokens": 2017,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 12,
+            "duplicatedTokens": 132,
+            "percentage": 6.15,
+            "percentageTokens": 6.54,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/calculations.ts": {
+            "lines": 173,
+            "tokens": 1472,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/calcCache.ts": {
+            "lines": 55,
+            "tokens": 778,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/analytics.ts": {
+            "lines": 6,
+            "tokens": 116,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/adviceEngine.ts": {
+            "lines": 97,
+            "tokens": 954,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/adjust.ts": {
+            "lines": 399,
+            "tokens": 3327,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 12,
+            "duplicatedTokens": 132,
+            "percentage": 3.01,
+            "percentageTokens": 3.97,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/adjust.test.ts": {
+            "lines": 380,
+            "tokens": 3517,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 21,
+            "duplicatedTokens": 143,
+            "percentage": 5.53,
+            "percentageTokens": 4.07,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/hooks/useInstallPrompt.ts": {
+            "lines": 146,
+            "tokens": 1221,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/hooks/useInstallPrompt.test.ts": {
+            "lines": 152,
+            "tokens": 1517,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 16,
+            "duplicatedTokens": 204,
+            "percentage": 10.53,
+            "percentageTokens": 13.45,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/config/app.ts": {
+            "lines": 10,
+            "tokens": 104,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/index.ts": {
+            "lines": 9,
+            "tokens": 126,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 5627,
+          "tokens": 58218,
+          "sources": 43,
+          "clones": 4,
+          "duplicatedLines": 69,
+          "duplicatedTokens": 577,
+          "percentage": 1.23,
+          "percentageTokens": 0.99,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "css": {
+        "sources": {
+          "src/styles/slider.css": {
+            "lines": 28,
+            "tokens": 236,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 36,
+            "duplicatedTokens": 266,
+            "percentage": 128.57,
+            "percentageTokens": 112.71,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/UebersichtPage.tsx": {
+            "lines": 8,
+            "tokens": 101,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Slider.tsx": {
+            "lines": 95,
+            "tokens": 417,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/index.css": {
+            "lines": 249,
+            "tokens": 1904,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 18,
+            "duplicatedTokens": 186,
+            "percentage": 7.23,
+            "percentageTokens": 9.77,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/App.css": {
+            "lines": 41,
+            "tokens": 221,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 421,
+          "tokens": 2879,
+          "sources": 5,
+          "clones": 2,
+          "duplicatedLines": 27,
+          "duplicatedTokens": 226,
+          "percentage": 6.41,
+          "percentageTokens": 7.85,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "javascript": {
+        "sources": {
+          "src/pages/UebersichtPage.tsx": {
+            "lines": 262,
+            "tokens": 3444,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/SupplementsPage.tsx": {
+            "lines": 91,
+            "tokens": 1012,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/SpecialSituationsPage.tsx": {
+            "lines": 260,
+            "tokens": 2348,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RechnerPage_old.tsx": {
+            "lines": 144,
+            "tokens": 1340,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RechnerPage_new.tsx": {
+            "lines": 271,
+            "tokens": 2224,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 243,
+            "duplicatedTokens": 1972,
+            "percentage": 89.67,
+            "percentageTokens": 88.67,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RechnerPage.tsx": {
+            "lines": 310,
+            "tokens": 2583,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 243,
+            "duplicatedTokens": 1972,
+            "percentage": 78.39,
+            "percentageTokens": 76.35,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/PlanerPage.tsx": {
+            "lines": 327,
+            "tokens": 3434,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/InfoPage.tsx": {
+            "lines": 65,
+            "tokens": 1232,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/EinstellungenPage.tsx": {
+            "lines": 473,
+            "tokens": 4302,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/CheckinPageComponent.tsx": {
+            "lines": 458,
+            "tokens": 5399,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/CheckinPage.tsx": {
+            "lines": 593,
+            "tokens": 5882,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/UiCard.tsx": {
+            "lines": 0,
+            "tokens": 7,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Sparkline.tsx": {
+            "lines": 14,
+            "tokens": 92,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Slider.tsx": {
+            "lines": 50,
+            "tokens": 331,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/OfflineIndicator.jsx": {
+            "lines": 14,
+            "tokens": 98,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/MacroNum.tsx": {
+            "lines": 0,
+            "tokens": 11,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/InstallPrompt.tsx": {
+            "lines": 20,
+            "tokens": 141,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Input.tsx": {
+            "lines": 32,
+            "tokens": 147,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/CodeCopy.tsx": {
+            "lines": 0,
+            "tokens": 43,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Card.tsx": {
+            "lines": 7,
+            "tokens": 14,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Button.tsx": {
+            "lines": 6,
+            "tokens": 31,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/BottomNavigation.tsx": {
+            "lines": 6,
+            "tokens": 75,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Banner.tsx": {
+            "lines": 34,
+            "tokens": 208,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Accordion.tsx": {
+            "lines": 17,
+            "tokens": 201,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/App.tsx": {
+            "lines": 6,
+            "tokens": 56,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/App.jsx": {
+            "lines": 0,
+            "tokens": 6,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 3460,
+          "tokens": 34661,
+          "sources": 26,
+          "clones": 1,
+          "duplicatedLines": 243,
+          "duplicatedTokens": 1972,
+          "percentage": 7.02,
+          "percentageTokens": 5.69,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "tsx": {
+        "sources": {
+          "src/pages/UebersichtPage.tsx": {
+            "lines": 304,
+            "tokens": 4000,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 12,
+            "duplicatedTokens": 198,
+            "percentage": 3.95,
+            "percentageTokens": 4.95,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/SupplementsPage.tsx": {
+            "lines": 133,
+            "tokens": 1507,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/SpecialSituationsPage.tsx": {
+            "lines": 322,
+            "tokens": 2925,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 45,
+            "duplicatedTokens": 461,
+            "percentage": 13.98,
+            "percentageTokens": 15.76,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RechnerPage_old.tsx": {
+            "lines": 261,
+            "tokens": 2540,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RechnerPage_new.tsx": {
+            "lines": 569,
+            "tokens": 5334,
+            "sources": 1,
+            "clones": 14,
+            "duplicatedLines": 520,
+            "duplicatedTokens": 4908,
+            "percentage": 91.39,
+            "percentageTokens": 92.01,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/RechnerPage.tsx": {
+            "lines": 740,
+            "tokens": 7208,
+            "sources": 1,
+            "clones": 14,
+            "duplicatedLines": 520,
+            "duplicatedTokens": 4908,
+            "percentage": 70.27,
+            "percentageTokens": 68.09,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/PlanerPage.tsx": {
+            "lines": 517,
+            "tokens": 5476,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/PlanerPage.test.tsx": {
+            "lines": 39,
+            "tokens": 384,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/InfoPage.tsx": {
+            "lines": 85,
+            "tokens": 1517,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/EinstellungenPage.tsx": {
+            "lines": 717,
+            "tokens": 6408,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 20,
+            "duplicatedTokens": 140,
+            "percentage": 2.79,
+            "percentageTokens": 2.18,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/CheckinPageComponent.tsx": {
+            "lines": 724,
+            "tokens": 8458,
+            "sources": 1,
+            "clones": 5,
+            "duplicatedLines": 102,
+            "duplicatedTokens": 1106,
+            "percentage": 14.09,
+            "percentageTokens": 13.08,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/CheckinPageComponent.test.tsx": {
+            "lines": 54,
+            "tokens": 609,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/pages/CheckinPage.tsx": {
+            "lines": 724,
+            "tokens": 7228,
+            "sources": 1,
+            "clones": 8,
+            "duplicatedLines": 149,
+            "duplicatedTokens": 1569,
+            "percentage": 20.58,
+            "percentageTokens": 21.71,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/UiCard.tsx": {
+            "lines": 11,
+            "tokens": 91,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Sparkline.tsx": {
+            "lines": 100,
+            "tokens": 914,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Slider.tsx": {
+            "lines": 191,
+            "tokens": 1136,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/MacroNum.tsx": {
+            "lines": 11,
+            "tokens": 185,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/InstallPrompt.tsx": {
+            "lines": 76,
+            "tokens": 606,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Input.tsx": {
+            "lines": 72,
+            "tokens": 443,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/CodeCopy.tsx": {
+            "lines": 15,
+            "tokens": 187,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Card.tsx": {
+            "lines": 28,
+            "tokens": 185,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Button.tsx": {
+            "lines": 64,
+            "tokens": 311,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/BottomNavigation.tsx": {
+            "lines": 97,
+            "tokens": 824,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Banner.tsx": {
+            "lines": 96,
+            "tokens": 698,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/Accordion.tsx": {
+            "lines": 40,
+            "tokens": 439,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/App.tsx": {
+            "lines": 60,
+            "tokens": 689,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 6050,
+          "tokens": 60302,
+          "sources": 26,
+          "clones": 24,
+          "duplicatedLines": 684,
+          "duplicatedTokens": 6645,
+          "percentage": 11.31,
+          "percentageTokens": 11.02,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "markdown": {
+        "sources": {
+          "src/lib/nutrition.md": {
+            "lines": 209,
+            "tokens": 1687,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/constants.README.md": {
+            "lines": 176,
+            "tokens": 1126,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/adjust.md": {
+            "lines": 189,
+            "tokens": 1410,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/InstallPrompt.README.md": {
+            "lines": 163,
+            "tokens": 1230,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 737,
+          "tokens": 5453,
+          "sources": 4,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "jsx": {
+        "sources": {
+          "src/components/OfflineIndicator.jsx": {
+            "lines": 59,
+            "tokens": 471,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/BottomNavigation.stories.jsx": {
+            "lines": 14,
+            "tokens": 95,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/main.jsx": {
+            "lines": 20,
+            "tokens": 137,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/App.jsx": {
+            "lines": 66,
+            "tokens": 651,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 159,
+          "tokens": 1354,
+          "sources": 4,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 16454,
+      "tokens": 162867,
+      "sources": 108,
+      "clones": 31,
+      "duplicatedLines": 1023,
+      "duplicatedTokens": 9420,
+      "percentage": 6.22,
+      "percentageTokens": 5.78,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "css",
+      "lines": 19,
+      "fragment": "input[type=\"range\"]::-webkit-slider-thumb {\r\n  -webkit-appearance: none;\r\n  appearance: none;\r\n  width: 18px;\r\n  height: 18px;\r\n  border-radius: 9999px;\r\n  background: #FFDF00;\r\n  border: 2px solid #292C2F;\r\n}\r\ninput[type=\"range\"]::-moz-range-thumb {\r\n  width: 18px;\r\n  height: 18px;\r\n  border-radius: 9999px;\r\n  background: #FFDF00;\r\n  border: 2px solid #292C2F;\r\n}\r\ninput[type=\"range\"] {\r\n  accent-color: #FFDF00;\r\n}",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\styles\\slider.css",
+        "start": 11,
+        "end": 29,
+        "startLoc": {
+          "line": 11,
+          "column": 1,
+          "position": 103
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 2,
+          "position": 236
+        }
+      },
+      "secondFile": {
+        "name": "src\\styles\\slider.css",
+        "start": 1,
+        "end": 10,
+        "startLoc": {
+          "line": 1,
+          "column": 1,
+          "position": 0
+        },
+        "endLoc": {
+          "line": 10,
+          "column": 2,
+          "position": 100
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 7,
+      "fragment": "* 4, eff.dailyKcal)}%</div>\r\n                  </div>\r\n                </div>\r\n                <div className=\"flex items-center gap-3\">\r\n                  <span className=\"w-3 h-3 rounded-full\" style={{ background: GOLD }} />\r\n                  <div className=\"text-sm\" style={{ color: LIGHT }}>\r\n                    <div className=\"font-semibold\">Fett",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\UebersichtPage.tsx",
+        "start": 228,
+        "end": 234,
+        "startLoc": {
+          "line": 228,
+          "column": 2,
+          "position": 3006
+        },
+        "endLoc": {
+          "line": 234,
+          "column": 5,
+          "position": 3105
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\UebersichtPage.tsx",
+        "start": 221,
+        "end": 227,
+        "startLoc": {
+          "line": 221,
+          "column": 2,
+          "position": 2864
+        },
+        "endLoc": {
+          "line": 227,
+          "column": 14,
+          "position": 2963
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 244,
+      "fragment": "={weight}\r\n              onChange={(e) => setWeight(e.target.value)}\r\n              placeholder=\"z.B. 70\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Größe (cm)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={height}\r\n              onChange={(e) => setHeight(e.target.value)}\r\n              placeholder=\"z.B. 175\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Alter (Jahre)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={age}\r\n              onChange={(e) => setAge(e.target.value)}\r\n              placeholder=\"z.B. 25\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Geschlecht\r\n            </label>\r\n            <div className=\"flex gap-2\">\r\n              <button\r\n                onClick={() => setSex('M')}\r\n                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${\r\n                  sex === 'M'\r\n                    ? 'bg-primary text-background'\r\n                    : 'bg-background border border-border text-text hover:bg-surface'\r\n                }`}\r\n              >\r\n                Männlich\r\n              </button>\r\n              <button\r\n                onClick={() => setSex('F')}\r\n                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${\r\n                  sex === 'F'\r\n                    ? 'bg-primary text-background'\r\n                    : 'bg-background border border-border text-text hover:bg-surface'\r\n                }`}\r\n              >\r\n                Weiblich\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      {/* Aktivitätsfaktor */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4 flex items-center gap-2\">\r\n          <Activity className=\"w-5 h-5 text-primary\" />\r\n          Aktivitätslevel\r\n        </h2>\r\n        \r\n        <div className=\"space-y-4\">\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Vordefinierte Werte\r\n            </label>\r\n            <select\r\n              value={customActivity ? '' : activityFactor}\r\n              onChange={(e) => {\r\n                setActivityFactor(parseFloat(e.target.value))\r\n                setCustomActivity('')\r\n              }}\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            >\r\n              {ACTIVITY_OPTIONS.map(option => (\r\n                <option key={option.value} value={option.value}>\r\n                  {option.label}\r\n                </option>\r\n              ))}\r\n            </select>\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Oder eigener Wert (1.0 - 2.0)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={customActivity}\r\n              onChange={(e) => setCustomActivity(e.target.value)}\r\n              placeholder=\"z.B. 1.65\"\r\n              step=\"0.1\"\r\n              min=\"1.0\"\r\n              max=\"2.0\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      {/* Ziele */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4 flex items-center gap-2\">\r\n          <Target className=\"w-5 h-5 text-primary\" />\r\n          Ziel & Kalorienanpassung\r\n        </h2>\r\n        \r\n        <div className=\"space-y-3 mb-4\">\r\n          {GOAL_PRESETS.map(preset => (\r\n            <div key={preset.id}>\r\n              <label className=\"flex items-center gap-3 p-3 rounded-xl border border-border hover:bg-background transition-colors cursor-pointer\">\r\n                <input\r\n                  type=\"radio\"\r\n                  name=\"goal\"\r\n                  value={preset.id}\r\n                  checked={goalPreset === preset.id}\r\n                  onChange={(e) => handleGoalChange(e.target.value)}\r\n                  className=\"w-4 h-4 text-primary focus:ring-primary/20\"\r\n                />\r\n                <div className=\"flex-1\">\r\n                  <div className=\"flex items-center gap-2\">\r\n                    <span className=\"font-medium text-text\">{preset.label}</span>\r\n                    {preset.warning && (\r\n                      <AlertTriangle className=\"w-4 h-4 text-warning\" />\r\n                    )}\r\n                  </div>\r\n                  <p className=\"text-sm text-text-secondary\">{preset.description}</p>\r\n                </div>\r\n              </label>\r\n              \r\n              {preset.warning && goalPreset === preset.id && (\r\n                <div className=\"mt-2 p-3 bg-warning/10 border border-warning/20 rounded-xl\">\r\n                  <p className=\"text-sm text-warning\">\r\n                    ⚠️ Aggressive Diäten sollten nur kurzfristig und unter fachlicher Betreuung durchgeführt werden.\r\n                  </p>\r\n                </div>\r\n              )}\r\n            </div>\r\n          ))}\r\n        </div>\r\n        \r\n        {goalPreset === 'custom' && (\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Kalorienanpassung (kcal)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={customAdjust}\r\n              onChange={(e) => setCustomAdjust(e.target.value)}\r\n              placeholder=\"z.B. +300 oder -500\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n        )}\r\n      </div>\r\n\r\n      {/* Makronährstoff-Einstellungen */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4\">\r\n          Makronährstoff-Voreinstellungen\r\n        </h2>\r\n        <div className=\"space-y-6\">\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-3\">\r\n              Protein: {proteinPerKg.toFixed(1)} g/kg\r\n            </label>\r\n            <div className=\"flex items-center gap-4\">\r\n              <span className=\"text-sm text-text-secondary\">1.8</span>\r\n              <input\r\n                type=\"range\"\r\n                min=\"1.8\"\r\n                max=\"2.5\"\r\n                step=\"0.1\"\r\n                value={proteinPerKg}\r\n                onChange={(e) => setProteinPerKg(parseFloat(e.target.value))}\r\n                className=\"flex-1 h-2 bg-border rounded-lg appearance-none cursor-pointer slider\"\r\n              />\r\n              <span className=\"text-sm text-text-secondary\">2.5</span>\r\n              <input\r\n                type=\"number\"\r\n                value={proteinPerKg}\r\n                onChange={(e) => setProteinPerKg(parseFloat(e.target.value) || 1.8)}\r\n                step=\"0.1\"\r\n                min=\"1.8\"\r\n                max=\"2.5\"\r\n                className=\"w-20 px-2 py-1 text-sm rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-1 focus:ring-primary/20\"\r\n              />\r\n            </div>\r\n            <p className=\"text-xs text-text-secondary mt-1\">\r\n              Empfohlen: 1.8-2.5 g/kg für Kraftsport und Muskelaufbau\r\n            </p>\r\n          </div>\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-3\">\r\n              Fett: {fatPerKg.toFixed(1)} g/kg\r\n            </label>\r\n            <div className=\"flex items-center gap-4\">\r\n              <span className=\"text-sm text-text-secondary\">0.8</span>\r\n              <input\r\n                type=\"range\"\r\n                min=\"0.8\"\r\n                max=\"1.2\"\r\n                step=\"0.1\"\r\n                value={fatPerKg}\r\n                onChange={(e) => setFatPerKg(parseFloat(e.target.value))}\r\n                className=\"flex-1 h-2 bg-border rounded-lg appearance-none cursor-pointer slider\"\r\n              />\r\n              <span className=\"text-sm text-text-secondary\">1.2</span>\r\n              <input\r\n                type=\"number\"\r\n                value={fatPerKg}\r\n                onChange={(e) => setFatPerKg(parseFloat(e.target.value) || 0.8)}\r\n                step=\"0.1\"\r\n                min=\"0.8\"\r\n                max=\"1.2\"\r\n                className=\"w-20 px-2 py-1 text-sm rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-1 focus:ring-primary/20\"\r\n              />\r\n            </div>\r\n            <p className=\"text-xs text-text-secondary mt-1\">\r\n              Empfohlen: 0.8-1.2 g/kg, mindestens 20% der Gesamtkalorien\r\n            </p>\r\n          </div>\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-3\">\r\n              Kohlenhydrate: {carbsPerKg !== '' ? Number(carbsPerKg).toFixed(1) : '–'} g/kg\r\n            </label>\r\n            <div className=\"flex items-center gap-4\">\r\n              <span className=\"text-sm text-text-secondary\">2.0</span>\r\n              <input\r\n                type=\"range\"\r\n                min=\"2.0\"\r\n                max=\"7.0\"\r\n                step=\"0.1\"\r\n                value={carbsPerKg ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 298,
+        "end": 541,
+        "startLoc": {
+          "line": 298,
+          "column": 6,
+          "position": 3109
+        },
+        "endLoc": {
+          "line": 541,
+          "column": 12,
+          "position": 5081
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 197,
+        "end": 436,
+        "startLoc": {
+          "line": 197,
+          "column": 6,
+          "position": 2114
+        },
+        "endLoc": {
+          "line": 436,
+          "column": 16,
+          "position": 4001
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 23,
+      "fragment": "// Aktivitätsfaktoren für Dropdown\r\nconst ACTIVITY_OPTIONS = [\r\n  { value: 1.2, label: '1.2 - Sitzend (Büroarbeit, wenig/keine Bewegung)' },\r\n  { value: 1.3, label: '1.3 - Leicht aktiv (leichte Übungen 1-3x/Woche)' },\r\n  { value: 1.4, label: '1.4 - Mäßig aktiv (moderate Übungen 3-5x/Woche)' },\r\n  { value: 1.5, label: '1.5 - Aktiv (intensive Übungen 3-5x/Woche)' },\r\n  { value: 1.6, label: '1.6 - Sehr aktiv (intensive Übungen 6-7x/Woche)' },\r\n  { value: 1.7, label: '1.7 - Extrem aktiv (sehr intensive Übungen, körperliche Arbeit)' },\r\n  { value: 1.8, label: '1.8 - Hochleistungssport (2x täglich Training)' },\r\n  { value: 1.9, label: '1.9 - Profisport (extreme körperliche Belastung)' }\r\n]\r\n\r\n// Vordefinierte Ziele\r\nconst GOAL_PRESETS = [\r\n  { id: 'maintain', label: 'Erhaltung (TDEE)', adjust: 0, description: 'Gewicht halten' },\r\n  { id: 'lean_bulk', label: 'Lean Bulk', adjust: 275, description: '+200-350 kcal', range: [200, 350] },\r\n  { id: 'conservative', label: 'Konservativer Aufbau', adjust: 200, description: '+150-250 kcal', range: [150, 250] },\r\n  { id: 'cut', label: 'Diät', adjust: -400, description: '-300-500 kcal', range: [-500, -300] },\r\n  { id: 'aggressive', label: 'Aggressive Diät', adjust: -600, description: '-600 kcal (Achtung: Nur kurzfristig!)', range: [-600, -600], warning: true },\r\n  { id: 'custom', label: 'Benutzerdefiniert', adjust: 0, description: 'Freie Eingabe' }\r\n]\r\n\r\nexport function",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 10,
+        "end": 32,
+        "startLoc": {
+          "line": 10,
+          "column": 1,
+          "position": 169
+        },
+        "endLoc": {
+          "line": 32,
+          "column": 9,
+          "position": 583
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 7,
+        "end": 29,
+        "startLoc": {
+          "line": 7,
+          "column": 1,
+          "position": 110
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 8,
+          "position": 524
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": "// Zustand für Eingabefelder\r\n  const [weight, setWeight] = useState('')\r\n  const [height, setHeight] = useState('')\r\n  const [age, setAge] = useState('')\r\n  const [sex, setSex] = useState<'M' | 'F'>('M')\r\n  const [activityFactor, setActivityFactor] = useState(1.5)\r\n  const [customActivity, setCustomActivity] = useState('')\r\n  const [goalPreset, setGoalPreset] = useState('maintain')\r\n  const [customAdjust, setCustomAdjust] = useState('')\r\n  const [proteinPerKg, setProteinPerKg] = useState(2.0)\r\n  const [fatPerKg, setFatPerKg] = useState(1.0)\r\n  const",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 36,
+        "end": 47,
+        "startLoc": {
+          "line": 36,
+          "column": 3,
+          "position": 645
+        },
+        "endLoc": {
+          "line": 47,
+          "column": 6,
+          "position": 836
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 30,
+        "end": 42,
+        "startLoc": {
+          "line": 30,
+          "column": 3,
+          "position": 536
+        },
+        "endLoc": {
+          "line": 42,
+          "column": 14,
+          "position": 729
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": "// Eingaben beim Start laden\r\n  useEffect(() => {\r\n    const saved = localStorage.getItem(STORAGE_KEY)\r\n    if (saved) {\r\n      try {\r\n        const data = JSON.parse(saved)\r\n        setWeight(data.weight || '')\r\n        setHeight(data.height || '')\r\n        setAge(data.age || '')\r\n        setSex(data.sex || 'M')\r\n        setActivityFactor(data.activityFactor || 1.5)\r\n        setGoalPreset(data.goalPreset || 'maintain')\r\n        setCustomAdjust(data.customAdjust || '')\r\n  setProteinPerKg(data.proteinPerKg || 2.0)\r\n  setFatPerKg(data.fatPerKg || 1.0)\r\n  setCarbsPerKg",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 75,
+        "end": 90,
+        "startLoc": {
+          "line": 75,
+          "column": 3,
+          "position": 1120
+        },
+        "endLoc": {
+          "line": 90,
+          "column": 14,
+          "position": 1298
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 53,
+        "end": 68,
+        "startLoc": {
+          "line": 53,
+          "column": 3,
+          "position": 840
+        },
+        "endLoc": {
+          "line": 68,
+          "column": 2,
+          "position": 1018
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 19,
+      "fragment": ")\r\n      } catch (error) {\r\n        console.warn('Fehler beim Laden der gespeicherten Eingaben:', error)\r\n      }\r\n    }\r\n  }, [])\r\n\r\n  // Eingaben speichern\r\n  const saveInputs = () => {\r\n    const data = {\r\n      weight,\r\n      height,\r\n      age,\r\n      sex,\r\n      activityFactor,\r\n      goalPreset,\r\n      customAdjust,\r\n      proteinPerKg,\r\n      fatPerKg,",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 90,
+        "end": 108,
+        "startLoc": {
+          "line": 90,
+          "column": 3,
+          "position": 1319
+        },
+        "endLoc": {
+          "line": 108,
+          "column": 2,
+          "position": 1436
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 67,
+        "end": 86,
+        "startLoc": {
+          "line": 67,
+          "column": 4,
+          "position": 1014
+        },
+        "endLoc": {
+          "line": 86,
+          "column": 2,
+          "position": 1134
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 42,
+      "fragment": "}\r\n    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))\r\n  }\r\n\r\n  // Berechnung ausführen\r\n  const handleCalculate = () => {\r\n    // Validierung\r\n    const weightNum = parseFloat(weight)\r\n    const heightNum = parseFloat(height)\r\n    const ageNum = parseInt(age)\r\n    \r\n    if (!weightNum || !heightNum || !ageNum || weightNum <= 0 || heightNum <= 0 || ageNum <= 0) {\r\n      alert('Bitte gib gültige Werte für Gewicht, Größe und Alter ein.')\r\n      return\r\n    }\r\n\r\n    // Aktivitätsfaktor bestimmen\r\n    const finalActivityFactor = customActivity ? parseFloat(customActivity) : activityFactor\r\n    if (!finalActivityFactor || finalActivityFactor <= 0) {\r\n      alert('Bitte gib einen gültigen Aktivitätsfaktor ein.')\r\n      return\r\n    }\r\n\r\n    // Kalorienanpassung bestimmen\r\n    let kcalAdjust = 0\r\n    if (goalPreset === 'custom') {\r\n      kcalAdjust = parseFloat(customAdjust) || 0\r\n    } else {\r\n      const preset = GOAL_PRESETS.find(p => p.id === goalPreset)\r\n      kcalAdjust = preset?.adjust || 0\r\n    }\r\n\r\n    // Eingaben für Berechnung\r\n    const input: CalcInput = {\r\n      weightKg: weightNum,\r\n      heightCm: heightNum,\r\n      age: ageNum,\r\n      sex,\r\n      activityFactor: finalActivityFactor,\r\n      kcalAdjust,\r\n      proteinPerKg,\r\n      fatPerKg,",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 110,
+        "end": 151,
+        "startLoc": {
+          "line": 110,
+          "column": 5,
+          "position": 1444
+        },
+        "endLoc": {
+          "line": 151,
+          "column": 2,
+          "position": 1820
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 86,
+        "end": 128,
+        "startLoc": {
+          "line": 86,
+          "column": 5,
+          "position": 1134
+        },
+        "endLoc": {
+          "line": 128,
+          "column": 2,
+          "position": 1513
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": "// Store aktualisieren\r\n  setProfile({\r\n    name: '',\r\n    weight: weightNum,\r\n    height: heightNum,\r\n    age: ageNum,\r\n    gender: sex === 'M' ? 'male' : 'female',\r\n    activityLevel: finalActivityFactor >= 1.7 ? 'very_active' : \r\n          finalActivityFactor >= 1.55 ? 'moderately_active' :\r\n          finalActivityFactor >= 1.375 ? 'lightly_active' : 'sedentary',\r\n    goal: goalPreset === 'maintain' ? 'maintain' : \r\n      kcalAdjust > 0 ? 'gain' : 'lose',",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 235,
+        "end": 246,
+        "startLoc": {
+          "line": 235,
+          "column": 7,
+          "position": 2529
+        },
+        "endLoc": {
+          "line": 246,
+          "column": 2,
+          "position": 2669
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 136,
+        "end": 148,
+        "startLoc": {
+          "line": 136,
+          "column": 7,
+          "position": 1574
+        },
+        "endLoc": {
+          "line": 148,
+          "column": 2,
+          "position": 1717
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 13,
+      "fragment": "})\r\n      \r\n      // Eingaben speichern\r\n      saveInputs()\r\n    } catch (error) {\r\n      alert(`Fehler bei der Berechnung: ${error instanceof Error ? error.message : 'Unbekannter Fehler'}`)\r\n    }\r\n  }\r\n\r\n  // Ziel-Preset auswählen\r\n  const handleGoalChange = (goalId: string) => {\r\n    setGoalPreset(goalId);\r\n    saveGoalPref(mapRechnerLabelToKey",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 248,
+        "end": 260,
+        "startLoc": {
+          "line": 248,
+          "column": 3,
+          "position": 2703
+        },
+        "endLoc": {
+          "line": 260,
+          "column": 21,
+          "position": 2797
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 148,
+        "end": 160,
+        "startLoc": {
+          "line": 148,
+          "column": 7,
+          "position": 1717
+        },
+        "endLoc": {
+          "line": 160,
+          "column": 7,
+          "position": 1811
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 262,
+      "fragment": "{/* Header */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <div className=\"flex items-center gap-3 mb-4\">\r\n          <div className=\"p-3 bg-primary/10 rounded-xl\">\r\n            <Calculator className=\"w-6 h-6 text-primary\" />\r\n          </div>\r\n          <div>\r\n            <h1 className=\"text-2xl font-bold text-text\">Makro-Rechner</h1>\r\n            <p className=\"text-text-secondary text-sm\">\r\n              Berechne deinen individuellen Kalorienbedarf und Makroverteilung\r\n            </p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      {/* Eingabeformular */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4 flex items-center gap-2\">\r\n          <Scale className=\"w-5 h-5 text-primary\" />\r\n          Körperdaten\r\n        </h2>\r\n        \r\n        <div className=\"grid grid-cols-1 md:grid-cols-2 gap-4 mb-6\">\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Gewicht (kg)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={weight}\r\n              onChange={(e) => setWeight(e.target.value)}\r\n              placeholder=\"z.B. 70\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Größe (cm)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={height}\r\n              onChange={(e) => setHeight(e.target.value)}\r\n              placeholder=\"z.B. 175\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Alter (Jahre)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={age}\r\n              onChange={(e) => setAge(e.target.value)}\r\n              placeholder=\"z.B. 25\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Geschlecht\r\n            </label>\r\n            <div className=\"flex gap-2\">\r\n              <button\r\n                onClick={() => setSex('M')}\r\n                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${\r\n                  sex === 'M'\r\n                    ? 'bg-primary text-background'\r\n                    : 'bg-background border border-border text-text hover:bg-surface'\r\n                }`}\r\n              >\r\n                Männlich\r\n              </button>\r\n              <button\r\n                onClick={() => setSex('F')}\r\n                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-colors ${\r\n                  sex === 'F'\r\n                    ? 'bg-primary text-background'\r\n                    : 'bg-background border border-border text-text hover:bg-surface'\r\n                }`}\r\n              >\r\n                Weiblich\r\n              </button>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      {/* Aktivitätsfaktor */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4 flex items-center gap-2\">\r\n          <Activity className=\"w-5 h-5 text-primary\" />\r\n          Aktivitätslevel\r\n        </h2>\r\n        \r\n        <div className=\"space-y-4\">\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Vordefinierte Werte\r\n            </label>\r\n            <select\r\n              value={customActivity ? '' : activityFactor}\r\n              onChange={(e) => {\r\n                setActivityFactor(parseFloat(e.target.value))\r\n                setCustomActivity('')\r\n              }}\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            >\r\n              {ACTIVITY_OPTIONS.map(option => (\r\n                <option key={option.value} value={option.value}>\r\n                  {option.label}\r\n                </option>\r\n              ))}\r\n            </select>\r\n          </div>\r\n          \r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Oder eigener Wert (1.0 - 2.0)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={customActivity}\r\n              onChange={(e) => setCustomActivity(e.target.value)}\r\n              placeholder=\"z.B. 1.65\"\r\n              step=\"0.1\"\r\n              min=\"1.0\"\r\n              max=\"2.0\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      {/* Ziele */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4 flex items-center gap-2\">\r\n          <Target className=\"w-5 h-5 text-primary\" />\r\n          Ziel & Kalorienanpassung\r\n        </h2>\r\n        \r\n        <div className=\"space-y-3 mb-4\">\r\n          {GOAL_PRESETS.map(preset => (\r\n            <div key={preset.id}>\r\n              <label className=\"flex items-center gap-3 p-3 rounded-xl border border-border hover:bg-background transition-colors cursor-pointer\">\r\n                <input\r\n                  type=\"radio\"\r\n                  name=\"goal\"\r\n                  value={preset.id}\r\n                  checked={goalPreset === preset.id}\r\n                  onChange={(e) => handleGoalChange(e.target.value)}\r\n                  className=\"w-4 h-4 text-primary focus:ring-primary/20\"\r\n                />\r\n                <div className=\"flex-1\">\r\n                  <div className=\"flex items-center gap-2\">\r\n                    <span className=\"font-medium text-text\">{preset.label}</span>\r\n                    {preset.warning && (\r\n                      <AlertTriangle className=\"w-4 h-4 text-warning\" />\r\n                    )}\r\n                  </div>\r\n                  <p className=\"text-sm text-text-secondary\">{preset.description}</p>\r\n                </div>\r\n              </label>\r\n              \r\n              {preset.warning && goalPreset === preset.id && (\r\n                <div className=\"mt-2 p-3 bg-warning/10 border border-warning/20 rounded-xl\">\r\n                  <p className=\"text-sm text-warning\">\r\n                    ⚠️ Aggressive Diäten sollten nur kurzfristig und unter fachlicher Betreuung durchgeführt werden.\r\n                  </p>\r\n                </div>\r\n              )}\r\n            </div>\r\n          ))}\r\n        </div>\r\n        \r\n        {goalPreset === 'custom' && (\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-2\">\r\n              Kalorienanpassung (kcal)\r\n            </label>\r\n            <input\r\n              type=\"number\"\r\n              value={customAdjust}\r\n              onChange={(e) => setCustomAdjust(e.target.value)}\r\n              placeholder=\"z.B. +300 oder -500\"\r\n              className=\"w-full px-4 py-3 rounded-xl border border-border bg-background text-text placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors\"\r\n            />\r\n          </div>\r\n        )}\r\n      </div>\r\n\r\n      {/* Makronährstoff-Einstellungen */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4\">\r\n          Makronährstoff-Voreinstellungen\r\n        </h2>\r\n        <div className=\"space-y-6\">\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-3\">\r\n              Protein: {proteinPerKg.toFixed(1)} g/kg\r\n            </label>\r\n            <div className=\"flex items-center gap-4\">\r\n              <span className=\"text-sm text-text-secondary\">1.8</span>\r\n              <input\r\n                type=\"range\"\r\n                min=\"1.8\"\r\n                max=\"2.5\"\r\n                step=\"0.1\"\r\n                value={proteinPerKg}\r\n                onChange={(e) => setProteinPerKg(parseFloat(e.target.value))}\r\n                className=\"flex-1 h-2 bg-border rounded-lg appearance-none cursor-pointer slider\"\r\n              />\r\n              <span className=\"text-sm text-text-secondary\">2.5</span>\r\n              <input\r\n                type=\"number\"\r\n                value={proteinPerKg}\r\n                onChange={(e) => setProteinPerKg(parseFloat(e.target.value) || 1.8)}\r\n                step=\"0.1\"\r\n                min=\"1.8\"\r\n                max=\"2.5\"\r\n                className=\"w-20 px-2 py-1 text-sm rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-1 focus:ring-primary/20\"\r\n              />\r\n            </div>\r\n            <p className=\"text-xs text-text-secondary mt-1\">\r\n              Empfohlen: 1.8-2.5 g/kg für Kraftsport und Muskelaufbau\r\n            </p>\r\n          </div>\r\n          <div>\r\n            <label className=\"block text-sm font-medium text-text mb-3\">\r\n              Fett: {fatPerKg.toFixed(1)} g/kg\r\n            </label>\r\n            <div className=\"flex items-center gap-4\">\r\n              <span className=\"text-sm text-text-secondary\">0.8</span>\r\n              <input\r\n                type=\"range\"\r\n                min=\"0.8\"\r\n                max=\"1.2\"\r\n                step=\"0.1\"\r\n                value={fatPerKg}\r\n                onChange={(e) => setFatPerKg(parseFloat(e.target.value))}\r\n                className=\"flex-1 h-2 bg-border rounded-lg appearance-none cursor-pointer slider\"\r\n              />\r\n              <span className=\"text-sm text-text-secondary\">1.2</span>\r\n              <input\r\n                type=\"number\"\r\n                value={fatPerKg}\r\n                onChange={(e) => setFatPerKg(parseFloat(e.target.value) || 0.8)}\r\n                step=\"0.1\"\r\n                min=\"0.8\"\r\n                max=\"1.2\"\r\n                className=\"w-20 px-2 py-1 text-sm rounded-lg border border-border bg-background text-text focus:outline-none focus:ring-1 focus:ring-primary/20\"\r\n              />\r\n            </div>\r\n            <p className=\"text-xs text-text-secondary mt-1\">\r\n              Empfohlen: 0.8-1.2 g/kg, mindestens 20% der Gesamtkalorien\r\n            </p>\r\n          </div>\r\n          <",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 269,
+        "end": 530,
+        "startLoc": {
+          "line": 269,
+          "column": 7,
+          "position": 2862
+        },
+        "endLoc": {
+          "line": 530,
+          "column": 2,
+          "position": 4966
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 168,
+        "end": 431,
+        "startLoc": {
+          "line": 168,
+          "column": 7,
+          "position": 1867
+        },
+        "endLoc": {
+          "line": 431,
+          "column": 3,
+          "position": 3975
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 53,
+      "fragment": "</p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      {/* Berechnen Button */}\r\n      <button\r\n        onClick={handleCalculate}\r\n        className=\"w-full bg-primary hover:bg-primary-hover text-background font-semibold py-4 px-6 rounded-2xl transition-colors shadow-soft flex items-center justify-center gap-2 text-lg\"\r\n      >\r\n        <Calculator className=\"w-5 h-5\" />\r\n        Berechnen\r\n      </button>\r\n\r\n      {/* Hinweisbox */}\r\n      <div className=\"bg-info/10 border border-info/20 rounded-2xl p-4\">\r\n        <div className=\"flex items-start gap-3\">\r\n          <Info className=\"w-5 h-5 text-info mt-0.5 flex-shrink-0\" />\r\n          <div>\r\n            <p className=\"text-sm text-info font-medium mb-1\">\r\n              💡 Wichtiger Hinweis zum Aktivitätsfaktor\r\n            </p>\r\n            <p className=\"text-sm text-info\">\r\n              Überprüfe deinen Aktivitätsfaktor nach 2 Wochen anhand deiner Gewichtsentwicklung und passe ihn gegebenenfalls an. \r\n              Zu schnelle oder zu langsame Veränderungen deuten auf einen unpassenden Faktor hin.\r\n            </p>\r\n          </div>\r\n        </div>\r\n      </div>\r\n\r\n      {/* Warnungen */}\r\n      {warnings.length > 0 && (\r\n        <div className=\"bg-warning/10 border border-warning/20 rounded-2xl p-4\">\r\n          <div className=\"flex items-start gap-3\">\r\n            <AlertTriangle className=\"w-5 h-5 text-warning mt-0.5 flex-shrink-0\" />\r\n            <div>\r\n              <p className=\"text-sm text-warning font-medium mb-2\">Hinweise zu deinen Eingaben:</p>\r\n              <ul className=\"space-y-1\">\r\n                {warnings.map((warning, index) => (\r\n                  <li key={index} className=\"text-sm text-warning\">\r\n                    • {warning.message}\r\n                  </li>\r\n                ))}\r\n              </ul>\r\n            </div>\r\n          </div>\r\n        </div>\r\n      )}\r\n\r\n      {/* Ergebnisse */}\r\n      {result && isCalculated && (\r\n        <div className=\"space-y-4\">\r\n          <div",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 569,
+        "end": 621,
+        "startLoc": {
+          "line": 569,
+          "column": 13,
+          "position": 5317
+        },
+        "endLoc": {
+          "line": 621,
+          "column": 4,
+          "position": 5788
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 429,
+        "end": 481,
+        "startLoc": {
+          "line": 429,
+          "column": 13,
+          "position": 3963
+        },
+        "endLoc": {
+          "line": 481,
+          "column": 3,
+          "position": 4434
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 18,
+      "fragment": ">\r\n          {/* Grundwerte */}\r\n          <div className=\"grid grid-cols-1 md:grid-cols-3 gap-4\">\r\n            <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n              <div className=\"text-center\">\r\n                <div className=\"text-3xl font-bold text-primary mb-2\">\r\n                  {result.bmr}\r\n                </div>\r\n                <div className=\"text-sm font-medium text-text mb-1\">BMR</div>\r\n                <div className=\"text-xs text-text-secondary\">\r\n                  Grundumsatz - Kalorien in Ruhe\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n              <div className=\"text-center\">\r\n                <div className=\"text-3xl font-bold text-secondary mb-2\">\r\n                  {eff",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 657,
+        "end": 674,
+        "startLoc": {
+          "line": 657,
+          "column": 4,
+          "position": 6331
+        },
+        "endLoc": {
+          "line": 674,
+          "column": 4,
+          "position": 6498
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 481,
+        "end": 500,
+        "startLoc": {
+          "line": 481,
+          "column": 3,
+          "position": 4447
+        },
+        "endLoc": {
+          "line": 500,
+          "column": 7,
+          "position": 4618
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 27,
+      "fragment": ".tdee}\r\n                </div>\r\n                <div className=\"text-sm font-medium text-text mb-1\">TDEE</div>\r\n                <div className=\"text-xs text-text-secondary\">\r\n                  Gesamtumsatz mit Aktivität\r\n                </div>\r\n              </div>\r\n            </div>\r\n            <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n              <div className=\"text-center\">\r\n                <div className=\"text-3xl font-bold text-accent mb-2\">\r\n                  {result.targetKcal}\r\n                </div>\r\n                <div className=\"text-sm font-medium text-text mb-1\">Zielkalorien</div>\r\n                <div className=\"text-xs text-text-secondary\">\r\n                  Für dein gewähltes Ziel\r\n                </div>\r\n              </div>\r\n            </div>\r\n          </div>\r\n          \r\n          {/* Makronährstoffe */}\r\n          <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n            <h3 className=\"text-lg font-semibold text-text mb-4\">Makronährstoff-Verteilung</h3>\r\n            <div className=\"grid grid-cols-1 md:grid-cols-3 gap-6\">\r\n              <div className=\"text-center\">\r\n                <div className=\"text-2xl font-bold text-macro-protein mb-2",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 674,
+        "end": 700,
+        "startLoc": {
+          "line": 674,
+          "column": 4,
+          "position": 6499
+        },
+        "endLoc": {
+          "line": 700,
+          "column": 43,
+          "position": 6746
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 500,
+        "end": 527,
+        "startLoc": {
+          "line": 500,
+          "column": 7,
+          "position": 4619
+        },
+        "endLoc": {
+          "line": 527,
+          "column": 37,
+          "position": 4868
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 13,
+      "fragment": "\">\r\n                  {result.proteinG}g\r\n                </div>\r\n                <div className=\"text-sm font-medium text-text mb-1\">Protein</div>\r\n                <div className=\"text-xs text-text-secondary\">\r\n                  {result.proteinG * 4} kcal • {Math.round((result.proteinG * 4 / result.targetKcal) * 100)}%\r\n                </div>\r\n                <div className=\"text-xs text-text-secondary mt-1\">\r\n                  Muskelaufbau & Sättigung\r\n                </div>\r\n              </div>\r\n              <div className=\"text-center\">\r\n                <div className=\"text-2xl font-bold text-macro-carb mb-2",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 700,
+        "end": 712,
+        "startLoc": {
+          "line": 700,
+          "column": 43,
+          "position": 6747
+        },
+        "endLoc": {
+          "line": 712,
+          "column": 40,
+          "position": 6896
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 527,
+        "end": 540,
+        "startLoc": {
+          "line": 527,
+          "column": 37,
+          "position": 4869
+        },
+        "endLoc": {
+          "line": 540,
+          "column": 37,
+          "position": 5020
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": "\">\r\n                  {result.carbsG}g\r\n                </div>\r\n                <div className=\"text-sm font-medium text-text mb-1\">Kohlenhydrate</div>\r\n                <div className=\"text-xs text-text-secondary\">\r\n                  {result.carbsG * 4} kcal • {Math.round((result.carbsG * 4 / result.targetKcal) * 100)}%\r\n                </div>\r\n                <div className=\"text-xs text-text-secondary mt-1\">\r\n                  Energie & Leistung\r\n                </div>\r\n              </div>\r\n              <",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 712,
+        "end": 723,
+        "startLoc": {
+          "line": 712,
+          "column": 40,
+          "position": 6897
+        },
+        "endLoc": {
+          "line": 723,
+          "column": 2,
+          "position": 7027
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 553,
+        "end": 564,
+        "startLoc": {
+          "line": 553,
+          "column": 34,
+          "position": 5172
+        },
+        "endLoc": {
+          "line": 564,
+          "column": 3,
+          "position": 5302
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": "\">\r\n                  {result.fatG}g\r\n                </div>\r\n                <div className=\"text-sm font-medium text-text mb-1\">Fett</div>\r\n                <div className=\"text-xs text-text-secondary\">\r\n                  {result.fatG * 9} kcal • {Math.round((result.fatG * 9 / result.targetKcal) * 100)}%\r\n                </div>\r\n                <div className=\"text-xs text-text-secondary mt-1\">\r\n                  Hormone & Vitamine\r\n                </div>\r\n              </div>\r\n            </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\RechnerPage.tsx",
+        "start": 724,
+        "end": 735,
+        "startLoc": {
+          "line": 724,
+          "column": 39,
+          "position": 7046
+        },
+        "endLoc": {
+          "line": 735,
+          "column": 3,
+          "position": 7176
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\RechnerPage_new.tsx",
+        "start": 540,
+        "end": 552,
+        "startLoc": {
+          "line": 540,
+          "column": 37,
+          "position": 5021
+        },
+        "endLoc": {
+          "line": 552,
+          "column": 2,
+          "position": 5153
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 11,
+      "fragment": "</span>\r\n              <input\r\n                type=\"checkbox\"\r\n                checked={settings.notifications.water}\r\n                disabled\r\n                title=\"Derzeit nicht verfügbar (kein zuverlässiges Scheduling im PWA-Offline-Modus).\"\r\n                className=\"w-5 h-5 text-accent\"\r\n              />\r\n            </div>\r\n            <div className=\"flex items-center justify-between\">\r\n              <span className=\"text-text\">W",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\EinstellungenPage.tsx",
+        "start": 562,
+        "end": 572,
+        "startLoc": {
+          "line": 562,
+          "column": 19,
+          "position": 5120
+        },
+        "endLoc": {
+          "line": 572,
+          "column": 2,
+          "position": 5190
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\EinstellungenPage.tsx",
+        "start": 552,
+        "end": 562,
+        "startLoc": {
+          "line": 552,
+          "column": 11,
+          "position": 5049
+        },
+        "endLoc": {
+          "line": 562,
+          "column": 19,
+          "position": 5119
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 11,
+      "fragment": "</span>\r\n                  <input\r\n                    type=\"range\"\r\n                    min=\"1\"\r\n                    max=\"5\"\r\n                    step=\"1\"\r\n                    value={formData.stress}\r\n                    onChange={(e) => setFormData(prev => ({ ...prev, stress: parseInt(e.target.value) }))}\r\n                    className=\"flex-1 h-2 bg-inkdark/20 rounded-lg appearance-none cursor-pointer slider\"\r\n                  />\r\n                  <span className=\"text-sm text-inkdark/50\">😰",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPageComponent.tsx",
+        "start": 311,
+        "end": 321,
+        "startLoc": {
+          "line": 311,
+          "column": 3,
+          "position": 3515
+        },
+        "endLoc": {
+          "line": 321,
+          "column": 3,
+          "position": 3612
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\CheckinPageComponent.tsx",
+        "start": 289,
+        "end": 299,
+        "startLoc": {
+          "line": 289,
+          "column": 3,
+          "position": 3302
+        },
+        "endLoc": {
+          "line": 299,
+          "column": 3,
+          "position": 3399
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 28,
+      "fragment": ">\r\n          <p className=\"text-sm text-text-secondary mb-3\">{recommendation.description}</p>\r\n          \r\n          {/* Adjustments */}\r\n          {(recommendation.calorieAdjustment || recommendation.activityFactorAdjustment) && (\r\n            <div className=\"flex items-center gap-4 mb-3 text-sm\">\r\n              {recommendation.calorieAdjustment && (\r\n                <div className=\"flex items-center gap-1\">\r\n                  <ArrowRight className=\"w-3 h-3 text-primary\" />\r\n                  <span className=\"font-medium\">\r\n                    {recommendation.calorieAdjustment > 0 ? '+' : ''}{recommendation.calorieAdjustment} kcal/Tag\r\n                  </span>\r\n                </div>\r\n              )}\r\n              {recommendation.activityFactorAdjustment && (\r\n                <div className=\"flex items-center gap-1\">\r\n                  <ArrowRight className=\"w-3 h-3 text-primary\" />\r\n                  <span className=\"font-medium\">\r\n                    AF: {recommendation.activityFactorAdjustment > 0 ? '+' : ''}{recommendation.activityFactorAdjustment}\r\n                  </span>\r\n                </div>\r\n              )}\r\n            </div>\r\n          )}\r\n\r\n          {/* Duration */}\r\n          {recommendation.duration && (\r\n            <div className=\"text-xs text-text-secondary mb-2",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 67,
+        "end": 94,
+        "startLoc": {
+          "line": 67,
+          "column": 3,
+          "position": 689
+        },
+        "endLoc": {
+          "line": 94,
+          "column": 33,
+          "position": 975
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\SpecialSituationsPage.tsx",
+        "start": 274,
+        "end": 301,
+        "startLoc": {
+          "line": 274,
+          "column": 3,
+          "position": 2416
+        },
+        "endLoc": {
+          "line": 301,
+          "column": 57,
+          "position": 2702
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 9,
+      "fragment": "</div>\r\n          )}\r\n\r\n          {/* Conditions */}\r\n          {recommendation.conditions && recommendation.conditions.length > 0 && (\r\n            <div className=\"text-xs text-text-secondary\">\r\n              <strong>Hinweise:</strong>\r\n              <ul className=\"mt-1 space-y-1\">\r\n                {recommendation.conditions.map((condition:",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 96,
+        "end": 104,
+        "startLoc": {
+          "line": 96,
+          "column": 13,
+          "position": 998
+        },
+        "endLoc": {
+          "line": 104,
+          "column": 2,
+          "position": 1084
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\SpecialSituationsPage.tsx",
+        "start": 304,
+        "end": 312,
+        "startLoc": {
+          "line": 304,
+          "column": 9,
+          "position": 2744
+        },
+        "endLoc": {
+          "line": 312,
+          "column": 2,
+          "position": 2830
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 11,
+      "fragment": ") => (\r\n                  <li key={idx} className=\"flex items-start gap-1\">\r\n                    <span className=\"text-primary\">•</span>\r\n                    <span>{condition}</span>\r\n                  </li>\r\n                ))}\r\n              </ul>\r\n            </div>\r\n          )}\r\n        </div>\r\n      </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 104,
+        "end": 114,
+        "startLoc": {
+          "line": 104,
+          "column": 7,
+          "position": 1093
+        },
+        "endLoc": {
+          "line": 114,
+          "column": 3,
+          "position": 1182
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\SpecialSituationsPage.tsx",
+        "start": 312,
+        "end": 322,
+        "startLoc": {
+          "line": 312,
+          "column": 4,
+          "position": 2833
+        },
+        "endLoc": {
+          "line": 322,
+          "column": 2,
+          "position": 2922
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": "}/5\r\n              </label>\r\n              <input\r\n                type=\"range\"\r\n                min=\"1\"\r\n                max=\"5\"\r\n                value={formData.stress}\r\n                onChange={(e) => setFormData({ ...formData, stress: parseInt(e.target.value) })}\r\n                className=\"w-full accent-primary\"\r\n              />\r\n              <div className=\"flex justify-between text-xs text-text-secondary mt-1\">\r\n                <span>Niedrig",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 447,
+        "end": 458,
+        "startLoc": {
+          "line": 447,
+          "column": 7,
+          "position": 4360
+        },
+        "endLoc": {
+          "line": 458,
+          "column": 8,
+          "position": 4458
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 427,
+        "end": 438,
+        "startLoc": {
+          "line": 427,
+          "column": 6,
+          "position": 4183
+        },
+        "endLoc": {
+          "line": 438,
+          "column": 9,
+          "position": 4281
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 27,
+      "fragment": "{/* Check-in Historie */}\r\n      <div className=\"bg-surface rounded-2xl p-6 shadow-soft\">\r\n        <h2 className=\"text-lg font-semibold text-text mb-4 flex items-center gap-2\">\r\n          <Calendar className=\"w-5 h-5 text-primary\" />\r\n          Check-in Historie ({checkins.length})\r\n        </h2>\r\n        \r\n        {checkins.length === 0 ? (\r\n          <div className=\"text-center py-8 text-text-secondary\">\r\n            <CheckCircle className=\"w-12 h-12 mx-auto mb-3 opacity-50\" />\r\n            <p>Noch keine Check-ins vorhanden</p>\r\n            <p className=\"text-sm mt-1\">Erstelle deinen ersten Check-in oben</p>\r\n          </div>\r\n        ) : (\r\n          <div className=\"space-y-3\">\r\n            {checkins.slice(0, 5).map((checkin) => (\r\n              <div key={checkin.id} className=\"bg-background rounded-xl p-4 border border-border\">\r\n                <div className=\"flex items-center justify-between mb-2\">\r\n                  <div className=\"font-medium text-text\">\r\n                    {new Date(checkin.date).toLocaleDateString('de-DE', {\r\n                      weekday: 'short',\r\n                      day: '2-digit',\r\n                      month: '2-digit',\r\n                      year: 'numeric'\r\n                    })}\r\n                  </div>\r\n                  <div className=\"text-lg font-bold text-primary",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 638,
+        "end": 664,
+        "startLoc": {
+          "line": 638,
+          "column": 7,
+          "position": 6276
+        },
+        "endLoc": {
+          "line": 664,
+          "column": 31,
+          "position": 6588
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\CheckinPageComponent.tsx",
+        "start": 567,
+        "end": 592,
+        "startLoc": {
+          "line": 567,
+          "column": 7,
+          "position": 6582
+        },
+        "endLoc": {
+          "line": 592,
+          "column": 24,
+          "position": 6892
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 35,
+      "fragment": "</div>\r\n                </div>\r\n                \r\n                <div className=\"grid grid-cols-3 gap-4 text-sm text-text-secondary\">\r\n                  <div className=\"flex items-center gap-1\">\r\n                    <Activity className=\"w-4 h-4\" />\r\n                    {checkin.trainingDays} Training{checkin.trainingDays !== 1 ? 's' : ''}tage\r\n                  </div>\r\n                  <div className=\"flex items-center gap-1\">\r\n                    <Moon className=\"w-4 h-4\" />\r\n                    Schlaf: {checkin.sleep}/5\r\n                  </div>\r\n                  <div className=\"flex items-center gap-1\">\r\n                    <AlertTriangle className=\"w-4 h-4\" />\r\n                    Stress: {checkin.stress}/5\r\n                  </div>\r\n                </div>\r\n                \r\n                {checkin.notes && (\r\n                  <div className=\"mt-2 p-2 bg-surface rounded-lg text-sm text-text\">\r\n                    <FileText className=\"w-4 h-4 inline mr-1\" />\r\n                    {checkin.notes}\r\n                  </div>\r\n                )}\r\n              </div>\r\n            ))}\r\n            \r\n            {checkins.length > 5 && (\r\n              <div className=\"text-center py-2 text-text-secondary text-sm\">\r\n                ... und {checkins.length - 5} weitere Check-ins\r\n              </div>\r\n            )}\r\n          </div>\r\n        )}\r\n      </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 666,
+        "end": 700,
+        "startLoc": {
+          "line": 666,
+          "column": 19,
+          "position": 6609
+        },
+        "endLoc": {
+          "line": 700,
+          "column": 3,
+          "position": 6930
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\CheckinPageComponent.tsx",
+        "start": 602,
+        "end": 634,
+        "startLoc": {
+          "line": 602,
+          "column": 19,
+          "position": 7035
+        },
+        "endLoc": {
+          "line": 634,
+          "column": 2,
+          "position": 7352
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 23,
+      "fragment": "}\r\n          </div>\r\n        )}\r\n      </div>\r\n\r\n      {/* Hinweise */}\r\n      <div className=\"bg-info/10 border border-info/20 rounded-2xl p-4\">\r\n        <div className=\"flex items-start gap-3\">\r\n          <Scale className=\"w-5 h-5 text-info mt-0.5 flex-shrink-0\" />\r\n          <div>\r\n            <p className=\"text-sm text-info font-medium mb-1\">\r\n              💡 Tipps für aussagekräftige Messungen\r\n            </p>\r\n            <ul className=\"text-sm text-info space-y-1\">\r\n              <li>• <strong>Konsistenz:</strong> Immer zur gleichen Zeit wiegen (z.B. morgens)</li>\r\n              <li>• <strong>Bedingungen:</strong> Nach Toilette, vor dem Essen, ohne Kleidung</li>\r\n              <li>• <strong>Häufigkeit:</strong> 1x pro Woche reicht für Trendanalyse</li>\r\n              <li>• <strong>Geduld:</strong> Mindestens 2-3 Check-ins für aussagekräftige Trends</li>\r\n            </ul>\r\n          </div>\r\n        </div>\r\n      </div>\r\n    </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\pages\\CheckinPage.tsx",
+        "start": 697,
+        "end": 719,
+        "startLoc": {
+          "line": 697,
+          "column": 2,
+          "position": 6915
+        },
+        "endLoc": {
+          "line": 719,
+          "column": 3,
+          "position": 7194
+        }
+      },
+      "secondFile": {
+        "name": "src\\pages\\CheckinPageComponent.tsx",
+        "start": 688,
+        "end": 710,
+        "startLoc": {
+          "line": 688,
+          "column": 6,
+          "position": 8095
+        },
+        "endLoc": {
+          "line": 710,
+          "column": 2,
+          "position": 8374
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 29,
+      "fragment": "export const defaultSettings: AppSettings = {\r\n  macroOverride: {\r\n    enabled: false,\r\n    protein: null,\r\n    fat: null\r\n  },\r\n  units: 'metric',\r\n  precision: {\r\n    calories: 10,\r\n    macros: 1,\r\n    weight: 1\r\n  },\r\n  showActivityHelp: true,\r\n  reminderFrequency: 'weekly',\r\n  guardrails: {\r\n    minFatPercentage: 20,\r\n    aggressiveDeficitWarning: true,\r\n    extremeCalorieWarning: true\r\n  },\r\n  notifications: {\r\n    meals: false,\r\n    water: false,\r\n    progress: true\r\n  },\r\n  analytics: false,\r\n  crashReports: false\r\n}\r\n\r\nexport function",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\lib\\settings.ts",
+        "start": 4,
+        "end": 32,
+        "startLoc": {
+          "line": 4,
+          "column": 1,
+          "position": 20
+        },
+        "endLoc": {
+          "line": 32,
+          "column": 9,
+          "position": 220
+        }
+      },
+      "secondFile": {
+        "name": "src\\store\\appStore.ts",
+        "start": 253,
+        "end": 281,
+        "startLoc": {
+          "line": 253,
+          "column": 1,
+          "position": 2342
+        },
+        "endLoc": {
+          "line": 281,
+          "column": 6,
+          "position": 2542
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 13,
+      "fragment": "}\r\n\r\n// Zielbereich-Definitionen (% pro Woche)\r\nconst GOAL_RANGES = {\r\n  lean_bulk: { min: 0.25, max: 0.5, label: 'Lean Bulk' },\r\n  aggressive_bulk: { min: 0.5, max: 0.75, label: 'Aggressiver Aufbau' },\r\n  cut: { min: -1.0, max: -0.5, label: 'Diät' },\r\n  maintain: { min: -0.25, max: 0.25, label: 'Erhaltung' }\r\n}\r\n\r\n/**\r\n * Hauptfunktion der Regel-Engine\r\n */",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\lib\\adjust.ts",
+        "start": 51,
+        "end": 63,
+        "startLoc": {
+          "line": 51,
+          "column": 1,
+          "position": 380
+        },
+        "endLoc": {
+          "line": 63,
+          "column": 4,
+          "position": 512
+        }
+      },
+      "secondFile": {
+        "name": "src\\lib\\checkin-trend.test.ts",
+        "start": 12,
+        "end": 22,
+        "startLoc": {
+          "line": 12,
+          "column": 1,
+          "position": 84
+        },
+        "endLoc": {
+          "line": 22,
+          "column": 9,
+          "position": 216
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 22,
+      "fragment": ": CheckinData[] = [\r\n  {\r\n    id: '1',\r\n    date: '2025-09-01',\r\n    weight: 80.2,\r\n    trainingDays: 4,\r\n    sleep: 4,\r\n    stress: 2,\r\n    notes: ''\r\n  },\r\n  {\r\n    id: '2',\r\n    date: '2025-08-25',\r\n    weight: 80.0,\r\n    trainingDays: 4,\r\n    sleep: 3,\r\n    stress: 2,\r\n    notes: ''\r\n  }\r\n]\r\n\r\ndescribe",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\lib\\adjust.test.ts",
+        "start": 35,
+        "end": 56,
+        "startLoc": {
+          "line": 35,
+          "column": 13,
+          "position": 252
+        },
+        "endLoc": {
+          "line": 56,
+          "column": 9,
+          "position": 395
+        }
+      },
+      "secondFile": {
+        "name": "src\\lib\\rule-engine-validation.test.ts",
+        "start": 18,
+        "end": 39,
+        "startLoc": {
+          "line": 18,
+          "column": 13,
+          "position": 163
+        },
+        "endLoc": {
+          "line": 39,
+          "column": 3,
+          "position": 308
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "const dismissedData = localStorage.getItem('kernnutrition-install-dismissed')\r\n    expect(dismissedData).toBeTruthy()\r\n    \r\n    if (dismissedData) {\r\n      const { timestamp } = JSON.parse(dismissedData)\r\n      const timeSinceDismissed = Date.now() - timestamp\r\n      const shouldShow = timeSinceDismissed >= installPromptUtils.getDismissDuration()\r\n      \r\n      expect(shouldShow).toBe(true",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\hooks\\useInstallPrompt.test.ts",
+        "start": 133,
+        "end": 141,
+        "startLoc": {
+          "line": 133,
+          "column": 3,
+          "position": 1322
+        },
+        "endLoc": {
+          "line": 141,
+          "column": 5,
+          "position": 1424
+        }
+      },
+      "secondFile": {
+        "name": "src\\hooks\\useInstallPrompt.test.ts",
+        "start": 115,
+        "end": 123,
+        "startLoc": {
+          "line": 115,
+          "column": 3,
+          "position": 1133
+        },
+        "endLoc": {
+          "line": 123,
+          "column": 6,
+          "position": 1235
+        }
+      }
+    },
+    {
+      "format": "css",
+      "lines": 10,
+      "fragment": "height: 20px;\r\n    width: 20px;\r\n    border-radius: 50%;\r\n    background: rgb(var(--primary));\r\n    cursor: pointer;\r\n    border: 2px solid rgb(var(--background));\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\r\n  }\r\n\r\n  .slider::-moz-range-track",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src\\index.css",
+        "start": 188,
+        "end": 197,
+        "startLoc": {
+          "line": 188,
+          "column": 5,
+          "position": 1417
+        },
+        "endLoc": {
+          "line": 197,
+          "column": 26,
+          "position": 1510
+        }
+      },
+      "secondFile": {
+        "name": "src\\index.css",
+        "start": 170,
+        "end": 179,
+        "startLoc": {
+          "line": 170,
+          "column": 5,
+          "position": 1260
+        },
+        "endLoc": {
+          "line": 179,
+          "column": 30,
+          "position": 1353
+        }
+      }
+    }
+  ]
+}

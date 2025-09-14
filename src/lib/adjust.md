@@ -1,4 +1,4 @@
-# KERNbalance Regel-Engine für Adaptive Empfehlungen
+# KERNnutrition Regel-Engine für Adaptive Empfehlungen
 
 Die Regel-Engine (`src/lib/adjust.ts`) implementiert intelligente Anpassungsempfehlungen basierend auf Check-in Daten, Trendanalysen und wissenschaftlichen Prinzipien.
 
@@ -189,4 +189,4 @@ npm run test -- adjust.test.ts
 4. **Biomarker**: Körperfettanteil, Umfangsmessungen
 5. **Erweiterte Analytics**: Langzeit-Trend-Analysen
 
-Die Regel-Engine bildet das Herzstück des intelligenten Coaching-Systems von KERNbalance und ermöglicht datengesteuerte, wissenschaftlich fundierte Anpassungsempfehlungen.
+Die Regel-Engine bildet das Herzstück des intelligenten Coaching-Systems von KERNnutrition und ermöglicht datengesteuerte, wissenschaftlich fundierte Anpassungsempfehlungen.

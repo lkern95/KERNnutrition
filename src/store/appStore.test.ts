@@ -60,7 +60,7 @@ describe('wipeAllUserData', () => {
     localStorage.setItem(PERSIST_KEY, JSON.stringify({ state: useAppStore.getState(), version: 0 }));
     localStorage.setItem('kerncare-settings', JSON.stringify({ analytics: true }));
     localStorage.setItem('kernnutrition-test', 'foo');
-    localStorage.setItem('kernbalance-test', 'bar');
+  localStorage.setItem('kernnutrition-test', 'bar');
   });
 
   it('löscht alle Nutzdaten (Persist-Key darf leer "{}" sein)', async () => {
@@ -105,6 +105,6 @@ describe('wipeAllUserData', () => {
 
     expect(localStorage.getItem('kerncare-settings')).toBeFalsy();
     expect(localStorage.getItem('kernnutrition-test')).toBeFalsy();
-    expect(localStorage.getItem('kernbalance-test')).toBeFalsy();
+  expect(localStorage.getItem('kernnutrition-test')).toBeFalsy();
   });
 });

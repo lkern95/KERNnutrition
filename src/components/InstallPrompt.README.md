@@ -13,7 +13,7 @@ Die `InstallPrompt` Komponente zeigt automatisch einen Installationsaufforderung
 
 ### ✅ **Intelligente Persistierung**
 - **7-Tage Timeout**: Nach "Später" wird 7 Tage lang nicht mehr angezeigt
-- **LocalStorage**: `kernbalance-install-dismissed` Flag mit Timestamp
+- **LocalStorage**: `kernnutrition-install-dismissed` Flag mit Timestamp
 - **Version-basiert**: Kann bei SW-Updates zurückgesetzt werden
 
 ### ✅ **Benutzerfreundlich**
@@ -56,7 +56,7 @@ const {
 ### Utils: `installPromptUtils`
 
 ```typescript
-installPromptUtils.getStorageKey()        // 'kernbalance-install-dismissed'
+installPromptUtils.getStorageKey()        // 'kernnutrition-install-dismissed'
 installPromptUtils.getDismissDuration()   // 7 * 24 * 60 * 60 * 1000 ms
 installPromptUtils.clearDismissFlag()     // Für Testing/Reset
 installPromptUtils.setDismissFlag(ts?)    // Für Testing
@@ -114,7 +114,7 @@ const STORAGE_KEY = 'myapp-install-dismissed'
 ```typescript
 // In InstallPrompt.tsx
 <h3>App herunterladen</h3>
-<p>Lade KERNbalance für bessere Performance herunter</p>
+<p>Lade KERNnutrition für bessere Performance herunter</p>
 ```
 
 ### **Styling anpassen**
@@ -160,7 +160,7 @@ function EinstellungenPage() {
 
 ```javascript
 // Console Commands für Testing
-localStorage.removeItem('kernbalance-install-dismissed')  // Reset Flag
+localStorage.removeItem('kernnutrition-install-dismissed')  // Reset Flag
 window.dispatchEvent(new Event('beforeinstallprompt'))   // Simulate Event
 
 // Hook State prüfen (in DevTools React)

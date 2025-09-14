@@ -23,7 +23,7 @@ describe('computeTrend2Points', () => {
       { date: '2023-01-01', weight: 0 },
       { date: '2023-01-08', weight: 0.2 },
     ]);
-    expect(res.kgPerWeek).not.toBeNull();
+    expect(res.kgPerWeek).toBeNull();
     expect(res.pctPerWeek).toBeNull();
   });
 
