@@ -1,5 +1,26 @@
+type Role = 'wake'|'pre'|'post'|'sleep'|'main'|'merged';
+
+function primaryRole(tags?: Role[] | null): Role | null {
+	if (!Array.isArray(tags) || tags.length === 0) return null;
+	const order: Role[] = ['wake','pre','post','sleep','main','merged'];
+	for (const r of order) if (tags.includes(r)) return r;
+	return null;
+}
+
+function roleLabel(r: Role): string {
+	switch (r) {
+		case 'wake':   return 'Aufstehen';
+		case 'pre':    return 'Pre';
+		case 'post':   return 'Post';
+		case 'sleep':  return 'Schlaf';
+		case 'main':   return 'Haupt';
+		case 'merged': return 'Zusammengelegt';
+		default:       return '';
+	}
+}
 
 import React from "react";
+import { shiftBtn } from '../lib/planner/defaults';
 
 type Slot = {
 	id: string;
@@ -22,69 +43,104 @@ type MealsContainerProps = {
 	showGym?: boolean;
 };
 
+
 export default function MealsContainer({ slots, sum, m2t, onNudge, gymStart, gymEnd, showGym }: MealsContainerProps) {
-	return (
-		<div>
-			<ul>
-				{slots.map(s => (
-					<li key={s.id} className="py-2">
-						<div className="kb-meal-grid kb-meal-row">
-							{/* 1: Zeit */}
-							<div className="font-mono kb-num text-sm text-neutral-600 dark:text-neutral-300">{m2t(s.t) || <span>&nbsp;</span>}</div>
-							{/* 2: Titel + Badges */}
-							<div className="min-w-0">
-								<div className="truncate text-sm font-medium">{s.label || <span>&nbsp;</span>}</div>
-								<div className="mt-0.5 flex flex-wrap gap-1 text-[11px]">
-									{s.tags?.includes('pre')   && <span className="px-1 rounded bg-amber-100 dark:bg-amber-900/40">Pre</span>}
-									{s.tags?.includes('post')  && <span className="px-1 rounded bg-blue-100  dark:bg-blue-900/40">Post</span>}
-									{s.tags?.includes('sleep') && <span className="px-1 rounded bg-purple-100 dark:bg-purple-900/40">Schlaf</span>}
-									{s.tags?.includes('wake')  && <span className="px-1 rounded bg-green-100  dark:bg-green-900/40">Aufstehen</span>}
-								</div>
-							</div>
-							{/* 3: P */}
-							<span className="kb-pill border-l-0"><span className="opacity-70">P</span><span className="kb-num">{typeof s.p === 'number' ? s.p : <span>&nbsp;</span>}</span></span>
-							{/* 4: C */}
-							<span className="kb-pill" style={{ borderLeft: '2px solid #666' }}><span className="opacity-70">C</span><span className="kb-num">{typeof s.c === 'number' ? s.c : <span>&nbsp;</span>}</span></span>
-							{/* 5: F */}
-							<span className="kb-pill" style={{ borderLeft: '2px solid #666' }}><span className="opacity-70">F</span><span className="kb-num">{typeof s.f === 'number' ? s.f : <span>&nbsp;</span>}</span></span>
-							{/* 6: kcal */}
-							<div className="kb-num text-xs text-right">{typeof s.kcal === 'number' ? `${s.kcal} kcal` : <span>&nbsp;</span>}</div>
-							{/* 7: Aktionen */}
-							<div className="flex justify-end gap-1 w-[var(--col-actions)] min-w-[var(--col-actions)]">
-								<button className="kb-btn-xs w-16 min-w-16" onClick={()=>onNudge(s.id,-15)}>−15m</button>
-								<button className="kb-btn-xs w-16 min-w-16" onClick={()=>onNudge(s.id, 15)}>+15m</button>
-							</div>
-						</div>
-					</li>
-				))}
+	// Grid-Definition wie gefordert
+	const rowCls =
+		"grid items-center gap-2 px-2 py-2 " +
+		"grid-cols-[minmax(0,1fr)_auto_72px_72px_72px_88px] " +
+		"sm:grid-cols-[minmax(0,1fr)_auto_80px_80px_80px_96px]";
+	const pillBase =
+		"inline-flex justify-center items-center rounded-full px-2 py-1 " +
+		"text-xs font-mono tabular-nums bg-white/10 w-[72px] sm:w-[80px]";
+	const pillProtein = `${pillBase} text-[color:var(--macro-protein)]`;
+	const pillCarb    = `${pillBase} text-[color:var(--macro-carb)]`;
+	const pillFat     = `${pillBase} text-[color:var(--macro-fat)]`;
+							const kcalPill =
+								"inline-flex justify-center items-center rounded-full px-2 py-1 " +
+								"text-xs font-mono tabular-nums bg-white/10 w-[88px] sm:w-[96px] text-[#00BCD4]";
+	const timeChip = "inline-flex items-center rounded px-2 py-0.5 text-[11px] font-mono tabular-nums bg-white/10 mr-2";
 
-				{/* Gym-Zeile (optional) */}
-				{showGym && (
-					<li className="py-4">
-						<div className="w-full">
-							<div className="flex flex-row items-center gap-4">
-								<div className="font-mono kb-num text-sm min-w-[3.75rem]">{gymStart}–{gymEnd}</div>
-								<div className="flex-1">
-									<div className="rounded-md bg-yellow-400/90 text-black px-3 py-2 w-full text-center">Gym</div>
-								</div>
-							</div>
-						</div>
-					</li>
-				)}
 
-				{/* Summen-Zeile */}
-				<li className="py-2 border-t border-neutral-200 dark:border-neutral-800">
-					<div className="kb-meal-grid kb-meal-row">
-						<div className="font-mono kb-num text-sm invisible">00:00</div> {/* Zeit-Platzhalter */}
-						<div className="font-medium">Summe</div>
-						<span className="kb-pill border-l-0"><span className="opacity-70">P</span><span className="kb-num">{sum.p}</span></span>
-						<span className="kb-pill" style={{ borderLeft: '2px solid #666' }}><span className="opacity-70">C</span><span className="kb-num">{sum.c}</span></span>
-						<span className="kb-pill" style={{ borderLeft: '2px solid #666' }}><span className="opacity-70">F</span><span className="kb-num">{sum.f}</span></span>
-						<div className="kb-num text-xs text-right">{sum.kcal} kcal</div>
-						<div className="w-[var(--col-actions)] min-w-[var(--col-actions)]" /> {/* Actions-Platzhalter */}
+		// Kombiniere Mahlzeiten und ggf. Gym-Block zu sortierter Liste
+		let items: Array<{ type: 'meal'; t: number; meal: Slot } | { type: 'gym'; t: number; gymStart: string; gymEnd: string }> = slots.map(meal => ({ type: 'meal', t: meal.t, meal }));
+		if (showGym && gymStart && gymEnd) {
+			// Gym-Start als Minuten für Sortierung
+			const [h, m] = gymStart.split(':').map(Number);
+			const gymT = h * 60 + m;
+			items.push({ type: 'gym', t: gymT, gymStart, gymEnd });
+		}
+		items.sort((a, b) => a.t - b.t);
+
+		return (
+			<div className="w-full max-w-[720px] mx-auto rounded-2xl bg-white/5 p-3 sm:p-4 overflow-visible">
+				<div className="max-h-[70vh] overflow-y-auto pr-1">
+					{/* Header */}
+					<div className={`${rowCls} text-[11px] text-white/60`}>
+						<div className="truncate">Mahlzeit</div>
+						<div className="justify-self-end">Zeit-Shift</div>
+						<div className="text-center">P</div>
+						<div className="text-center">C</div>
+						<div className="text-center">F</div>
+						<div className="text-center">kcal</div>
 					</div>
-				</li>
-			</ul>
-		</div>
-	);
-}
+					{/* Zeilen: Mahlzeiten und Gym-Block sortiert */}
+					{items.map((item, idx) => {
+						if (item.type === 'gym') {
+							return (
+								<div key={`gym-${item.gymStart}-${item.gymEnd}`} className="col-span-full rounded-xl bg-yellow-400/90 text-black px-3 py-2 my-2 font-semibold text-center">
+									{item.gymStart}–{item.gymEnd} Gym
+								</div>
+							);
+						} else {
+							const meal = item.meal;
+							return (
+								<div key={meal.id} className={rowCls}>
+									{/* Spalte 1: Zeit-Chip vor Label */}
+									<div className="min-w-0">
+																<div className="flex items-center gap-2">
+																	<span className={timeChip}>{m2t(meal.t)}</span>
+																	<div className="flex gap-1">
+																		<button className={shiftBtn} onClick={() => onNudge(meal.id, -15)}>−15m</button>
+																		<button className={shiftBtn} onClick={() => onNudge(meal.id, +15)}>+15m</button>
+																	</div>
+																</div>
+																<span className="truncate text-sm font-medium">{meal.label}</span>
+										{/* optional: Sub-Label/Role (aus tags) */}
+										{primaryRole(meal.tags as Role[]) && (
+											<div className="text-xs text-white/60 mt-0.5">
+												{roleLabel(primaryRole(meal.tags as Role[])!)}
+											</div>
+										)}
+									</div>
+									{/* Spalte 2: Controls */}
+												<div />
+									{/* Spalten 3–6: P/C/F/kcal */}
+									<span className={pillProtein}>P {meal.p}</span>
+									<span className={pillCarb}>C {meal.c}</span>
+									<span className={pillFat}>F {meal.f}</span>
+												<span className={kcalPill}>{meal.kcal} kcal</span>
+									{/* kcal-Unterzeile: unter Spalte 1+2 */}
+															<div className="col-start-1 col-span-2 text-xs mt-1 text-[#00BCD4]">
+																{meal.kcal} kcal
+															</div>
+								</div>
+							);
+						}
+					})}
+					{/* Summenzeile */}
+								<div className={`${rowCls} border-t-4 border-white/60 mt-2 pt-2`}>
+						<div className="text-sm font-semibold">Summe</div>
+						<div />
+						<span className={pillProtein}>P {sum.p}</span>
+						<span className={pillCarb}>C {sum.c}</span>
+						<span className={pillFat}>F {sum.f}</span>
+									<span className={kcalPill}>{sum.kcal} kcal</span>
+												<div className="col-start-1 col-span-2 text-xs mt-1 text-[#00BCD4]">
+													{sum.kcal} kcal
+												</div>
+					</div>
+				</div>
+			</div>
+		);
+	}

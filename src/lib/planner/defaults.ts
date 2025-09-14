@@ -1,12 +1,16 @@
+// Kompakter Button-Style für schlanke Buttons
+export const shiftBtn =
+  "px-1.5 py-0.5 text-[10px] font-mono rounded-md " +
+  "bg-gray-700/60 hover:bg-gray-600 text-gray-200";
 export const LS_KEY = 'planner.inputs.v1';
 
 export const DEFAULT_PLANNER_INPUTS = {
-  wake: '07:00',
-  sleep: '23:00', // wichtig für den Test
-  gymStart: '18:00',
-  gymEnd: '19:00',
+  wake: '05:25',
+  sleep: '21:30', // wichtig für den Test
+  gymStart: '06:10',
+  gymEnd: '07:10',
   isTrainingDay: true,
-  mealsTarget: 5,
+  mealsTarget: 6,
   minGapMin: 120,
   targetGapMin: 180,
   preset: 'standard' as 'standard',

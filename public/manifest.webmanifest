@@ -1,15 +1,13 @@
 {
   "name": "KERNnutrition",
-  "short_name": "KERNnutrition",
-  "description": "Die smarte Ernährungs-App für Alltag und Ziel.",
-  "start_url": ".",
-  "scope": ".",
+  "short_name": "KERN",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0a1e2b",
+  "background_color": "#0B0F1A",
+  "theme_color": "#0B0F1A",
   "icons": [
-    { "src": "/pwa-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/pwa-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/pwa-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/pwa-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
     { "src": "/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

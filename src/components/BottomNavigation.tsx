@@ -72,7 +72,7 @@ export function BottomNavigation() {
 
   return (
     <nav
-      className="\n    fixed bottom-0 left-0 right-0 z-50\n    w-full max-w-[100vw] overflow-hidden\n    bg-[#292c2f] border-t border-[rgba(255,208,0,.15)]\n    bn-h pb-safe\n  "
+  className="\n    fixed bottom-0 left-0 right-0 z-50\n    w-full max-w-[100vw] overflow-x-visible\n    bg-[#292c2f] border-t border-[rgba(255,208,0,.15)]\n    bn-h pb-safe\n  "
     >
       <div className="h-full flex">
         {tabs.map((tab) => {

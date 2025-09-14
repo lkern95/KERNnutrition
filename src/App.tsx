@@ -7,7 +7,7 @@ import { OfflineIndicator } from './components/OfflineIndicator';
 import UebersichtPage from './pages/UebersichtPage';
 import './styles/slider.css';
 
-const RechnerPage = lazy(() => import('./pages/RechnerPage'));
+const RechnerPage = lazy(() => import('./pages/RechnerPage').then(mod => ({ default: mod.RechnerPage })));
 import PlanerPage from './pages/PlanerPage';
 const CheckinPage = lazy(() => import('./pages/CheckinPageComponent'));
 const EinstellungenPage = lazy(() => import('./pages/EinstellungenPage'));
@@ -22,7 +22,7 @@ const pages = {
   checkin: CheckinPage,
   einstellungen: EinstellungenPage,
   info: InfoPage
-};
+} as Record<string, React.ComponentType<any>>;
 
 function PageLoader() {
   return (
@@ -42,10 +42,8 @@ export default function App() {
 
   return (
     <>
-        <InstallPrompt
-          onClose={handleDismiss}
-      />
-      <div className="min-h-screen bg-background">
+      <InstallPrompt onClose={handleDismiss} />
+      <div className="min-h-screen w-full px-3 pb-[calc(env(safe-area-inset-bottom)+80px)]">
         <OfflineIndicator />
         <div className="with-bottom-nav-pb">
           <main>

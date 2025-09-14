@@ -252,7 +252,7 @@ export default function UebersichtPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
           {/* Big KCAL */}
           <section
-            className="lg:col-span-3 rounded-2xl border shadow-xl overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl pop-in pop-in-delay-1"
+            className="lg:col-span-3 rounded-2xl border shadow-xl transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-2xl pop-in pop-in-delay-1"
             style={{ background: INK, borderColor: `${GOLD}26` }}
           >
             <div className="p-5 sm:p-6">
@@ -377,7 +377,7 @@ export default function UebersichtPage() {
                 <div className="flex justify-between text-xs opacity-70 mb-1">
                   <span>Protein</span><span>{pPctTarget}%</span>
                 </div>
-                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(236,236,236,0.1)' }}>
+                <div className="h-2.5 rounded-full" style={{ background: 'rgba(236,236,236,0.1)' }}>
                   <div className="h-full" style={{ width: `${pWidth}%`, background: 'var(--macro-protein)' }} />
                 </div>
               </div>
@@ -385,7 +385,7 @@ export default function UebersichtPage() {
                 <div className="flex justify-between text-xs opacity-70 mb-1">
                   <span>Kohlenhydrate</span><span>{cPctTarget}%</span>
                 </div>
-                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(236,236,236,0.1)' }}>
+                <div className="h-2.5 rounded-full" style={{ background: 'rgba(236,236,236,0.1)' }}>
                   <div className="h-full" style={{ width: `${cWidth}%`, background: 'var(--macro-carb)' }} />
                 </div>
               </div>
@@ -393,7 +393,7 @@ export default function UebersichtPage() {
                 <div className="flex justify-between text-xs opacity-70 mb-1">
                   <span>Fett</span><span>{fPctTarget}%</span>
                 </div>
-                <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'rgba(236,236,236,0.1)' }}>
+                <div className="h-2.5 rounded-full" style={{ background: 'rgba(236,236,236,0.1)' }}>
                   <div className="h-full" style={{ width: `${fWidth}%`, background: 'var(--macro-fat)' }} />
                 </div>
               </div>
