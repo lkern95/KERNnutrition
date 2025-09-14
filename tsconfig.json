@@ -24,7 +24,14 @@
     "vite.config.*",
     "vitest.config.*",
     "env.d.ts",
-    "scripts/**/*"
+    "scripts/**/*",
+    "test"
   ],
-  "exclude": ["dist", "build", "coverage", "node_modules"]
+  "exclude": [
+    "dist",
+    "build",
+    "coverage",
+    "node_modules",
+    "z_archive"
+  ]
 }

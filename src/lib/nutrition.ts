@@ -85,7 +85,7 @@ export interface MacroResult {
 }
 
 export interface ValidationWarning {
-  type: 'fat_too_low' | 'protein_out_of_range' | 'fat_out_of_range' | 'activity_factor_extreme';
+  type: 'fat_too_low' | 'protein_out_of_range' | 'fat_out_of_range' | 'activity_factor_extreme' | 'extreme_adjust';
   message: string;
 }
 
@@ -259,6 +259,14 @@ export function macrosFromTargets(input: CalcInput): CalcResult {
         message: `Protein und Fett übersteigen die Zielkalorien. Reduziere Protein/Fett oder erhöhe die Zielkalorien.`
       });
     }
+  }
+
+  // Bereichsvalidierung für Zielkalorien
+  if (targetKcal < 1200 || targetKcal > 5000) {
+    inputWarnings.push({
+      type: 'activity_factor_extreme',
+      message: `Deine Zielkalorien liegen bei ${targetKcal} kcal – außerhalb des realistischen Bereichs (1200–5000).`
+    });
   }
 
   // Fettanteil validieren

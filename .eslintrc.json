@@ -1,0 +1,11 @@
+{
+  "extends": ["next", "plugin:@typescript-eslint/recommended", "prettier"],
+  "rules": {
+    "no-restricted-imports": ["error", {
+      "paths": [
+        { "name": "@/lib/calcCache", "importNames": ["saveCalcResult"], "message": "Planner darf saveCalcResult nicht importieren/schreiben." },
+        { "name": "@/lib/nutrition", "message": "Planner darf die Rechner-Logik nicht re-importieren (keine Re-Berechnung der Totals)." }
+      ]
+    }]
+  }
+}

@@ -716,3 +716,5 @@ export function EinstellungenPage() {
     </div>
   )
 }
+
+export default EinstellungenPage;

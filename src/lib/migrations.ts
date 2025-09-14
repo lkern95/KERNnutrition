@@ -1,3 +1,14 @@
+// Migration: Planer-Inputs-Key von kernBalance_planer_inputs zu kernNutrition_planer_inputs
+export function migratePlannerInputsKey() {
+  try {
+    const oldK = 'kernBalance_planer_inputs';
+    const newK = 'kernNutrition_planer_inputs';
+    if (!localStorage.getItem(newK) && localStorage.getItem(oldK)) {
+      localStorage.setItem(newK, localStorage.getItem(oldK)!);
+      // optional: localStorage.removeItem(oldK);
+    }
+  } catch {}
+}
 // src/lib/migrations.ts
 
 import { APP } from '../config/app';

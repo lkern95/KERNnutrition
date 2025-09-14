@@ -1,11 +1,108 @@
-import React, { useState, useEffect } from 'react'
+
+import React, { useState, useEffect, useRef } from 'react';
 import { saveGoalPref, mapRechnerLabelToKey } from '../lib/goalPref';
 import { saveCalcResult, loadCalcResult } from '../lib/calcCache';
 import { getEffective } from '../lib/derived';
-import { Calculator, Activity, Target, Scale, Ruler, Calendar, Info, AlertTriangle, Settings } from 'lucide-react'
-import { useAppStore } from '../store/appStore'
-import { macrosFromTargets, type CalcInput, type MacroResult, type ValidationWarning } from '../lib/nutrition'
-import { getSettings, formatValue, validateCalorieGoal, validateMacros } from '../lib/settings'
+import { Calculator, Activity, Target, Scale, Ruler, Calendar, Info, AlertTriangle, Settings } from 'lucide-react';
+import { useAppStore } from '../store/appStore';
+import { macrosFromTargets, type CalcInput, type MacroResult, type ValidationWarning } from '../lib/nutrition';
+import { getSettings, formatValue, validateCalorieGoal, validateMacros } from '../lib/settings';
+import '../App.css';
+
+// Info texts for popovers
+
+// Info texts for popovers
+const INFO_TEXTS = {
+  BMR: (
+    <div style={{maxWidth: 320}}>
+      <b>BMR (Grundumsatz):</b> Kalorienverbrauch in völliger Ruhe.<br/>
+      <ul className="list-disc pl-4 mt-2 text-xs">
+        <li>Alter: Mit zunehmendem Alter sinkt der BMR.</li>
+        <li>Geschlecht: Männer haben meist höheren BMR.</li>
+        <li>Körpergewicht & Größe: Mehr Gewebe = höherer BMR.</li>
+        <li>Muskelmasse: Mehr Muskeln = höherer BMR.</li>
+        <li>Genetik & Hormonhaushalt beeinflussen den BMR.</li>
+      </ul>
+      <div className="mt-2 text-xs text-text-secondary">
+        <b>Verteilung BMR (im Ruhezustand):</b><br/>
+        Leber: 26% • Muskeln: 26% • Gehirn: 18% • Herz: 9% • Nieren: 7%
+      </div>
+    </div>
+  ),
+  TDEE: (
+    <div style={{maxWidth: 320}}>
+      <b>TDEE (Gesamtumsatz):</b> Kalorienverbrauch inkl. Alltagsaktivität & Training.<br/>
+      <ul className="list-disc pl-4 mt-2 text-xs">
+        <li>BMR (Grundumsatz)</li>
+        <li>NEAT (Alltagsbewegung, z. B. Gehen, Treppensteigen)</li>
+        <li>TEF (Verdauungskosten der Nahrung)</li>
+        <li>Training (Sportliche Aktivität)</li>
+      </ul>
+      <div className="mt-2 text-xs text-text-secondary">
+        <b>Dein Aktivitätslevel & Körperdaten bestimmen den TDEE.</b>
+      </div>
+    </div>
+  ),
+  Zielkalorien: (
+    <div style={{maxWidth: 320}}>
+      <b>Zielkalorien:</b> Dein bewusst gewähltes Ziel (z. B. für Muskelaufbau).<br/>
+      <ul className="list-disc pl-4 mt-2 text-xs">
+        <li>Abnehmen: 10–20 % unter TDEE (Kaloriendefizit)</li>
+        <li>Muskelaufbau: 10–20 % über TDEE (Kalorienüberschuss)</li>
+        <li>Gewicht halten: Zielkalorien = TDEE</li>
+      </ul>
+      <div className="mt-2 text-xs text-text-secondary">
+        <b>Dein Ziel & TDEE bestimmen die Zielkalorien.</b>
+      </div>
+    </div>
+  )
+}
+
+function InfoPopover({text, open, onClose, anchorRef}: {text: React.ReactNode, open: boolean, onClose: () => void, anchorRef: React.RefObject<HTMLButtonElement | null>}) {
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return;
+    function handle(e: MouseEvent) {
+      if (anchorRef.current && !anchorRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    }
+    document.addEventListener('mousedown', handle);
+    return () => document.removeEventListener('mousedown', handle);
+  }, [open, anchorRef, onClose]);
+  if (!open) return null;
+  return (
+    <div style={{position: 'absolute', zIndex: 50, top: '2.2rem', left: '50%', transform: 'translateX(-50%)'}} className="bg-surface border border-border rounded-xl shadow-lg p-4 text-xs text-left max-w-xs animate-fadein">
+      {text}
+    </div>
+  );
+}
+
+// Card with Info-Icon and popover for BMR, TDEE, Zielkalorien
+function BmrTdeeZielCard({label, value, color, infoText}: {label: string, value: any, color: string, infoText: React.ReactNode}) {
+  const [open, setOpen] = React.useState(false);
+  const btnRef = React.useRef<HTMLButtonElement>(null);
+  return (
+    <div className="bg-surface rounded-2xl p-6 shadow-soft relative">
+      <div className="text-center">
+        <div className="text-3xl font-bold mb-2" style={{ color }}>{value}</div>
+        <div className="flex items-center justify-center gap-1 mb-1">
+          <div className="text-sm font-medium text-text">{label}</div>
+          <button ref={btnRef} type="button" aria-label="Info" onClick={() => setOpen(o => !o)} className="ml-1 align-middle">
+            <Info className="w-4 h-4 text-info hover:text-primary transition-colors" />
+          </button>
+          <InfoPopover text={infoText} open={open} onClose={() => setOpen(false)} anchorRef={btnRef} />
+        </div>
+        <div className="text-xs text-text-secondary">
+          {label === 'BMR' && 'Grundumsatz - Kalorien in Ruhe'}
+          {label === 'TDEE' && 'Gesamtumsatz mit Aktivität'}
+          {label === 'Zielkalorien' && 'Für dein gewähltes Ziel'}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 // Aktivitätsfaktoren für Dropdown
 const ACTIVITY_OPTIONS = [
@@ -70,7 +167,7 @@ export function RechnerPage() {
   const { setProfile } = useAppStore()
 
   // Lokale Persistierung
-  const STORAGE_KEY = 'kernNutrition_calculator_inputs'
+  const STORAGE_KEY = 'kernBalance_calculator_inputs'
 
   // Eingaben beim Start laden
   useEffect(() => {
@@ -155,29 +252,51 @@ export function RechnerPage() {
     try {
       // Get current settings
       const settings = getSettings()
-      
+
+      // Prüfe auf extreme Kalorienanpassung
+      const extremeAdjust = Math.abs(kcalAdjust) > 1000;
+      let extremeAdjustWarning: ValidationWarning | null = null;
+      if (extremeAdjust) {
+        extremeAdjustWarning = {
+          type: 'extreme_adjust',
+          message: 'Kalorienanpassung größer ±1000 kcal ist unrealistisch. Bitte reduziere deinen Wert.'
+        };
+      }
+
       // Apply macro overrides if enabled
       let finalProteinPerKg = proteinPerKg
       let finalFatPerKg = fatPerKg
-      
+
       if (settings.macroOverride.enabled) {
         if (settings.macroOverride.protein !== null) {
           finalProteinPerKg = settings.macroOverride.protein
         }
-        if (settings.macroOverride.fat !== null) {
-          // Convert fat percentage to g/kg approximation
-          finalFatPerKg = settings.macroOverride.fat / 100 * 9 * 2000 / weightNum / 9 // rough conversion
-        }
+        // Fett-Override wird nach der ersten Makro-Berechnung angewendet (siehe unten)
       }
-      
-      // Update input with overrides
-      const finalInput: CalcInput = {
+
+      // Update input with overrides (Fett-Override wird ggf. später angewendet)
+      let finalInput: CalcInput = {
         ...input,
         proteinPerKg: finalProteinPerKg,
         fatPerKg: finalFatPerKg
       }
-      
-      const { result: calcResult, warnings: calcWarnings } = macrosFromTargets(finalInput)
+
+      let { result: calcResult, warnings: calcWarnings } = macrosFromTargets(finalInput);
+
+      // Fett-Override nach Zielkalorien anwenden, falls aktiviert
+      if (settings.macroOverride.enabled && settings.macroOverride.fat !== null) {
+        const fatPercentOverride = settings.macroOverride.fat / 100;
+        const fatGramsTotal = calcResult.targetKcal * fatPercentOverride / 9;
+        const newFatPerKg = fatGramsTotal / weightNum;
+        finalInput = {
+          ...finalInput,
+          fatPerKg: newFatPerKg
+        };
+        // Makros erneut berechnen mit korrektem Fettwert
+        const recalculated = macrosFromTargets(finalInput);
+        calcResult = recalculated.result;
+        calcWarnings = recalculated.warnings;
+      }
       
       // Apply precision formatting
       const formattedResult: MacroResult = {
@@ -218,10 +337,13 @@ export function RechnerPage() {
       }
       
       const allWarnings = [...calcWarnings, ...settingsWarnings]
-      
-      setResult(formattedResult)
-      setWarnings(allWarnings)
-      setIsCalculated(true)
+
+  // Füge ggf. Warnung für extreme Kalorienanpassung hinzu
+  const finalWarnings = extremeAdjustWarning ? [...allWarnings, extremeAdjustWarning] : allWarnings;
+
+  setResult(formattedResult)
+  setWarnings(finalWarnings)
+  setIsCalculated(true)
 
       // Ergebnis persistent speichern
       saveCalcResult({
@@ -657,39 +779,27 @@ export function RechnerPage() {
           </div>
           {/* Grundwerte */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-surface rounded-2xl p-6 shadow-soft">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-primary mb-2">
-                  {result.bmr}
-                </div>
-                <div className="text-sm font-medium text-text mb-1">BMR</div>
-                <div className="text-xs text-text-secondary">
-                  Grundumsatz - Kalorien in Ruhe
-                </div>
-              </div>
-            </div>
-            <div className="bg-surface rounded-2xl p-6 shadow-soft">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-secondary mb-2">
-                  {eff.tdee}
-                </div>
-                <div className="text-sm font-medium text-text mb-1">TDEE</div>
-                <div className="text-xs text-text-secondary">
-                  Gesamtumsatz mit Aktivität
-                </div>
-              </div>
-            </div>
-            <div className="bg-surface rounded-2xl p-6 shadow-soft">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-accent mb-2">
-                  {result.targetKcal}
-                </div>
-                <div className="text-sm font-medium text-text mb-1">Zielkalorien</div>
-                <div className="text-xs text-text-secondary">
-                  Für dein gewähltes Ziel
-                </div>
-              </div>
-            </div>
+            {/* BMR */}
+            <BmrTdeeZielCard
+              label="BMR"
+              value={(result && result.bmr) ? result.bmr : eff.bmr}
+              color="#3F51B5"
+              infoText={INFO_TEXTS.BMR}
+            />
+            {/* TDEE */}
+            <BmrTdeeZielCard
+              label="TDEE"
+              value={eff.tdee}
+              color="#FF9800"
+              infoText={INFO_TEXTS.TDEE}
+            />
+            {/* Zielkalorien */}
+            <BmrTdeeZielCard
+              label="Zielkalorien"
+              value={result.targetKcal}
+              color="#00BCD4"
+              infoText={INFO_TEXTS.Zielkalorien}
+            />
           </div>
           
           {/* Makronährstoffe */}

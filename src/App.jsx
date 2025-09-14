@@ -11,7 +11,7 @@ import './styles/slider.css'
 // Lazy load pages for better performance
 
 const RechnerPage = lazy(() => import('./pages/RechnerPage').then(module => ({ default: module.RechnerPage })))
-const PlanerPage = lazy(() => import('./pages/PlanerPage').then(module => ({ default: module.PlanerPage })))
+import PlanerPage from './pages/PlanerPage';
 const CheckinPage = lazy(() => import('./pages/CheckinPageComponent').then(module => ({ default: module.default ?? module.CheckinPage })))
 const EinstellungenPage = lazy(() => import('./pages/EinstellungenPage').then(module => ({ default: module.EinstellungenPage })))
 const InfoPage = lazy(() => import('./pages/InfoPage'))

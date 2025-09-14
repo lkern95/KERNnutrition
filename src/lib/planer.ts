@@ -1,5 +1,49 @@
 
 
+
+// ---- Hilfsfunktionen: Rundung bei erhaltener Summe ----
+export function roundKeepSum(values: number[], target: number, step = 5, locked?: boolean[]) {
+  // locked: Einträge, die NICHT angepasst werden dürfen (z. B. feste Caps/Floors; hier selten nötig)
+  const n = values.length;
+  const L = locked ?? Array(n).fill(false);
+
+  // Roh -> Schritte
+  const rawSteps = values.map(v => v / step);
+  const floors = rawSteps.map(x => Math.floor(x));
+  const frac = rawSteps.map((x, i) => ({ i, r: x - floors[i] }));
+
+  let sumFloors = floors.reduce((a, b) => a + b, 0);
+  const need = Math.round(target / step) - sumFloors;
+
+  if (need > 0) {
+    // Verteile +1 Schritt an die größten Bruchteile (ohne gesperrte)
+    const order = frac
+      .filter(f => !L[f.i])
+      .sort((a, b) => b.r - a.r || a.i - b.i)
+      .map(x => x.i);
+    for (let k = 0; k < need; k++) floors[order[k % order.length]] += 1;
+  } else if (need < 0) {
+    // Nimm -1 bei den kleinsten Bruchteilen (ohne gesperrte)
+    const order = frac
+      .filter(f => !L[f.i])
+      .sort((a, b) => a.r - b.r || b.i - a.i)
+      .map(x => x.i);
+    for (let k = 0; k < -need; k++) floors[order[k % order.length]] -= 1;
+  }
+
+  return floors.map(x => x * step);
+}
+
+export function distributeWithFloors(total: number, floors: number[], weights?: number[]) {
+  // floors = Mindestgramm je Slot (kann 0 sein)
+  const n = floors.length;
+  const baseSum = floors.reduce((a, b) => a + b, 0);
+  const rest = Math.max(0, total - baseSum);
+  const w = weights && weights.some(x => x > 0) ? weights : Array(n).fill(1);
+  const wSum = w.reduce((a, b) => a + b, 0);
+  return floors.map((f, i) => f + (w[i] / wSum) * rest);
+}
+
 import type { UserProfile } from '../store/appStore'
 import { calculateBMR } from './nutrition'
 
@@ -54,32 +98,37 @@ export function calculatePlaner(
   const weeklyAverage = (nTrainDays * kcalTrain + (7 - nTrainDays) * kcalRest) / 7;
   const weeklyDeviation = Math.round(weeklyAverage - dailyTarget);
 
-  // Protein konstant (g)
-  const proteinG = Math.round(profile.weight * proteinPerKg);
 
-  // Fett
+  // --- Neue Makro-Berechnung mit Hilfsfunktionen ---
+  // Protein: konstant, auf 5g gerundet
+  const proteinG = roundKeepSum([
+    profile.weight * proteinPerKg,
+    profile.weight * proteinPerKg
+  ], 2 * profile.weight * proteinPerKg, 5)[0];
+
+  // Fett: wie bisher, aber auf 5g gerundet
   let fatTrain: number, fatRest: number;
   if (!fatSplitMode) {
-    // Fett konstant
-    fatTrain = fatRest = Math.round(profile.weight * fatPerKg);
+    fatTrain = fatRest = roundKeepSum([
+      profile.weight * fatPerKg,
+      profile.weight * fatPerKg
+    ], 2 * profile.weight * fatPerKg, 5)[0];
   } else {
-    // 20% der kcal-Differenz auf Fett, 80% auf Carbs
     const baseFat = profile.weight * fatPerKg;
     const fatDiff = (kcalTrain - kcalRest) * 0.2 / 9;
-    fatTrain = Math.round(baseFat + fatDiff);
-    fatRest = Math.round(baseFat);
+    [fatTrain, fatRest] = roundKeepSum([
+      baseFat + fatDiff,
+      baseFat
+    ], 2 * baseFat + fatDiff, 5);
   }
 
-  // Carbs
-  let carbsTrain = (kcalTrain - (proteinG * 4 + fatTrain * 9)) / 4;
-  let carbsRest = (kcalRest - (proteinG * 4 + fatRest * 9)) / 4;
-
-  // Runden auf ganze g, letzten Makro zum Ausgleich anpassen
-  let cTrain = Math.round(carbsTrain);
-  let cRest = Math.round(carbsRest);
-  // Ausgleich: Carbs als Rest, Protein und Fett bleiben exakt
-  cTrain = Math.round((kcalTrain - (proteinG * 4 + fatTrain * 9)) / 4);
-  cRest = Math.round((kcalRest - (proteinG * 4 + fatRest * 9)) / 4);
+  // Carbs: Rest aus kcal, auf 5g gerundet, Summe stimmt exakt
+  const carbsTrainRaw = (kcalTrain - (proteinG * 4 + fatTrain * 9)) / 4;
+  const carbsRestRaw = (kcalRest - (proteinG * 4 + fatRest * 9)) / 4;
+  const [cTrain, cRest] = roundKeepSum([
+    carbsTrainRaw,
+    carbsRestRaw
+  ], carbsTrainRaw + carbsRestRaw, 5);
 
   // Wochenmittel
   const avg = (nTrainDays: number, valTrain: number, valRest: number) =>

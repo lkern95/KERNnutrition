@@ -1,35 +1,8 @@
 {
-  "generatedAt": "2025-09-11T11:21:56.856Z",
+  "generatedAt": "2025-09-11T12:49:15.224Z",
   "totals": {
     "codeFiles": 80,
-    "groups": 1
+    "groups": 0
   },
-  "groups": [
-    {
-      "canonical": "src/pages/RechnerPage.tsx",
-      "dir": "src/pages",
-      "ext": ".tsx",
-      "base": "RechnerPage",
-      "variants": [
-        {
-          "file": "src/pages/RechnerPage_new.tsx",
-          "variant": "_new",
-          "referencedBy": [],
-          "refCount": 0,
-          "mtime": 1757587912264.9895
-        },
-        {
-          "file": "src/pages/RechnerPage_old.tsx",
-          "variant": "_old",
-          "referencedBy": [],
-          "refCount": 0,
-          "mtime": 1757345172051.552
-        }
-      ],
-      "hints": {
-        "canonicalReferenced": true,
-        "hasCanonical": true
-      }
-    }
-  ]
+  "groups": []
 }

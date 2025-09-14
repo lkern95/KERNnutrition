@@ -112,8 +112,16 @@ function analyzeProgress(
   const targetMid = (goalRange.min + goalRange.max) / 2
   const actualPercent = trendData.weeklyChangePercent
   const deviation = Math.abs(actualPercent - targetMid)
-  const deviationPercent = Math.abs(actualPercent) < 0.1 ? 0 : 
-    (actualPercent - targetMid) / Math.abs(targetMid)
+
+  if (trendData.classification === 'in') {
+    recommendations.push({
+      type: 'maintenance',
+      priority: 'low',
+      title: 'Weiter so!',
+      description: `Du liegst seit ${trendData.weeksInTrend} Wochen im gewünschten Bereich (${goalRange.label}). Behalte deine Strategie bei.`,
+      duration: 'Fortlaufend'
+    });
+  }
 
   if (trendData.classification === 'under' && trendData.weeksInTrend >= 2) {
     // Unter Zielbereich - Kalorien erhöhen

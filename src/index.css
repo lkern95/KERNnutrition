@@ -1,3 +1,150 @@
+.kb-meal-row > .kb-pill:not(:last-of-type) {
+  border-right: 1px solid rgb(212 212 212);
+  margin-right: -1px;
+}
+/* Ein Grid für ALLE Zeilen (auch Gym + Summe) */
+.kb-meal-grid {
+  --col-time: 3.75rem;   /* "07:15" */
+  --col-title: 1fr;
+  --col-pill: 3.5rem;    /* P/C/F Pillen */
+  --col-kcal: 5.75rem;   /* "425 kcal" */
+  --col-actions: 7.5rem; /* −15m +15m */
+}
+.kb-meal-row {
+  display: grid;
+  grid-template-columns:
+    var(--col-time) var(--col-title)
+    var(--col-pill) var(--col-pill) var(--col-pill)
+    var(--col-kcal) var(--col-actions);
+  align-items: center;
+  gap: .5rem; /* ≈ gap-2 */
+}
+
+/* Zahlen fester Zeichenabstand */
+.kb-num { font-variant-numeric: tabular-nums; font-feature-settings:"tnum"; }
+
+/* Macro-Pill mit fixer Breite – total inkl. Padding/Border */
+.kb-pill {
+  display: inline-flex; justify-content: space-between; align-items: center;
+  width: var(--col-pill);
+  padding: .125rem .5rem; border-radius: 9999px;
+  border: 1px solid rgb(212 212 212); font-size: .75rem; /* text-xs */
+}
+.dark .kb-pill { border-color: rgb(64 64 64); }
+/* gemeinsame Spaltenbreiten für die Mahlzeitenliste */
+.kb-meal-grid {
+  --col-time: 3.75rem;       /* 08:00 */
+  --col-macros: 11.5rem;     /* drei Pills à ~3.5rem + Gaps */
+  --col-kcal: 5.5rem;        /* "275 kcal" rechtsbündig */
+  --col-actions: 7.5rem;     /* zwei Buttons */
+}
+
+/* Zahlendarstellung mit fester Ziffernbreite */
+.kb-tnum { font-variant-numeric: tabular-nums; }
+
+/* Macro-Pill: fixe Breite, Wert rechts ausgerichtet */
+.kb-macro {
+  @apply inline-flex items-center justify-between px-2 py-0.5 rounded-full border
+         border-neutral-300 dark:border-neutral-700 text-xs kb-tnum;
+  width: 3.5rem;            /* sorgt für Spalten-Ausgleich P/C/F */
+}
+/* Meal grid column variables */
+.kb-meal-grid{
+  --col-time: 3.75rem;
+  --col-macros: 11.5rem;
+  --col-kcal: 5.5rem;
+  --col-actions: 7.5rem;
+}
+
+/* Jede Zeile benutzt exakt dieses Grid */
+.kb-meal-row{
+  display: grid;
+  grid-template-columns: var(--col-time) 1fr var(--col-macros) var(--col-kcal) var(--col-actions);
+  align-items: center;
+  gap: .5rem; /* = Tailwind gap-2 */
+}
+
+/* Zahlen stehen nicht „wackelig“ */
+.kb-tnum{
+  font-variant-numeric: tabular-nums;
+}
+
+/* Macro-Pill mit fixer Breite */
+.kb-macro{
+  width: 3.5rem;
+}
+/* KERNbalance Meal Grid Styles */
+.kb-meal-grid{
+  --col-time: 3.75rem;
+  --col-macros: 11.5rem;
+  --col-kcal: 5.5rem;
+  --col-actions: 7.5rem;
+}
+
+/* jede Zeile benutzt exakt dieses Grid */
+.kb-meal-row{
+  display: grid;
+  grid-template-columns: var(--col-time) 1fr var(--col-macros) var(--col-kcal) var(--col-actions);
+  align-items: center;
+  gap: .5rem; /* = Tailwind gap-2 */
+}
+
+/* Zahlen stehen nicht „wackelig“ */
+.kb-tnum{
+  font-variant-numeric: tabular-nums;
+}
+
+/* Macro-Pill mit fixer Breite */
+.kb-macro{
+  width: 3.5rem;
+}
+/* gemeinsame Spaltenbreiten für die Mahlzeitenliste */
+.kb-meal-grid {
+  --col-time: 3.75rem;       /* 08:00 */
+  --col-macros: 11.5rem;     /* drei Pills à ~3.5rem + Gaps */
+  --col-kcal: 5.5rem;        /* "275 kcal" rechtsbündig */
+  --col-actions: 7.5rem;     /* zwei Buttons */
+}
+
+/* Zahlendarstellung mit fester Ziffernbreite */
+.kb-tnum { font-variant-numeric: tabular-nums; }
+
+/* Macro-Pill: fixe Breite, Wert rechts ausgerichtet */
+.kb-macro {
+  @apply inline-flex items-center justify-between px-2 py-0.5 rounded-full border border-neutral-300 dark:border-neutral-700 text-xs kb-tnum;
+  width: 3.5rem;            /* sorgt für Spalten-Ausgleich P/C/F */
+}
+.kb-pill-protein { @apply kb-pill bg-emerald-100 dark:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800; }
+.kb-pill-carb    { @apply kb-pill bg-blue-100   dark:bg-blue-900/40   text-blue-900   dark:text-blue-200   border-blue-200   dark:border-blue-800; }
+.kb-pill-fat     { @apply kb-pill bg-amber-100  dark:bg-amber-900/40  text-amber-900  dark:text-amber-200  border-amber-200  dark:border-amber-800; }
+.kb-seg { @apply text-sm px-3 py-1 rounded-full border border-neutral-300 dark:border-neutral-700
+                 bg-white dark:bg-neutral-800 text-neutral-800 dark:text-neutral-100 hover:bg-neutral-50
+                 dark:hover:bg-neutral-700 transition; }
+.kb-seg--active { @apply bg-emerald-600 text-white border-emerald-600; }
+.kb-pill { @apply text-xs px-2 py-0.5 rounded-full border border-neutral-300 dark:border-neutral-700; }
+/* ===== KERNnutrition UI Tokens ===== */
+.kb-card {
+  @apply rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm;
+}
+.kb-tile {
+  @apply kb-card p-4 flex items-center gap-3;
+}
+.kb-title {
+  @apply font-semibold text-base text-neutral-900 dark:text-neutral-100 flex items-center gap-2;
+}
+.kb-input {
+  @apply w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900
+         text-neutral-900 dark:text-neutral-100 placeholder-neutral-400
+         focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500;
+}
+.kb-chip {
+  @apply px-3 py-1 rounded-full border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800
+         text-neutral-800 dark:text-neutral-100 hover:bg-neutral-50 dark:hover:bg-neutral-700 active:scale-95 transition;
+}
+.kb-badge-pre    { @apply px-1 rounded bg-amber-100  dark:bg-amber-900/40  text-amber-900  dark:text-amber-200; }
+.kb-badge-post   { @apply px-1 rounded bg-blue-100   dark:bg-blue-900/40   text-blue-900   dark:text-blue-200; }
+.kb-badge-sleep  { @apply px-1 rounded bg-purple-100 dark:bg-purple-900/40 text-purple-900 dark:text-purple-200; }
+.kb-badge-wake   { @apply px-1 rounded bg-green-100  dark:bg-green-900/40  text-green-900  dark:text-green-200; }
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -155,6 +302,43 @@
   }
 }
 
+/* Mobile Optimierung für Mahlzeitenliste */
+@media (max-width: 600px) {
+  .kb-meal-grid {
+    /* Grid auf eine Spalte umstellen */
+    --col-time: 100%;
+    --col-title: 100%;
+    --col-macros: 100%;
+    --col-kcal: 100%;
+    --col-actions: 100%;
+  }
+  .kb-meal-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    padding: 0.5rem 0;
+  }
+  .kb-meal-row > * {
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+  .kb-pill, .kb-macro {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 0.95rem;
+    margin-bottom: 0.15rem;
+  }
+  .kb-meal-row .kb-num {
+    font-size: 1rem;
+  }
+  .kb-meal-row .truncate {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+  }
+}
+
 /* PWA-spezifische Styles */
 @media (display-mode: standalone) {
   body {
@@ -248,3 +432,6 @@
     line-height: 1;
   }
 }
+.kb-btn-xs { @apply text-sm px-3 py-1 h-9 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-700; }
+.kb-pill   { @apply text-xs px-2 py-0.5 rounded-full border border-neutral-300 dark:border-neutral-700; }
+.kb-hint   { @apply text-xs text-neutral-500 dark:text-neutral-400; }
