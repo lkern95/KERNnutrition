@@ -10,8 +10,8 @@ export function InstallPrompt(props: { onClose?: () => void }) {
   }
 
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
-  // Use session-close only
-  const onClose = props.onClose || (() => { sessionStorage.setItem('installPromptClosed', '1'); window.dispatchEvent(new Event('installPromptClosed')); })
+  // Nur für die aktuelle Session schließen
+  const onClose = props.onClose || (() => { /* no-op, handled by state */ })
 
   return (
     <div 

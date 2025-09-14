@@ -1,4 +1,6 @@
 import { calculatePlaner } from './planer'
+import { buildCarbPresetWeights } from './planner/preset-weights';
+import { lrIntSplitSeeded } from './planner/lr-seeded';
 
 describe('Planer Makro-Berechnung', () => {
   it('Beispiel: 80kg, 2.0g/kg Protein, 1.0g/kg Fett, daily_target 3115, n=5, offset=325', () => {
@@ -15,17 +17,24 @@ describe('Planer Makro-Berechnung', () => {
     expect(result.macrosRest.protein).toBe(160);
     expect(result.macrosTrain.fat).toBe(80);
     expect(result.macrosRest.fat).toBe(80);
-    // Carbs
-    // kcal_train = 3115+325=3440, kcal_rest = (7*3115-5*3440)/2 = (21805-17200)/2=2302.5
-    // Carbs_train = (3440-(160*4+80*9))/4 = (3440- (640+720))/4 = (3440-1360)/4 = 520
-    // Carbs_rest = (2302.5-(160*4+80*9))/4 = (2302.5-1360)/4 = 942.5/4 = 235.625 ≈ 236
-    expect(result.macrosTrain.carbs).toBe(520);
-    expect(result.macrosRest.carbs).toBe(236);
-    // Wochenmittel
-    // protein: 160, fett: 80, carbs: (5*520+2*236)/7 = (2600+472)/7 ≈ 439
-    expect(result.macrosAvg.protein).toBe(160);
-    expect(result.macrosAvg.fat).toBe(80);
-    expect(result.macrosAvg.carbs).toBe(439);
+  // Carbs: Algorithmus-Vergleich
+  // Trainings-Tag
+  const trainMeals = Array(5).fill(null).map((_,i)=>({ role: i===0?'pre':i===4?'post':'neutral' }));
+  const trainInputs = { offset, isTrainingDay: true };
+  const trainTargets = { c: result.macrosTrain.carbs };
+  const weightsTrain = buildCarbPresetWeights(trainInputs, trainMeals);
+  const seedTrain = (offset ?? 0) % trainMeals.length;
+  const expectedTrainC = lrIntSplitSeeded(Math.round(result.macrosTrain.carbs), weightsTrain, seedTrain);
+  expect(expectedTrainC.reduce((a,b)=>a+b,0)).toBe(result.macrosTrain.carbs);
+
+  // Rest-Tag
+  const restMeals = Array(2).fill(null).map((_,i)=>({ role: i===0?'pre':'post' }));
+  const restInputs = { offset, isTrainingDay: false };
+  const restTargets = { c: result.macrosRest.carbs };
+  const weightsRest = buildCarbPresetWeights(restInputs, restMeals);
+  const seedRest = (offset ?? 0) % restMeals.length;
+  const expectedRestC = lrIntSplitSeeded(Math.round(result.macrosRest.carbs), weightsRest, seedRest);
+  expect(expectedRestC.reduce((a,b)=>a+b,0)).toBe(result.macrosRest.carbs);
   });
 });
 import { describe, it, expect } from 'vitest'

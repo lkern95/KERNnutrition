@@ -63,85 +63,90 @@ self.addEventListener('message', (event) => {
 
 // Fetch event - serve from cache with network fallback
 self.addEventListener('fetch', (event) => {
-  const { request } = event
-  const url = new URL(request.url)
+  const { request } = event;
+  const url = new URL(request.url);
 
-  // Handle navigation requests
-  if (request.mode === 'navigate') {
-    event.respondWith(
-      caches.match('/index.html')
-        .then((response) => {
-          return response || fetch(request)
+  // Helper: always return a valid Response
+  const safeFetch = (promise) =>
+    promise.catch((err) => {
+      // Offline fallback for HTML pages
+      if (request.destination === 'document') {
+        return caches.match('/index.html');
+      }
+      // Return a minimal valid Response for other types
+      return new Response('Service unavailable', { status: 503, statusText: 'Service Worker error' });
+    });
+
+  try {
+    // Handle navigation requests
+    if (request.mode === 'navigate') {
+      event.respondWith(safeFetch(
+        caches.match('/index.html').then((response) => {
+          return response || fetch(request);
         })
-    )
-    return
-  }
+      ));
+      return;
+    }
 
-  // Handle Google Fonts
-  if (url.origin === 'https://fonts.googleapis.com' || 
-      url.origin === 'https://fonts.gstatic.com') {
-    event.respondWith(
-      caches.open(RUNTIME_CACHE).then((cache) => {
-        return cache.match(request).then((response) => {
+    // Handle Google Fonts
+    if (url.origin === 'https://fonts.googleapis.com' || url.origin === 'https://fonts.gstatic.com') {
+      event.respondWith(safeFetch(
+        caches.open(RUNTIME_CACHE).then((cache) => {
+          return cache.match(request).then((response) => {
+            if (response) {
+              return response;
+            }
+            return fetch(request).then((networkResponse) => {
+              cache.put(request, networkResponse.clone());
+              return networkResponse;
+            });
+          });
+        })
+      ));
+      return;
+    }
+
+    // Handle images
+    if (request.destination === 'image') {
+      event.respondWith(safeFetch(
+        caches.open(RUNTIME_CACHE).then((cache) => {
+          return cache.match(request).then((response) => {
+            return response || fetch(request).then((networkResponse) => {
+              if (networkResponse.status === 200) {
+                cache.put(request, networkResponse.clone());
+              }
+              return networkResponse;
+            });
+          });
+        })
+      ));
+      return;
+    }
+
+    // Handle all other requests - cache first, then network
+    event.respondWith(safeFetch(
+      caches.match(request)
+        .then((response) => {
           if (response) {
-            return response
+            return response;
           }
           return fetch(request).then((networkResponse) => {
-            cache.put(request, networkResponse.clone())
-            return networkResponse
-          })
-        })
-      })
-    )
-    return
-  }
-
-  // Handle images
-  if (request.destination === 'image') {
-    event.respondWith(
-      caches.open(RUNTIME_CACHE).then((cache) => {
-        return cache.match(request).then((response) => {
-          return response || fetch(request).then((networkResponse) => {
-            if (networkResponse.status === 200) {
-              cache.put(request, networkResponse.clone())
+            // Don't cache non-successful responses
+            if (networkResponse.status !== 200) {
+              return networkResponse;
             }
-            return networkResponse
-          })
+            // Cache successful responses
+            const responseClone = networkResponse.clone();
+            caches.open(RUNTIME_CACHE).then((cache) => {
+              cache.put(request, responseClone);
+            });
+            return networkResponse;
+          });
         })
-      })
-    )
-    return
+    ));
+  } catch (err) {
+    event.respondWith(new Response('Service Worker error', { status: 503, statusText: 'Service Worker error' }));
   }
-
-  // Handle all other requests - cache first, then network
-  event.respondWith(
-    caches.match(request)
-      .then((response) => {
-        if (response) {
-          return response
-        }
-        return fetch(request).then((networkResponse) => {
-          // Don't cache non-successful responses
-          if (networkResponse.status !== 200) {
-            return networkResponse
-          }
-          
-          // Cache successful responses
-          const responseClone = networkResponse.clone()
-          caches.open(RUNTIME_CACHE).then((cache) => {
-            cache.put(request, responseClone)
-          })
-          
-          return networkResponse
-        })
-      })
-      .catch(() => {
-        // Offline fallback for HTML pages
-        if (request.destination === 'document') {
-          return caches.match('/index.html')
-        }
-      })
-  )
 })
 
 // Background sync for when connection is restored

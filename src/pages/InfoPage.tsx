@@ -29,56 +29,58 @@ export default function InfoPage() {
         <header className="pop-in">
           <h1 className="text-2xl font-extrabold tracking-tight" style={{ color: WHITE }}>Info</h1>
           <p className="text-sm mt-0.5" style={{ color: `${WHITE}99` }}>
-            Kurz erklärt: Nutzung, Berechnungsgrundlagen & praktische Tipps
+            Alles Wichtige zur App – kurz, verständlich & vollständig
           </p>
         </header>
 
-        <Section icon={<BookOpen size={18} />} title="So nutzt du KERNnutrition – Kurzfassung" defaultOpen delay={.06}>
+  <Section icon={<BookOpen size={18} />} title="So funktioniert KERNnutrition" defaultOpen delay={.06}>
           <ol className="list-decimal pl-5 space-y-1">
-            <li>Gib unter <b>Rechner</b> Profil & Ziel ein → erhalte BMR, TDEE, Kalorien & Makros.</li>
-            <li>Verteile die Woche im <b>Planer</b> (Training/Ruhetage), falls gewünscht.</li>
-            <li>Trage dein Gewicht unter <b>Check-in</b> ein → erhalte Trend & konkrete Anpassungs-Empfehlung.</li>
-            <li><b>Übernehmen</b> schreibt neue kcal/Makros in die App (Übersicht zeigt’s sofort).</li>
+            <li><b>Rechner:</b> Profil, Ziel und Aktivität eingeben – du bekommst deinen Kalorien- und Makrobedarf. Es wird mit den Kalorien der Trainingstage gerechnet.</li>
+            <li><b>Planer:</b> Verteile deine Mahlzeiten und passe Zeiten individuell an. Exportiere deinen Plan als Text oder JSON.</li>
+            <li><b>Check-in:</b> Trage regelmäßig dein Gewicht ein, verfolge Trends und erhalte automatische Anpassungsvorschläge.</li>
+            <li><b>Übersicht:</b> Sieh alle aktuellen Ziele, Trends und Empfehlungen auf einen Blick.</li>
           </ol>
         </Section>
 
-        <Section icon={<Calculator size={18} />} title="Berechnungsgrundlagen (vereinfacht)" delay={.12}>
+        <Section icon={<Calculator size={18} />} title="Wie wird gerechnet?" delay={.12}>
           <ul className="list-disc pl-5 space-y-1">
-            <li><b>BMR</b>: Mifflin-St-Jeor (Gewicht, Größe, Alter, Geschlecht).</li>
-            <li><b>TDEE</b> = BMR × Aktivitätsfaktor.</li>
-            <li><b>Makros</b>: Protein/Fett aus Voreinstellungen (g/kg) oder aus Rechner; KH = Rest aus Kalorien.</li>
+            <li><b>BMR:</b> Grundumsatz nach Mifflin-St-Jeor (Gewicht, Größe, Alter, Geschlecht).</li>
+            <li><b>TDEE:</b> BMR × Aktivitätsfaktor (wie viel du dich bewegst).</li>
+            <li><b>Makros:</b> Protein und Fett nach g/kg Körpergewicht, Rest sind Kohlenhydrate. Es wird mit den Kalorien der Trainingstage gerechnet.</li>
+            <li><b>Planer:</b> Automatische, evidenzbasierte Verteilung der Makros auf Mahlzeiten und Tageszeiten – individuell nach deinem Tagesablauf.</li>
           </ul>
-          <p className="text-xs opacity-70 mt-2">Hinweis: Werte sind praxisnahe Näherungen – individuelle Abweichungen möglich.</p>
+          <p className="text-xs opacity-70 mt-2">Alle Werte sind Näherungen und dienen der praktischen Orientierung.</p>
         </Section>
 
         <Section icon={<ClipboardList size={18} />} title="Schnell-Checkliste" delay={.18}>
           <ul className="list-disc pl-5 space-y-1">
-            <li>Protein 1.8–2.5 g/kg, Fett ≥ 0.8 g/kg (≥ 20% kcal).</li>
-            <li>Rest KH; Trainingstage ggf. höheres kcal-Ziel.</li>
-            <li>Gewicht 2–3×/Woche gleich morgens (nach WC).</li>
-            <li>Trend statt Tageswerte bewerten (Woche/Wochenmittel).</li>
+            <li>Protein: 1.8–2.5 g/kg, Fett: mindestens 0.8 g/kg (mind. 20% der Kalorien).</li>
+            <li>Kohlenhydrate: Rest der Kalorien, an Trainingstagen meist mehr.</li>
+            <li>Gewicht 2–3×/Woche morgens eintragen.</li>
+            <li>Trends sind wichtiger als einzelne Tageswerte.</li>
+            <li>Exportiere deinen Plan für eigene Dokumentation oder andere Tools.</li>
           </ul>
         </Section>
 
-        <Section icon={<LineChart size={18} />} title="Trend statt Tageswerte" delay={.24}>
-          <p>Einzelne Messungen schwanken. Relevanter ist dein <b>Wochen-Trend</b> (z. B. +0.3%/Woche im Lean-Bulk-Ziel 0.25–0.5%).</p>
-          <p className="mt-1">Die App vergleicht deinen Trend mit dem Zielbereich und schlägt dir gezielte kcal-Anpassungen vor.</p>
+        <Section icon={<LineChart size={18} />} title="Trends & Empfehlungen" delay={.24}>
+          <p>Die App analysiert deinen Gewichtsverlauf (Wochentrend) und gibt dir automatische, individuelle Empfehlungen zur Anpassung deiner Kalorien und Makros.</p>
+          <p className="mt-1">So bleibst du immer im Zielbereich – egal ob Abnehmen, Halten oder Muskelaufbau.</p>
         </Section>
 
-        <Section icon={<Scale size={18} />} title="Richtig wiegen (Praxis)" delay={.30}>
+        <Section icon={<Scale size={18} />} title="Richtig wiegen – so geht’s" delay={.30}>
           <ul className="list-disc pl-5 space-y-1">
-            <li>Immer morgens, nüchtern, nach WC, vor dem Trinken.</li>
-            <li>Mind. 2 Messungen/Woche, gleiches Setup (Waage/Ort).</li>
-            <li>Plane natürliche Schwankungen (±1%) ein.</li>
+            <li>Immer morgens, nüchtern, nach dem WC.</li>
+            <li>Mindestens 2 Messungen pro Woche, immer gleiches Setup (Waage/Ort).</li>
+            <li>Schwankungen von ±1% sind völlig normal.</li>
           </ul>
         </Section>
 
-        <Section icon={<Calculator size={18} />} title="Copy/Paste-Formeln (Excel-Stil)" delay={.36}>
+        <Section icon={<Calculator size={18} />} title="Copy/Paste-Formeln (Excel)" delay={.36}>
           <CodeCopy code={`BMR (Mifflin-St-Jeor):\n=10*KG + 6.25*CM - 5*ALTER + (ISTWEIBLICH * -161 + ISTMAENNLICH * 5)\n\nTDEE:\n=BMR * AF\n\nKalorien aus Makros:\n=PROTEIN_G*4 + KH_G*4 + FETT_G*9\n\nKH als Rest:\n=(KCAL_ZIEL - (PROTEIN_G*4 + FETT_G*9)) / 4`} />
         </Section>
 
         <footer className="text-xs opacity-70" style={{ color: WHITE }}>
-          Hinweis: Inhalte sind praxisorientierte Zusammenfassungen, keine medizinische Beratung.
+          Hinweis: Alle Inhalte sind praxisorientiert und ersetzen keine medizinische Beratung.
         </footer>
       </div>
     </div>

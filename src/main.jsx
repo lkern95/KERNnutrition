@@ -1,7 +1,12 @@
 
-import { migrateLocalStoragePrefixes } from './lib/migrations';
+import React, { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import { registerSW } from 'virtual:pwa-register';
+import { migrateLocalStoragePrefixes, migratePlannerInputsKey } from './lib/migrations';
 
 migrateLocalStoragePrefixes();
+migratePlannerInputsKey();
 
 // PWA Service Worker Registration
 const updateSW = registerSW({
@@ -20,3 +25,4 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+import './index.css';

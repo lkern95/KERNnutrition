@@ -251,6 +251,13 @@ export interface AppState {
 
   // Settings (loaded separately from localStorage)
   getSettings: () => AppSettings
+
+  // Training/Rest day flag
+  day: {
+    isTrainingDay: boolean
+    // ...weitere Felder bei Bedarf...
+  }
+  setTrainingDay: (b: boolean) => void
 }
 
 export const defaultSettings: AppSettings = {
@@ -290,9 +297,11 @@ export const useAppStore = create<AppState>()(
       dailyIntakes: [],
       isOnboarded: false,
       activeTab: 'rechner',
-      
+      day: { isTrainingDay: false },
+
       // Actions
       setProfile: (profile) => set({ profile }),
+  setTrainingDay: (b) => set((s) => ({ day: { ...s.day, isTrainingDay: b } })),
       
       addCheckin: (checkin) => set((state) => ({
         checkins: [...state.checkins, checkin]
@@ -360,6 +369,7 @@ export const useAppStore = create<AppState>()(
         checkins: state.checkins,
         dailyIntakes: state.dailyIntakes,
         isOnboarded: state.isOnboarded,
+        day: state.day,
       }),
     }
   )

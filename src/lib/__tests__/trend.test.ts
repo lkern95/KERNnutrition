@@ -1,3 +1,5 @@
+
+import { describe, it, expect } from 'vitest';
 import { computeTrend2Points, isFiniteNumber } from '../trend';
 
 describe('computeTrend2Points', () => {

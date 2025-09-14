@@ -7,10 +7,10 @@ import { OfflineIndicator } from './components/OfflineIndicator';
 import UebersichtPage from './pages/UebersichtPage';
 import './styles/slider.css';
 
-const RechnerPage = lazy(() => import('./pages/RechnerPage').then(module => ({ default: module.RechnerPage })));
-const PlanerPage = lazy(() => import('./pages/PlanerPage').then(module => ({ default: module.PlanerPage })));
-const CheckinPage = lazy(() => import('./pages/CheckinPageComponent').then(module => ({ default: module.default ?? module.CheckinPage })));
-const EinstellungenPage = lazy(() => import('./pages/EinstellungenPage').then(module => ({ default: module.EinstellungenPage })));
+const RechnerPage = lazy(() => import('./pages/RechnerPage'));
+import PlanerPage from './pages/PlanerPage';
+const CheckinPage = lazy(() => import('./pages/CheckinPageComponent'));
+const EinstellungenPage = lazy(() => import('./pages/EinstellungenPage'));
 const InfoPage = lazy(() => import('./pages/InfoPage'));
 const SupplementsPage = lazy(() => import('./pages/SupplementsPage'));
 

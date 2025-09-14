@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { supplements } from './supplements';
 
 describe('Supplements Dosis-Berechnung', () => {

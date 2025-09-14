@@ -7,7 +7,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 const STORAGE_KEY = 'kernnutrition-install-dismissed'
-const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000 // 7 days in milliseconds
+const DISMISS_DURATION = 1 * 60 * 60 * 1000 // 1 hour in milliseconds
 
 export function useInstallPrompt() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
@@ -74,7 +74,7 @@ export function useInstallPrompt() {
   }
 
   const handleDismiss = (): void => {
-    markAsDismissed()
+    // Nur für die aktuelle Session schließen, kein localStorage-Flag setzen
     setShowPrompt(false)
     setDeferredPrompt(null)
   }
